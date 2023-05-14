@@ -1,25 +1,30 @@
 # RESTool
 RESTool v1.3 by romalu86
 
-This release is a test and supports a limited number of games on the AS1\AS2 Engine.
-
 List of games with which the program works at the moment:
+
+- Games on the engine AS1\ZS1:
+Alien Shooter (PC NonSteam);
+Alien Shooter (Steam);
+Alien Shooter - Last Hope (Steam\Mobile);
+Alien Shooter - Lost World (Theseus Mobile);
 Alien Shooter - World (Mobile);
-Alien Shooter - Last Hope (PC Steam);
-Alien Shooter 1 (PC Steam);
-Alien Shooter 1 (PC NonSteam);
-Theseus (PC version);
-Theseus (Mobile version);
-Zombie Shooter 1 (PC Steam, and NonSteam?);
-Zombie Shooter 1 (Mobile).
-Alien Shooter 2 Gold;
-Alien Shooter 2 Vengeance;
-Alien Shooter 2 Reloaded;
-Alien Shooter 2 Conscription;
-Zombie Shooter 2;
-Alien Shooter Revisited;
-Alien Shooter 2 The Legend (PC Steam);
-Alien Shooter 2 TD (PC Steam);
+Alien Shooter - Revisited;
+Theseus (PC);
+Zombie Shooter 1 (PC Steam & NonSteam);
+Zombie Shooter 1 (Mobile);
+
+- Games on the engine AS2\ZS2:
+Alien Shooter - Revisited;
+Alien Shooter 2 - Gold;
+Alien Shooter 2 - Vengeance;
+Alien Shooter 2 - Reloaded;
+Alien Shooter 2 - Conscription;
+Alien Shooter 2 - The Legend (Steam\Mobile);
+Alien Shooter 2 - Tower Defence (Steam\Mobile);
+Alien Shooter 2 - Reloaded (Mobile);
+Alien Shooter 2 - New Era (Steam);
+Zombie Shooter 2 (Steam\NonSteam);
 Objects Extended Project.
 
 How to use?
@@ -32,13 +37,13 @@ The archive includes demo bat files, and RES files for testing. The specified ob
 After Bat File completes the work, 4 files will appear in the folder: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
 
 File modes list:
-"as1pad" - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope Steam, Theseus Mobile
+"as1pad" - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope (Steam & Mobile), Alien Shooter - Lost World (Theseus Mobile)
 
-"as1nopad" - works with Alien Shooter 1 - Old (No steam version)
+"as1nopad" - works with Alien Shooter 1 - Old (NonSteam)
 
 "theseus" - works with Theseus
 
-"as1mobile" - works with Alien Shooter 1 - World (mobile)
+"as1mobile" - works with Alien Shooter 1 - World (Mobile)
 
 "zs1" - works with Zombie Shooter 1
 
@@ -48,11 +53,15 @@ File modes list:
 
 "as2addons" - works with Reloaded, Conscription
 
-"zs2" - works with Zombie Shooter 2
+"zs2nonpad" - works with Zombie Shooter 2 (Steam)
+
+"zs2pad" - works with Zombie Shooter 2 (NonSteam)
 
 "asr" - works with Alien Shooter Revisited
 
-"as2legend" - works with Alien Shooter 2 Legend & TD Steam
+"as2legend" - works with Alien Shooter 2 Legend & TD (Steam\Mobile)
+
+"as2legendpad" - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)
 
 "oe" - works with Objects Extended Project
 
