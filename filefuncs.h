@@ -37,7 +37,7 @@ float ReadFloat(FILE* file)
 
 char* ReadString(FILE* file, FILE* out, char* name)
 {
-	char buffer[256]; // увеличил лимит из-за новых игр. слишком много данных.
+	char buffer[256]; // Увеличил лимит с 64 до 256. Ниже некорректно считываются данные.
 	int stringsize = 0;
 	char msgbuffer[128];
 	fread(buffer, sizeof(char), sizeof(buffer) - 1, file); // Чтение в буфер
