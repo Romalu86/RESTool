@@ -1,5 +1,4 @@
 # RESTool
-res tool source code
 RESTool v1.3 by romalu86
 
 This release is a test and supports a limited number of games on the AS1\AS2 Engine.
