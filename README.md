@@ -12,7 +12,7 @@ Alien Shooter - World (Mobile);
 Alien Shooter - Revisited;
 Theseus (PC);
 Zombie Shooter 1 (PC Steam & NonSteam);
-Zombie Shooter 1 (Mobile);
+Zombie Shooter 1 (Mobile).
 
 - Games on the engine AS2\ZS2:
 Alien Shooter - Revisited;
