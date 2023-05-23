@@ -2,19 +2,27 @@
 // original idea by ermaccer. Complete code fix by romalu86
 
 #include "stdafx.h"
-#include "filefuncs.h"
+#include "Functions\filefuncs.h"
+#include "Functions\SpriteTypeParser.h"
+#include "Functions\SpriteClassParser.h"
+#include "Functions\DefaultBehaveParser.h"
+#include "Functions\ObjectsPropertyParser.h"
+#include "Functions\NWeaponPropertyParser.h"
+#include "Functions\SFXPropertyParser.h"
 #include <cmath>
 #include <cstdio>
 #include <cstring>
 #include <cstdint>
 #include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 int main(int argc, char* argv[])
 {
 	if (argc != 3)
 	{
-		printf("RESTool ver.1.3 by romalu86\n");
+		printf("RESTool ver.1.4 by romalu86\n");
 		printf("\n");
 		printf("How to work:\n");
 		printf("example: RESTool objects.res as1pad\n");
@@ -100,14 +108,31 @@ int main(int argc, char* argv[])
 					ReadString(in, fout, "Name");
 					// SpriteType DWORD
 					out = ReadInt(in);
-					fprintf(fout, "SpriteType=%i\n", out);
+					string spriteTypeText = GetSpriteTypeText(out);
+					if (!spriteTypeText.empty()) {
+						fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+					}
+					else {
+						fprintf(fout, "SpriteType=%i\n", out);
+					}
 					// SpriteClass DWORD
 					out = ReadInt(in);
-					fprintf(fout, "SpriteClass=%i\n", out);
+					string spriteClassText = GetSpriteClassText(out);
+					if (!spriteClassText.empty()) {
+						fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+					}
+					else {
+						fprintf(fout, "SpriteClass=%i\n", out);
+					}
 					// Property DWORD
 					out = ReadInt(in);
-					sprintf(obuffer, "0x%X", out);
-					fprintf(fout, "Property=%s\n", obuffer);
+					string propertyText = GetObjectsPropertyText(out);
+					if (!propertyText.empty()) {
+						fprintf(fout, "Property=%s\n", propertyText.c_str());
+					}
+					else {
+						fprintf(fout, "Property=0x%X\n", out);
+					}
 					// MoveMask DWORD
 					out = ReadInt(in);
 					fprintf(fout, "MoveMask=%i\n", out);
@@ -305,11 +330,22 @@ int main(int argc, char* argv[])
 					fprintf(fout, ";-------------------------%03d\n", i);
 					//
 					out = ReadInt(in);
-					fprintf(fout, "SpriteType=%i\n", out);
+					string spriteTypeText = GetSpriteTypeText(out);
+					if (!spriteTypeText.empty()) {
+						fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+					}
+					else {
+						fprintf(fout, "SpriteType=%i\n", out);
+					}
 					//
 					out = ReadInt(in);
-					sprintf(obuffer, "0x%X", out);
-					fprintf(fout, "Property=%s\n", obuffer);
+					string propertyText = GetNWeaponPropertyText(out);
+					if (!propertyText.empty()) {
+						fprintf(fout, "Property=%s\n", propertyText.c_str());
+					}
+					else {
+						fprintf(fout, "Property=0x%X\n", out);
+					}
 					//
 					arrayf[0] = ReadFloat(in);
 					sprintf(obuffer, "%.1f", arrayf[0]);
@@ -347,7 +383,13 @@ int main(int argc, char* argv[])
 					fprintf(fout, "DefaultArmy=%i\n", out);
 					//
 					out = ReadInt(in);
-					fprintf(fout, "DefaultBehave=%i\n", out);
+					string DefaultBehaveText = GetDefaultBehaveText(out);
+					if (!DefaultBehaveText.empty()) {
+						fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+					}
+					else {
+						fprintf(fout, "DefaultBehave=%i\n", out);
+					}
 					//
 					out = ReadInt(in);
 					fprintf(fout, "Icon=%i\n", out);
@@ -682,14 +724,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClassText(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjectsPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -887,11 +946,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeaponPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -929,7 +999,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehaveText(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -1264,14 +1340,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClassText(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjectsPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// MoveMask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -1469,11 +1562,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeaponPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -1511,7 +1615,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehaveText(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -1774,8 +1884,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFXPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -1864,14 +1979,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClassText(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjectsPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -1955,12 +2087,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, "LifeTime=%i\n", out);
 							// Property2 DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property2=%s\n", obuffer);
+							string property2Text = GetWorldObjectsProperty2Text(out);
+							if (!property2Text.empty()) {
+								fprintf(fout, "Property2=%s\n", property2Text.c_str());
+							}
+							else {
+								fprintf(fout, "Property2=0x%X\n", out);
+							}
 							// Property3 DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property3=%s\n", obuffer);
+							string property3Text = GetWorldObjectsProperty3Text(out);
+							if (!property3Text.empty()) {
+								fprintf(fout, "Property3=%s\n", property3Text.c_str());
+							}
+							else {
+								fprintf(fout, "Property3=0x%X\n", out);
+							}
 							// Reserved CHAR[8]
 							arrayf[0] = ReadFloat(in);
 							arrayf[1] = ReadFloat(in);
@@ -2075,11 +2217,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeaponPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -2127,7 +2280,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehaveText(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -2396,8 +2555,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFXPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -2489,14 +2653,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClassText(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjectsPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -2692,13 +2873,24 @@ int main(int argc, char* argv[])
 							sprintf(obuffer, "%s", "WEAP.ini");
 							fout = fopen(obuffer, "a+");
 							fprintf(fout, ";-------------------------%03d\n", i);
+							// SpriteType DWORD
+							out = ReadInt(in);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
-							//
-							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeaponPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -2746,7 +2938,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehaveText(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -3015,8 +3213,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFXPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -3108,14 +3311,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClassText(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjectsPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -3316,11 +3536,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteTypeText(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeaponPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -3368,7 +3599,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehaveText(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -3637,8 +3874,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFXPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -3679,7 +3921,7 @@ int main(int argc, char* argv[])
 				}
 
 				// Alien Shooter 2 Gold / Vengeance
-				if (strcmp("alienshooter2original", argv[2]) == 0)
+				if (strcmp("as2original", argv[2]) == 0)
 				{
 					{
 						//header
@@ -3730,14 +3972,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClass2Text(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjects2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -3946,11 +4205,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeapon2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -3997,8 +4267,15 @@ int main(int argc, char* argv[])
 							out = ReadInt(in);
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
+							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehave2Text(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -4267,8 +4544,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFX2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -4357,14 +4639,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClass2Text(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjects2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -4573,11 +4872,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeapon2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -4624,8 +4934,15 @@ int main(int argc, char* argv[])
 							out = ReadInt(in);
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
+							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehave2Text(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -4894,8 +5211,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFXPropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -4986,14 +5308,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClass2Text(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjects2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -5201,12 +5540,24 @@ int main(int argc, char* argv[])
 							fout = fopen(obuffer, "a+");
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
-							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
+							//
+							out = ReadInt(in);
+							string propertyText = GetNWeapon2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -5253,8 +5604,15 @@ int main(int argc, char* argv[])
 							out = ReadInt(in);
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
+							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehave2Text(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -5523,8 +5881,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFX2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -5616,14 +5979,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClass2Text(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjects2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -5831,12 +6211,24 @@ int main(int argc, char* argv[])
 							fout = fopen(obuffer, "a+");
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
-							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
+							//
+							out = ReadInt(in);
+							string propertyText = GetNWeapon2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -5884,7 +6276,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehave2Text(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -6153,8 +6551,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFX2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -6246,14 +6649,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClass2Text(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjects2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -6462,11 +6882,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeapon2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -6514,7 +6945,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehave2Text(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -6783,8 +7220,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFX2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -6876,14 +7318,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClass2Text(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjects2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -6978,8 +7437,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "LifeTime=%i\n", out);
 							// Property2 DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property2=%s\n", obuffer);
+							string property2Text = GetLegendObjectsProperty2Text(out);
+							if (!property2Text.empty()) {
+								fprintf(fout, "Property2=%s\n", property2Text.c_str());
+							}
+							else {
+								fprintf(fout, "Property2=0x%X\n", out);
+							}
 							// Reserved CHAR[12]
 							arrayf[0] = ReadFloat(in);
 							arrayf[1] = ReadFloat(in);
@@ -7095,11 +7559,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeapon2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -7147,7 +7622,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehave2Text(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -7416,8 +7897,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFX2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -7508,14 +7994,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClass2Text(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjects2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -7610,8 +8113,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "LifeTime=%i\n", out);
 							// Property2 DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property2=%s\n", obuffer);
+							string property2Text = GetLegendObjectsProperty2Text(out);
+							if (!property2Text.empty()) {
+								fprintf(fout, "Property2=%s\n", property2Text.c_str());
+							}
+							else {
+								fprintf(fout, "Property2=0x%X\n", out);
+							}
 							// Reserved CHAR[12]
 							arrayf[0] = ReadFloat(in);
 							arrayf[1] = ReadFloat(in);
@@ -7727,11 +8235,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeapon2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -7779,7 +8298,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehave2Text(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -8048,8 +8573,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFX2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -8243,11 +8773,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeapon2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -8295,7 +8836,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehave2Text(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -8463,14 +9010,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClass2Text(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjects2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -8679,8 +9243,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFX2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
@@ -8772,14 +9341,31 @@ int main(int argc, char* argv[])
 							ReadString(in, fout, "Name");
 							// SpriteType DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							// SpriteClass DWORD
 							out = ReadInt(in);
-							fprintf(fout, "SpriteClass=%i\n", out);
+							string spriteClassText = GetSpriteClass2Text(out);
+							if (!spriteClassText.empty()) {
+								fprintf(fout, "SpriteClass=%s\n", spriteClassText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteClass=%i\n", out);
+							}
 							// Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetObjects2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Movemask DWORD
 							out = ReadInt(in);
 							fprintf(fout, "MoveMask=%i\n", out);
@@ -8988,11 +9574,22 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "SpriteType=%i\n", out);
+							string spriteTypeText = GetSpriteType2Text(out);
+							if (!spriteTypeText.empty()) {
+								fprintf(fout, "SpriteType=%s\n", spriteTypeText.c_str());
+							}
+							else {
+								fprintf(fout, "SpriteType=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetNWeapon2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.1f", arrayf[0]);
@@ -9040,7 +9637,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, "DefaultArmy=%i\n", out);
 							//
 							out = ReadInt(in);
-							fprintf(fout, "DefaultBehave=%i\n", out);
+							string DefaultBehaveText = GetDefaultBehave2Text(out);
+							if (!DefaultBehaveText.empty()) {
+								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
+							}
+							else {
+								fprintf(fout, "DefaultBehave=%i\n", out);
+							}
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Icon=%i\n", out);
@@ -9309,8 +9912,13 @@ int main(int argc, char* argv[])
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property=%s\n", obuffer);
+							string propertyText = GetSFX2PropertyText(out);
+							if (!propertyText.empty()) {
+								fprintf(fout, "Property=%s\n", propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "Property=0x%X\n", out);
+							}
 							// Priority
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
