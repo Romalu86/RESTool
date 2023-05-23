@@ -1,5 +1,5 @@
 # RESTool
-RESTool v1.3 by romalu86
+RESTool v1.4 by romalu86
 
 List of games with which the program works at the moment:
 
@@ -12,7 +12,7 @@ Alien Shooter - World (Mobile);
 Alien Shooter - Revisited;
 Theseus (PC);
 Zombie Shooter 1 (PC Steam & NonSteam);
-Zombie Shooter 1 (Mobile).
+Zombie Shooter 1 (Mobile);
 
 - Games on the engine AS2\ZS2:
 Alien Shooter - Revisited;
@@ -33,8 +33,11 @@ The program currently works through the console. For unpacking, you need to crea
 
 example: RESTool objects.res as1pad
 
-The archive includes demo bat files, and RES files for testing. The specified objects.res file must be located on the path specified in the batch file or in the same folder with the program if the path is not specified.
 After Bat File completes the work, 4 files will appear in the folder: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
+
+Dictionary of variables:
+
+The program supports the ability to supplement the base of unknown variables that are unpacked in the INT format (numbers - 1, 2, 4, etc.) or hexadecimal number system (example 0x1000). All information is in the constants.ini file, new values ​​are added by analogy with others.
 
 File modes list:
 "as1pad" - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope (Steam & Mobile), Alien Shooter - Lost World (Theseus Mobile)
