@@ -33,6 +33,8 @@ The program currently works through the console. For unpacking, you need to crea
 
 example: RESTool objects.res as1pad
 
+Also, unpacking through Unpack.bat has been added. You need to specify the path to the file or just its name if it is located in the same folder, and then choose the operating mode.
+
 After Bat File completes the work, 4 files will appear in the folder: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
 
 Dictionary of variables:
@@ -46,7 +48,9 @@ File modes list:
 
 "theseus" - works with Theseus
 
-"as1mobile" - works with Alien Shooter 1 - World (Mobile)
+"as1pad" - works with Alien Shooter 1 - World (Mobile)
+
+"as1nopad" - works with Alien Shooter 1 - World (Mobile)
 
 "zs1" - works with Zombie Shooter 1
 
