@@ -40,8 +40,8 @@ int main(int argc, char* argv[])
 		printf("zs2_nonpad - works with Zombie Shooter 2 (Steam)\n");
 		printf("zs2_pad - works with Zombie Shooter 2 (NonSteam)\n");
 		printf("asr - works with Alien Shooter Revisited\n");
-		printf("as2legend_nonpad - works with Alien Shooter 2 Legend & TD (Steam and Mobile)\n");
-		printf("as2legend_pad - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)\n");
+		printf("as2legend_pad - works with Alien Shooter 2 Legend & TD (Steam and Mobile)\n");
+		printf("as2legend_nonpad - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)\n");
 		printf("oe - works with Objects Extended Project\n");
 		printf("oe1105 - works with Objects Extended Project (Old versions)\n");
 		return 1;
@@ -7993,7 +7993,7 @@ int main(int argc, char* argv[])
 				}
 
 				// Alien Shooter 2 Legend & TD (Steam\Mobile)
-				if (strcmp("as2legend_nonpad", argv[2]) == 0)
+				if (strcmp("as2legend_pad", argv[2]) == 0)
 				{
 					copyFileContent("data\\OBJ\\legend_OBJ.ini", "OBJ.ini");
 					{
@@ -8674,7 +8674,7 @@ int main(int argc, char* argv[])
 				}
 
 				// Alien Shooter 2 New Era & Reloaded (Steam\Mobile)
-				if (strcmp("as2legend_pad", argv[2]) == 0)				
+				if (strcmp("as2legend_nonpad", argv[2]) == 0)				
 				{
 					copyFileContent("data\\OBJ\\legend_OBJ.ini", "OBJ.ini");
 					{
