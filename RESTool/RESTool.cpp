@@ -2,6 +2,7 @@
 // original idea by ermaccer. Complete code fix by romalu86
 
 #include "stdafx.h"
+#include <Windows.h>
 #include "Functions\filefuncs.h"
 #include "Functions\SpriteTypeParser.h"
 #include "Functions\SpriteClassParser.h"
@@ -60,7 +61,8 @@ int main(int argc, char* argv[])
 				// Alien Shooter 1 Engine - with char pad in WEAP section
 				if (strcmp("as1_pad", argv[2]) == 0)
 		{
-				copyFileContent("data\\OBJ\\gen1_OBJ.ini", "OBJ.ini");
+				CreateDirectoryA("unpacked_inis", NULL);
+				copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 			{
 				// RES Header
 				out = ReadInt(in);
@@ -102,8 +104,12 @@ int main(int argc, char* argv[])
 				{
 					out = ReadInt(in); // NVid Size
 					out = ReadInt(in); // NVid Number
-					sprintf(obuffer, "%s", "OBJ.ini");
-					fout = fopen(obuffer, "a+");
+					fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+					if (!fout)
+					{
+						printf("ERROR: Failed to open OBJ.ini file!\n");
+						return 1;
+					}
 					fprintf(fout, ";------------------------- \n");
 					fprintf(fout, "NVid=%i\n", out);
 					// Name STRING
@@ -310,7 +316,7 @@ int main(int argc, char* argv[])
 				}
 
 				// Read Weapon section
-				copyFileContent("data\\WEAP\\gen1_WEAP.ini", "WEAP.ini");
+				copyFileContent("data\\WEAP\\gen1_WEAP.ini", "unpacked_inis\\WEAP.ini");
 				char pad;
 				fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 				// WEAP Header
@@ -328,8 +334,12 @@ int main(int argc, char* argv[])
 				for (int i = 0; i < amountOfWEAPs; i++)
 				{
 					out = ReadInt(in); // NWeapon Size
-					sprintf(obuffer, "%s", "WEAP.ini");
-					fout = fopen(obuffer, "a+");
+					fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+					if (!fout)
+					{
+						printf("ERROR: Failed to open WEAP.ini file!\n");
+						return 1;
+					}
 					fprintf(fout, ";-------------------------%03d\n", i);
 					// SpriteType DWORD
 					out = ReadInt(in);
@@ -530,7 +540,7 @@ int main(int argc, char* argv[])
 				}
 
 				// Read CNST section
-				copyFileContent("data\\CNST\\gen1_CNST.ini", "CNST.ini");
+				copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
 				// CNST Header
 				out = ReadInt(in);
 				if (!out == 'CNST')
@@ -544,8 +554,12 @@ int main(int argc, char* argv[])
 				out = ReadInt(in); // unk4
 				out = ReadInt(in); // Section size
 				{
-					sprintf(obuffer, "%s", "CNST.ini");
-					fout = fopen(obuffer, "a+");
+					fout = fopen("unpacked_inis\\CNST.ini", "a+");
+					if (!fout)
+					{
+						printf("ERROR: Failed to open CNST.ini file!\n");
+						return 1;
+					}
 					//
 					arrayf[0] = ReadFloat(in);
 					sprintf(obuffer, "%.f", arrayf[0]);
@@ -639,7 +653,7 @@ int main(int argc, char* argv[])
 				}
 
 				// Read SFX Section
-				copyFileContent("data\\SFX\\non_extSFX.ini", "SFX.ini");
+				copyFileContent("data\\SFX\\non_extSFX.ini", "unpacked_inis\\SFX.ini");
 				out = ReadInt(in);
 				if (!out == 'SFX ')
 				{
@@ -654,8 +668,12 @@ int main(int argc, char* argv[])
 				for (int i = 0; i < amountOfWAVs; i++)
 				{
 					out = ReadInt(in); // Size
-					sprintf(obuffer, "%s", "SFX.ini");
-					fout = fopen(obuffer, "a+");
+					fout = fopen("unpacked_inis\\SFX.ini", "a+");
+					if (!fout)
+					{
+						printf("ERROR: Failed to open SFX.ini file!\n");
+						return 1;
+					}
 					fprintf(fout, ";-------------------------%03d\n", i);
 					out = ReadByte(in); // Priority
 					fprintf(fout, "Priority=%i\n", out);
@@ -682,7 +700,8 @@ int main(int argc, char* argv[])
 				// Alien Shooter 1 Engine - without char pad in WEAP section
 				if (strcmp("as1_nonpad", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -724,8 +743,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -932,7 +955,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen1_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen1_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						//char pad;
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -950,8 +973,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -1151,7 +1178,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen1_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -1164,8 +1191,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -1259,7 +1290,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\non_extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\non_extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -1274,8 +1305,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							out = ReadByte(in); // Priority
 							fprintf(fout, "Priority=%i\n", out);
@@ -1302,7 +1337,8 @@ int main(int argc, char* argv[])
 				// Theseus PC version
 				if (strcmp("theseus_pc", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -1344,8 +1380,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -1552,7 +1592,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen1_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen1_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						//char pad;
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -1570,8 +1610,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -1771,7 +1815,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen1_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -1784,8 +1828,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -1879,7 +1927,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\gen1.1_extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\gen1.1_extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -1894,8 +1942,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -1945,7 +1997,8 @@ int main(int argc, char* argv[])
 				// Alien Shooter 1: World (Mobile\PC) - with char pad in WEAP section
 				if (strcmp("as1world_pad", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\asworld_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\asworld_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -1987,8 +2040,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -2211,7 +2268,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen1.1_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen1.1_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						char pad;
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -2229,8 +2286,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -2446,7 +2507,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -2459,8 +2520,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -2554,7 +2619,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -2569,8 +2634,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -2623,7 +2692,8 @@ int main(int argc, char* argv[])
 				// Alien Shooter 1: World (Mobile\PC) - without char pad in WEAP section
 				if (strcmp("as1world_nonpad", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\asworld_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\asworld_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -2665,8 +2735,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -2889,7 +2963,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen1.1_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen1.1_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						//char pad;
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -2907,8 +2981,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -3124,7 +3202,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -3137,8 +3215,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -3232,7 +3314,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -3247,8 +3329,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -3301,7 +3387,8 @@ int main(int argc, char* argv[])
 				// Zombie Shooter 1
 				if (strcmp("zs1", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\gen1.1_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\gen1.1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -3343,8 +3430,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -3551,7 +3642,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen1.1_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen1.1_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						char pad;
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -3569,8 +3660,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// SpriteType DWORD
 							out = ReadInt(in);
@@ -3786,7 +3881,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -3799,8 +3894,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -3894,7 +3993,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -3909,8 +4008,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -3963,7 +4066,8 @@ int main(int argc, char* argv[])
 				// Zombie Shooter 1 Mobile
 				if (strcmp("zs1_mobile", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\zs1mobile_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\zs1mobile_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -4005,8 +4109,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -4216,7 +4324,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen1.1_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen1.1_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						//char pad;
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -4234,8 +4342,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -4451,7 +4563,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -4464,8 +4576,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -4559,7 +4675,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -4574,8 +4690,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -4628,7 +4748,8 @@ int main(int argc, char* argv[])
 				// Alien Shooter 2 Gold / Vengeance
 				if (strcmp("as2_original", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -4670,8 +4791,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -4889,7 +5014,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						//char pad;
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -4907,8 +5032,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -5125,7 +5254,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -5138,8 +5267,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -5233,7 +5366,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\gen1.1_extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\gen1.1_extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -5248,8 +5381,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -5299,7 +5436,8 @@ int main(int argc, char* argv[])
 				// Alien Shooter 2 Reloaded / Conscription
 				if (strcmp("as2_addons", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -5341,8 +5479,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -5560,7 +5702,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						char pad;
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -5578,8 +5720,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -5796,7 +5942,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -5809,8 +5955,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -5904,7 +6054,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -5919,8 +6069,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -5973,7 +6127,8 @@ int main(int argc, char* argv[])
 				// Zombie Shooter 2 - Steam
 				if (strcmp("zs2_nonpad", argv[2]) == 0)		
 				{
-					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -6015,8 +6170,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -6234,7 +6393,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						//char pad;
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -6252,8 +6411,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							//
@@ -6471,7 +6634,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -6484,8 +6647,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -6579,7 +6746,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -6594,8 +6761,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -6648,7 +6819,8 @@ int main(int argc, char* argv[])
 				// Zombie Shooter 2 - NonSteam
 				if (strcmp("zs2_pad", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -6690,8 +6862,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -6909,7 +7085,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						char pad;
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -6927,8 +7103,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							//
@@ -7145,7 +7325,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -7158,8 +7338,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -7253,7 +7437,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -7268,8 +7452,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -7322,7 +7510,8 @@ int main(int argc, char* argv[])
 				// Alien Shooter: Revisited
 				if (strcmp("asr", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -7364,8 +7553,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -7583,7 +7776,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						char pad;
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -7601,8 +7794,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -7818,7 +8015,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -7831,8 +8028,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -7926,7 +8127,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -7941,8 +8142,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -7995,7 +8200,8 @@ int main(int argc, char* argv[])
 				// Alien Shooter 2 Legend & TD (Steam\Mobile)
 				if (strcmp("as2legend_pad", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\legend_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\legend_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -8037,8 +8243,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -8264,7 +8474,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						char pad;
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -8282,8 +8492,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -8499,7 +8713,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -8512,8 +8726,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -8607,7 +8825,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -8622,8 +8840,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -8676,7 +8898,8 @@ int main(int argc, char* argv[])
 				// Alien Shooter 2 New Era & Reloaded (Steam\Mobile)
 				if (strcmp("as2legend_nonpad", argv[2]) == 0)				
 				{
-					copyFileContent("data\\OBJ\\legend_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\legend_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -8718,8 +8941,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -8945,7 +9172,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						//char pad;
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -8963,8 +9190,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -9180,7 +9411,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -9193,8 +9424,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -9288,7 +9523,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -9303,8 +9538,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -9357,7 +9596,8 @@ int main(int argc, char* argv[])
 				// Objects Extended Project
 				if (strcmp("oe", argv[2]) == 0)
 				{
-					copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -9394,8 +9634,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -9489,7 +9733,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						out = ReadInt(in);
 						if (!out == 'WEAP')
 						{
@@ -9504,8 +9748,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -9721,7 +9969,7 @@ int main(int argc, char* argv[])
 						}
 
 						//obj
-						copyFileContent("data\\OBJ\\gen2_OBJ.ini", "OBJ.ini");
+						copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 						out = ReadInt(in);
 						if (!out == 'OBJ ')
 						{
@@ -9739,8 +9987,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -9958,7 +10210,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						char pad;
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -9976,8 +10228,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
@@ -10030,7 +10286,8 @@ int main(int argc, char* argv[])
 				// Objects Extended Project Old versions
 				if (strcmp("oe1105", argv[2]) == 0)
 				{
-					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "OBJ.ini");
+					CreateDirectoryA("unpacked_inis", NULL);
+					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
 						//header
 						out = ReadInt(in);
@@ -10072,8 +10329,12 @@ int main(int argc, char* argv[])
 						{
 							out = ReadInt(in); // NVid Size
 							out = ReadInt(in); // NVid Number
-							sprintf(obuffer, "%s", "OBJ.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\OBJ.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open OBJ.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------------------------------- \n");
 							fprintf(fout, "NVid=%i\n", out);
 							// Name STRING
@@ -10291,7 +10552,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read Weapon section
-						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "WEAP.ini");
+						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						//char pad;
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
@@ -10309,8 +10570,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWEAPs; i++)
 						{
 							out = ReadInt(in); // NWeapon Size
-							sprintf(obuffer, "%s", "WEAP.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\WEAP.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open WEAP.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							//
 							out = ReadInt(in);
@@ -10526,7 +10791,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "CNST.ini");
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
 						if (!out == 'CNST')
 						{
@@ -10539,8 +10804,12 @@ int main(int argc, char* argv[])
 						out = ReadInt(in); // unk4
 						out = ReadInt(in); // Section size
 						{
-							sprintf(obuffer, "%s", "CNST.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\CNST.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open CNST.ini file!\n");
+								return 1;
+							}
 							//
 							arrayf[0] = ReadFloat(in);
 							sprintf(obuffer, "%.f", arrayf[0]);
@@ -10634,7 +10903,7 @@ int main(int argc, char* argv[])
 						}
 
 						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "SFX.ini");
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
 						if (!out == 'SFX ')
 						{
@@ -10649,8 +10918,12 @@ int main(int argc, char* argv[])
 						for (int i = 0; i < amountOfWAVs; i++)
 						{
 							out = ReadInt(in); // Size
-							sprintf(obuffer, "%s", "SFX.ini");
-							fout = fopen(obuffer, "a+");
+							fout = fopen("unpacked_inis\\SFX.ini", "a+");
+							if (!fout)
+							{
+								printf("ERROR: Failed to open SFX.ini file!\n");
+								return 1;
+							}
 							fprintf(fout, ";-------------------------%03d\n", i);
 							// Property
 							out = ReadInt(in);
