@@ -1,7 +1,7 @@
 # RESTool
 RESTool v1.5 by romalu86
 
-List of games with which the program works at the moment:
+--- List of games with which the program works:
 
 - Games on the engine AS1\ZS1:
 Alien Shooter (PC NonSteam);
@@ -35,7 +35,7 @@ example: RESTool objects.res as1pad
 
 or run the !Unpack_RES.bat file and follow the instructions on the screen.
 
-After Bat File completes the work, 4 files will appear in the folder: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
+After the decompilation process is completed, the "unpacked_inis" folder will appear with the files: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
 
 The reverse compilation process is also possible. The folder with the program contains everything you need (the compiler and customized batch files !MakeRES !MakeDB_OE_old !MakeDB_OE_new).
 When you run one of the available batch files, the program takes the files "OBJ.ini, WEAP.ini, CNST.ini, SFX.ini.", and performs a reverse compilation.
