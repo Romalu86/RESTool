@@ -1,5 +1,5 @@
 # RESTool
-RESTool v1.5 by romalu86
+RESTool v1.6 by romalu86
 
 --- List of games with which the program works:
 
@@ -74,7 +74,9 @@ The program supports the ability to supplement the base of unknown variables tha
 
 "as2legend_nonpad" - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)
 
-"oe" - works with Objects Extended Project
+"oe_pad" - works with Objects Extended Project
+
+"oe_nonpad" - works with Objects Extended Project
 
 "oe1105" - works with Objects Extended Project (Old Versions)
 
