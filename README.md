@@ -1,7 +1,4 @@
 # RESTool
-RESTool v1.6 by romalu86
-
-
 
 --- List of games with which the program works:
 
@@ -31,11 +28,7 @@ Objects Extended Project.
 
 --- How to use?
 
-The program currently works through the console. For unpacking, you need to create a bat file. Its structure consists of three variables.
-
-example: RESTool objects.res as1pad
-
-or run the !Unpack_RES.bat file and follow the instructions on the screen.
+The program currently operates through the console. To unpack the file, you need to launch RESTool and follow the instructions on the screen.
 
 After the decompilation process is completed, the "unpacked_inis" folder will appear with the files: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
 
