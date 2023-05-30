@@ -127,6 +127,7 @@ int main(int argc, char* argv[])
 				// RES Header
 				out = ReadInt(in);
 				if (!out == 'RES ')
+				printf("OK: RES Header found\n", out);
 				{
 					printf("ERROR: Could not find RES header! \n");
 					fclose(in);
@@ -139,6 +140,7 @@ int main(int argc, char* argv[])
 
 				// DATA Header
 				out = ReadInt(in);
+				printf("OK: DATA Header found\n", out);
 				if (!out == 'DATA')
 				{
 					printf("ERROR: Could not find DATA header! \n");
@@ -148,6 +150,7 @@ int main(int argc, char* argv[])
 
 				// OBJ Header
 				out = ReadInt(in);
+				printf("OK: OBJ Header found\n", out);
 				if (!out == 'OBJ ')
 				{
 					printf("ERROR: Could not find OBJ header! \n");
@@ -381,6 +384,7 @@ int main(int argc, char* argv[])
 				fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 				// WEAP Header
 				out = ReadInt(in);
+				printf("OK: WEAP Header found\n", out);
 				if (!out == 'WEAP')
 				{
 					printf("ERROR: WEAP header not found! \n");
@@ -602,6 +606,7 @@ int main(int argc, char* argv[])
 				// Read CNST section
 				copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
 				// CNST Header
+				printf("OK: CNST Header found\n", out);
 				out = ReadInt(in);
 				if (!out == 'CNST')
 				{
@@ -715,6 +720,7 @@ int main(int argc, char* argv[])
 				// Read SFX Section
 				copyFileContent("data\\SFX\\non_extSFX.ini", "unpacked_inis\\SFX.ini");
 				out = ReadInt(in);
+				printf("OK: SFX Header found\n", out);
 				if (!out == 'SFX ')
 				{
 					printf("ERROR: SFX header not found! \n");
@@ -766,6 +772,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -779,6 +786,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -788,6 +796,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -1021,6 +1030,7 @@ int main(int argc, char* argv[])
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -1241,6 +1251,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -1353,6 +1364,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\non_extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -1404,6 +1416,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -1417,6 +1430,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -1426,6 +1440,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -1659,6 +1674,7 @@ int main(int argc, char* argv[])
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -1879,6 +1895,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -1991,6 +2008,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\gen1.1_extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -2065,6 +2083,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -2078,6 +2097,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -2087,6 +2107,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -2336,6 +2357,7 @@ int main(int argc, char* argv[])
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -2572,6 +2594,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -2684,6 +2707,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -2761,6 +2785,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -2774,6 +2799,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -2783,6 +2809,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -3032,6 +3059,7 @@ int main(int argc, char* argv[])
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -3268,6 +3296,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -3380,6 +3409,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -3457,6 +3487,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -3470,6 +3501,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -3479,6 +3511,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -3712,6 +3745,7 @@ int main(int argc, char* argv[])
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -3948,6 +3982,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -4060,6 +4095,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -4137,6 +4173,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -4150,6 +4187,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -4159,6 +4197,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -4395,6 +4434,7 @@ int main(int argc, char* argv[])
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -4631,6 +4671,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -4743,6 +4784,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -4820,6 +4862,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -4833,6 +4876,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -4842,6 +4886,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -5086,6 +5131,7 @@ int main(int argc, char* argv[])
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -5323,6 +5369,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -5435,6 +5482,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\gen1.1_extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -5509,6 +5557,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -5522,6 +5571,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -5531,6 +5581,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -5775,6 +5826,7 @@ int main(int argc, char* argv[])
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -6012,6 +6064,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -6124,6 +6177,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -6201,6 +6255,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -6214,6 +6269,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -6223,6 +6279,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -6467,6 +6524,7 @@ int main(int argc, char* argv[])
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -6705,6 +6763,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -6817,6 +6876,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -6894,6 +6954,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -6907,6 +6968,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -6916,6 +6978,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -7160,6 +7223,7 @@ int main(int argc, char* argv[])
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -7397,6 +7461,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -7509,6 +7574,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -7586,6 +7652,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -7599,6 +7666,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -7608,6 +7676,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -7852,6 +7921,7 @@ int main(int argc, char* argv[])
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -8088,6 +8158,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -8200,6 +8271,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -8277,6 +8349,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -8290,6 +8363,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -8299,6 +8373,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -8551,6 +8626,7 @@ int main(int argc, char* argv[])
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -8787,6 +8863,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -8899,6 +8976,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -8976,6 +9054,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -8989,6 +9068,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DATA Header found\n", out);
 						if (!out == 'DATA')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -8998,6 +9078,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -9250,6 +9331,7 @@ int main(int argc, char* argv[])
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -9486,6 +9568,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -9598,6 +9681,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -9675,6 +9759,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -9688,6 +9773,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DB Header found\n", out);
 						if (!out == 'DB  ')
 						{
 							printf("ERROR: Could not find DB header! \n");
@@ -9697,6 +9783,7 @@ int main(int argc, char* argv[])
 
 						// Read CNST section
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -9809,6 +9896,7 @@ int main(int argc, char* argv[])
 						// Read Weapon section
 						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -10045,6 +10133,7 @@ int main(int argc, char* argv[])
 						//obj
 						copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -10289,6 +10378,7 @@ int main(int argc, char* argv[])
 						fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -10366,6 +10456,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -10379,6 +10470,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DB Header found\n", out);
 						if (!out == 'DB  ')
 						{
 							printf("ERROR: Could not find DB header! \n");
@@ -10388,6 +10480,7 @@ int main(int argc, char* argv[])
 
 						// Read CNST section
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -10500,6 +10593,7 @@ int main(int argc, char* argv[])
 						// Read Weapon section
 						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -10736,6 +10830,7 @@ int main(int argc, char* argv[])
 						//obj
 						copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -10980,6 +11075,7 @@ int main(int argc, char* argv[])
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
@@ -11056,6 +11152,7 @@ int main(int argc, char* argv[])
 					{
 						//header
 						out = ReadInt(in);
+						printf("OK: RES Header found\n", out);
 						if (!out == 'RES ')
 						{
 							printf("ERROR: Could not find RES header! \n");
@@ -11069,6 +11166,7 @@ int main(int argc, char* argv[])
 
 						//data
 						out = ReadInt(in);
+						printf("OK: DB Header found\n", out);
 						if (!out == 'DB  ')
 						{
 							printf("ERROR: Could not find DATA header! \n");
@@ -11078,6 +11176,7 @@ int main(int argc, char* argv[])
 
 						//obj
 						out = ReadInt(in);
+						printf("OK: OBJ Header found\n", out);
 						if (!out == 'OBJ ')
 						{
 							printf("ERROR: Could not find OBJ header! \n");
@@ -11322,6 +11421,7 @@ int main(int argc, char* argv[])
 						//fread(&pad, sizeof(char), 1, in);  // Считываем пустой байт. Нужен для корректного чтения заголовка для некоторых версий.
 
 						out = ReadInt(in);
+						printf("OK: WEAP Header found\n", out);
 						if (!out == 'WEAP')
 						{
 							printf("ERROR: WEAP header not found! \n");
@@ -11558,6 +11658,7 @@ int main(int argc, char* argv[])
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						out = ReadInt(in);
+						printf("OK: CNST Header found\n", out);
 						if (!out == 'CNST')
 						{
 							printf("ERROR: CNST header not found! \n");
@@ -11670,6 +11771,7 @@ int main(int argc, char* argv[])
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						out = ReadInt(in);
+						printf("OK: SFX Header found\n", out);
 						if (!out == 'SFX ')
 						{
 							printf("ERROR: SFX header not found! \n");
