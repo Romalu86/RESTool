@@ -90,11 +90,11 @@ int main(int argc, char* argv[])
 	while (!fileOpened)
 	{
 			// File name
-			cout << "Enter file name: ";
+			cout << "Enter the filename or path to the file: ";
 			getline(cin, filename);
 
 			// File mode
-			cout << "Enter Mode: ";
+			cout << "Enter file mode: ";
 			getline(cin, mode);
 			cout << endl;
 
@@ -11740,12 +11740,12 @@ int main(int argc, char* argv[])
 
 		else
 		{
-			cout << "Invalid operation mode: " << mode << endl;
+			cout << "Invalid file mode: " << mode << endl;
 			cout << endl;
 			fclose(in);
 
 			// Запрос повторного ввода режима
-			cout << "Enter Mode: ";
+			cout << "Enter file mode: ";
 			getline(cin, mode);
 			cout << endl;
 
@@ -11763,6 +11763,8 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
+	cout << endl;
+	cout << filename << " has been unpacked into the 'unpacked_inis' folder." << endl;
 	cout << endl;
 	cout << "Press Enter to exit..." << endl;
 	getchar();

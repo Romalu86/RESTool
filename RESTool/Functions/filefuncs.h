@@ -122,5 +122,36 @@ void copyFileContent(const string& sourceFilename, const string& destinationFile
     sourceFile.close();
     destinationFile.close();
 }
+
+void RemoveAllFilesInDirectory(const std::string& directory)
+{
+	std::string searchPath = directory + "\\*.*";
+	WIN32_FIND_DATA findData;
+	HANDLE hFind = FindFirstFile(searchPath.c_str(), &findData);
+
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+			if (findData.cFileName[0] != '.')
+			{
+				std::string filePath = directory + "\\" + findData.cFileName;
+
+				if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+				{
+					RemoveAllFilesInDirectory(filePath);
+					RemoveDirectory(filePath.c_str());
+				}
+				else
+				{
+					DeleteFile(filePath.c_str());
+				}
+			}
+		} while (FindNextFile(hFind, &findData) != 0);
+
+		FindClose(hFind);
+	}
+}
+
 // End of File Functions
 
