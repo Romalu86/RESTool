@@ -153,5 +153,15 @@ void RemoveAllFilesInDirectory(const std::string& directory)
 	}
 }
 
+// Функция для удаления кавычек из строки
+string removeQuotes(string str)
+{
+	size_t firstQuote = str.find_first_of("\"");
+	size_t lastQuote = str.find_last_of("\"");
+	if (firstQuote != string::npos && lastQuote != string::npos && firstQuote < lastQuote)
+	{
+		return str.substr(firstQuote + 1, lastQuote - firstQuote - 1);
+	}
+	return str;
+}
 // End of File Functions
-

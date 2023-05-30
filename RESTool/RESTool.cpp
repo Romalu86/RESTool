@@ -46,12 +46,6 @@ int main(int argc, char* argv[])
 				cout << endl;
 			}
 		}
-		else
-		{
-			std::cout << "Failed to create folder 'unpacked_inis'." << std::endl;
-			std::cout << "Error code: " << GetLastError() << std::endl;
-			cout << endl;
-		}
 	}
 
 	int out;
@@ -92,6 +86,7 @@ int main(int argc, char* argv[])
 			// File name
 			cout << "Enter the filename or path to file: ";
 			getline(cin, filename);
+			filename = removeQuotes(filename);
 
 			// File mode
 			cout << "Enter file mode: ";
