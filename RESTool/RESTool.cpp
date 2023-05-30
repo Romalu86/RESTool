@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
 	while (!fileOpened)
 	{
 			// File name
-			cout << "Enter the filename or path to the file: ";
+			cout << "Enter the filename or path to file: ";
 			getline(cin, filename);
 
 			// File mode
@@ -119,15 +119,15 @@ int main(int argc, char* argv[])
 	{
 				// Alien Shooter 1 Engine - with char pad
 				if (mode == "as1_pad")
-		{
+				{
 				validMode = true;
 				CreateDirectoryA("unpacked_inis", NULL);
 				copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 			{
 				// RES Header
 				out = ReadInt(in);
-				if (!out == 'RES ')
 				printf("OK: RES Header found\n", out);
+				if (!out == 'RES ')
 				{
 					printf("ERROR: Could not find RES header! \n");
 					fclose(in);
@@ -606,8 +606,8 @@ int main(int argc, char* argv[])
 				// Read CNST section
 				copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
 				// CNST Header
-				printf("OK: CNST Header found\n", out);
 				out = ReadInt(in);
+				printf("OK: CNST Header found\n", out);
 				if (!out == 'CNST')
 				{
 					printf("ERROR: CNST header not found! \n");
