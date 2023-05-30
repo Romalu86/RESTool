@@ -1,6 +1,3 @@
-// RESTool.cpp : Defines the entry point for the console application.
-// original idea by ermaccer. Complete code fix by romalu86
-
 #include "stdafx.h"
 #include <Windows.h>
 #include "Functions\filefuncs.h"
@@ -21,32 +18,40 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	if (argc != 3)
+	char currentPath[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH, currentPath);
+
+	std::string folderPath = std::string(currentPath) + "\\unpacked_inis";
+
+	std::cout << "To avoid problems with unpacking, it is recommended to clear the previous results in the 'unpacked_inis' folder. Do you want to remove them? (y/n): ";
+	std::string response;
+	std::getline(std::cin, response);
+	cout << endl;
+
+	if (response == "y" || response == "Y")
 	{
-		printf("RESTool ver.1.6 by romalu86\n");
-		printf("\n");
-		printf("How to work:\n");
-		printf("example: RESTool objects.res as1_pad\n");
-		printf("\n");
-		printf("File modes:\n");
-		printf("as1_pad - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope Steam, Theseus Mobile\n");
-		printf("as1_nonpad - works with Alien Shooter 1 - Old (No steam version)\n");
-		printf("theseus_pc - works with Theseus PC\n");
-		printf("as1world_pad - works with Alien Shooter 1 - World (mobile)\n");
-		printf("as1world_nonpad - works with Alien Shooter 1 - World (mobile)\n");
-		printf("zs1 - works with Zombie Shooter 1\n");
-		printf("zs1_mobile - works with Zombie Shooter 1\n");
-		printf("as2_original - works with Gold and Vengeance editions\n");
-		printf("as2_addons - works with Reloaded, Conscription, Zombie Shooter 2 Teaser\n");
-		printf("zs2_nonpad - works with Zombie Shooter 2 (Steam)\n");
-		printf("zs2_pad - works with Zombie Shooter 2 (NonSteam)\n");
-		printf("asr - works with Alien Shooter Revisited\n");
-		printf("as2legend_pad - works with Alien Shooter 2 Legend & TD (Steam and Mobile)\n");
-		printf("as2legend_nonpad - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)\n");
-		printf("oe_pad - works with Objects Extended Project\n");
-		printf("oe_nonpad - works with Objects Extended Project\n");
-		printf("oe1105 - works with Objects Extended Project (Old versions)\n");
-		return 1;
+		if (CreateDirectory(folderPath.c_str(), NULL) || GetLastError() == ERROR_ALREADY_EXISTS)
+		{
+			RemoveAllFilesInDirectory(folderPath);
+
+			if (RemoveDirectory(folderPath.c_str()))
+			{
+				std::cout << "Folder 'unpacked_inis' deleted successfully." << std::endl;
+				cout << endl;
+			}
+			else
+			{
+				std::cout << "Failed to delete folder 'unpacked_inis'." << std::endl;
+				std::cout << "Error code: " << GetLastError() << std::endl;
+				cout << endl;
+			}
+		}
+		else
+		{
+			std::cout << "Failed to create folder 'unpacked_inis'." << std::endl;
+			std::cout << "Error code: " << GetLastError() << std::endl;
+			cout << endl;
+		}
 	}
 
 	int out;
@@ -55,13 +60,67 @@ int main(int argc, char* argv[])
 	char obuffer[65535];
 	FILE* in;
 	FILE* fout;
+	string filename;
+	string mode;
 
-	in = fopen(argv[1], "rb");
-	if (in)
+	bool fileOpened = false;
+
+	cout << "RESTool 1.6 by Romalu86" << endl;
+	cout << endl;
+	cout << "File modes:" << endl;
+	cout << "as1_pad - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope Steam, Theseus Mobile" << endl;
+	cout << "as1_nonpad - works with Alien Shooter 1 - Old (No steam version)" << endl;
+	cout << "theseus_pc - works with Theseus PC" << endl;
+	cout << "as1world_pad - works with Alien Shooter 1 - World (mobile)" << endl;
+	cout << "as1world_nonpad - works with Alien Shooter 1 - World (mobile)" << endl;
+	cout << "zs1 - works with Zombie Shooter 1" << endl;
+	cout << "zs1_mobile - works with Zombie Shooter 1" << endl;
+	cout << "as2_original - works with Gold and Vengeance editions" << endl;
+	cout << "as2_addons - works with Reloaded, Conscription, Zombie Shooter 2 Teaser" << endl;
+	cout << "zs2_nonpad - works with Zombie Shooter 2 (Steam)" << endl;
+	cout << "zs2_pad - works with Zombie Shooter 2 (NonSteam)" << endl;
+	cout << "asr - works with Alien Shooter Revisited" << endl;
+	cout << "as2legend_pad - works with Alien Shooter 2 Legend & TD (Steam and Mobile)" << endl;
+	cout << "as2legend_nonpad - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)" << endl;
+	cout << "oe_pad - works with Objects Extended Project" << endl;
+	cout << "oe_nonpad - works with Objects Extended Project" << endl;
+	cout << "oe1105 - works with Objects Extended Project (Old versions)" << endl;
+	cout << endl;
+
+	while (!fileOpened)
 	{
-				// Alien Shooter 1 Engine - with char pad in WEAP section
-				if (strcmp("as1_pad", argv[2]) == 0)
+			// File name
+			cout << "Enter file name: ";
+			getline(cin, filename);
+
+			// File mode
+			cout << "Enter Mode: ";
+			getline(cin, mode);
+			cout << endl;
+
+		in = fopen(filename.c_str(), "rb");
+		if (!in)
 		{
+			cout << "Failed to open file: " << filename << endl;
+			cout << "Press Enter to try again or enter 'q' to quit...";
+			cout << endl;
+			string userInput;
+			getline(cin, userInput);
+			if (userInput == "q" || userInput == "Q")
+				return 1;
+			continue;
+		}
+
+		fileOpened = true;
+	}
+
+	bool validMode = false;
+	while (!validMode)
+	{
+				// Alien Shooter 1 Engine - with char pad
+				if (mode == "as1_pad")
+		{
+				validMode = true;
 				CreateDirectoryA("unpacked_inis", NULL);
 				copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 			{
@@ -698,9 +757,10 @@ int main(int argc, char* argv[])
 			}
 		}
 
-				// Alien Shooter 1 Engine - without char pad in WEAP section
-				if (strcmp("as1_nonpad", argv[2]) == 0)
+				// Alien Shooter 1 Engine - without char pad
+				else if (mode == "as1_nonpad")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -1336,8 +1396,9 @@ int main(int argc, char* argv[])
 				}
 
 				// Theseus PC version
-				if (strcmp("theseus_pc", argv[2]) == 0)
+				else if (mode == "theseus_pc")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -1995,9 +2056,10 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				// Alien Shooter 1: World (Mobile\PC) - with char pad in WEAP section
-				if (strcmp("as1world_pad", argv[2]) == 0)
+				// Alien Shooter 1: World (Mobile\PC) - with char pad
+				else if (mode == "as1world_pad")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\asworld_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -2690,9 +2752,10 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				// Alien Shooter 1: World (Mobile\PC) - without char pad in WEAP section
-				if (strcmp("as1world_nonpad", argv[2]) == 0)
+				// Alien Shooter 1: World (Mobile\PC) - without char pad
+				else if (mode == "as1world_nonpad")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\asworld_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -3386,8 +3449,9 @@ int main(int argc, char* argv[])
 				}
 
 				// Zombie Shooter 1
-				if (strcmp("zs1", argv[2]) == 0)
+				else if (mode == "zs1")				
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1.1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -4065,8 +4129,9 @@ int main(int argc, char* argv[])
 				}
 
 				// Zombie Shooter 1 Mobile
-				if (strcmp("zs1_mobile", argv[2]) == 0)
+				else if (mode == "zs1_mobile")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\zs1mobile_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -4747,8 +4812,9 @@ int main(int argc, char* argv[])
 				}
 
 				// Alien Shooter 2 Gold / Vengeance
-				if (strcmp("as2_original", argv[2]) == 0)
+				else if (mode == "as2_original")				
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -5435,8 +5501,9 @@ int main(int argc, char* argv[])
 				}
 
 				// Alien Shooter 2 Reloaded / Conscription
-				if (strcmp("as2_addons", argv[2]) == 0)
+				else if (mode == "as2_addons")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -6125,9 +6192,10 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				// Zombie Shooter 2 - Steam
-				if (strcmp("zs2_nonpad", argv[2]) == 0)		
+				// Zombie Shooter 2 - Steam - without char pad
+				else if (mode == "zs2_nonpad")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -6817,9 +6885,10 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				// Zombie Shooter 2 - NonSteam
-				if (strcmp("zs2_pad", argv[2]) == 0)
+				// Zombie Shooter 2 - NonSteam - with char pad
+				else if (mode == "zs2_pad")				
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -7509,8 +7578,9 @@ int main(int argc, char* argv[])
 				}
 
 				// Alien Shooter: Revisited
-				if (strcmp("asr", argv[2]) == 0)
+				else if (mode == "asr")				
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -8198,9 +8268,10 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				// Alien Shooter 2 Legend & TD (Steam\Mobile)
-				if (strcmp("as2legend_pad", argv[2]) == 0)
+				// Alien Shooter 2 Legend & TD (Steam\Mobile) - with char pad
+				else if (mode == "as2legend_pad")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\legend_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -8896,9 +8967,10 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				// Alien Shooter 2 New Era & Reloaded (Steam\Mobile)
-				if (strcmp("as2legend_nonpad", argv[2]) == 0)				
+				// Alien Shooter 2 New Era & Reloaded (Steam\Mobile) - without char pad
+				else if (mode == "as2legend_nonpad")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\legend_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -9594,9 +9666,10 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				// Objects Extended Project
-				if (strcmp("oe_pad", argv[2]) == 0)
+				// Objects Extended Project - with char pad
+				else if (mode == "oe_pad")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 					{
@@ -10284,9 +10357,10 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				// Objects Extended Project
-				if (strcmp("oe_nonpad", argv[2]) == 0)
+				// Objects Extended Project - without char pad
+				else if (mode == "oe_nonpad")
 				{
+					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 					{
@@ -10975,7 +11049,7 @@ int main(int argc, char* argv[])
 				}
 
 				// Objects Extended Project Old versions
-				if (strcmp("oe1105", argv[2]) == 0)
+				else if (mode == "oe1105")
 				{
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
@@ -11664,7 +11738,34 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				fclose(in); // Закрытие файла in
+		else
+		{
+			cout << "Invalid operation mode: " << mode << endl;
+			cout << endl;
+			fclose(in);
+
+			// Запрос повторного ввода режима
+			cout << "Enter Mode: ";
+			getline(cin, mode);
+			cout << endl;
+
+			in = fopen(filename.c_str(), "rb");
+			if (!in)
+			{
+				cout << "Failed to open file: " << filename << endl;
+				cout << "Press Enter to try again or enter 'q' to quit...";
+				cout << endl;
+				string userInput;
+				getline(cin, userInput);
+				if (userInput == "q" || userInput == "Q")
+					return 1;
+				continue;
+			}
+		}
 	}
+	cout << endl;
+	cout << "Press Enter to exit..." << endl;
+	getchar();
+
 	return 0;
 }
