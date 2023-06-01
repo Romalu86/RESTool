@@ -181,7 +181,7 @@ std::string processFloatValues(const float* arrayf, int numValues)
 	std::ostringstream oss;
 	for (const auto& value : values)
 	{
-		oss << value << " ";
+		oss << value << "\t";
 	}
 
 	std::string formattedResult = oss.str();
@@ -195,7 +195,7 @@ std::string processIntValues(const int* arrayi, int numValues)
 	std::ostringstream oss;
 	for (int i = 0; i < numValues; ++i)
 	{
-		oss << arrayi[i] << " ";
+		oss << arrayi[i] << "\t";
 	}
 
 	std::string formattedResult = oss.str();
