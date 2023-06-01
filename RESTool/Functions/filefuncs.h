@@ -2,7 +2,9 @@
 #include "stdafx.h"
 #include <fstream>
 #include <iostream>
+#include <vector>
 #include <string>
+#include <sstream>
 using namespace std;
 
 // File Functions
@@ -163,5 +165,42 @@ string removeQuotes(string str)
 		return str.substr(firstQuote + 1, lastQuote - firstQuote - 1);
 	}
 	return str;
+}
+
+std::string processFloatValues(const float* arrayf, int numValues)
+{
+	std::vector<std::string> values;
+	for (int i = 0; i < numValues; ++i)
+	{
+		std::string str = std::to_string(arrayf[i]);
+		str.erase(str.find_last_not_of('0') + 1, std::string::npos);
+		str.erase(str.find_last_not_of('.') + 1, std::string::npos);
+		values.push_back(str);
+	}
+
+	std::ostringstream oss;
+	for (const auto& value : values)
+	{
+		oss << value << " ";
+	}
+
+	std::string formattedResult = oss.str();
+	formattedResult.pop_back(); // Удаление последнего пробела
+
+	return formattedResult;
+}
+
+std::string processIntValues(const int* arrayi, int numValues)
+{
+	std::ostringstream oss;
+	for (int i = 0; i < numValues; ++i)
+	{
+		oss << arrayi[i] << " ";
+	}
+
+	std::string formattedResult = oss.str();
+	formattedResult.pop_back(); // Удаление последнего пробела
+
+	return formattedResult;
 }
 // End of File Functions
