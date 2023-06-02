@@ -106,12 +106,12 @@ void copyFileContent(const string& sourceFilename, const string& destinationFile
     ofstream destinationFile(destinationFilename, ios::out | ios::app); // Открываем файл для записи (сохраняем текущее содержимое)
 
     if (!sourceFile.is_open()) {
-        cout << "Failed to open file " << sourceFilename << endl;
+        cout << "ERROR: Failed to open file " << sourceFilename << endl;
         return;
     }
 
     if (!destinationFile.is_open()) {
-        cout << "Failed to open file " << destinationFilename << endl;
+        cout << "ERROR: Failed to open file " << destinationFilename << endl;
         return;
     }
 

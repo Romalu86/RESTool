@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	cout << "RESTool 1.6 by Romalu86" << endl;
 	cout << endl;
 	cout << "File modes:" << endl;
-	cout << "as1_engine - works with Alien Shooter 1, Alien Shooter 1 Last Hope, Alien Shooter - Lost World (Theseus Mobile) " << endl;
+	cout << "as1_engine - works with Alien Shooter 1 (PC & Mobile), Alien Shooter 1 Last Hope (PC & Mobile), Alien Shooter - Lost World (Theseus Mobile) " << endl;
 	cout << "theseus_pc - works with Theseus (PC Only)" << endl;
 	cout << "as1world - works with Alien Shooter 1 - World" << endl;
 	cout << "zs1 - works with Zombie Shooter 1 (PC Only)" << endl;
@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 	cout << "as2_original - works with Gold and Vengeance editions" << endl;
 	cout << "as2_addons - works with Reloaded, Conscription, Zombie Shooter 2 Teaser, Objects Extended Project (Old versions before 1.1.0.6)" << endl;
 	cout << "zs2_engine - works with Zombie Shooter 2 / Alien Shooter: Revisited" << endl;
-	cout << "as2legend_engine - works with Alien Shooter 2 Legend & TD (Steam and Mobile), Alien Shooter 2 New Era, Alien Shooter 2 Reloaded (Mobile)" << endl;
+	cout << "as2legend_engine - works with Alien Shooter 2 Legend & TD (PC & Mobile), Alien Shooter 2 New Era, Alien Shooter 2 Reloaded (Mobile)" << endl;
 	cout << "oe_engine - works with Objects Extended Project (version 1.1.0.6+)" << endl;
 	cout << endl;
 	cout << "Alternative unpacking mode - required for unpacking data in case of incorrect section reading." << endl;
@@ -448,7 +448,7 @@ int main(int argc, char* argv[])
 					fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 					// VidName STRING
 					ReadString(in, fout, "VidName");
-fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+					fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 					fclose(fout); // Закрытие файла fout
 				}
 
@@ -2266,7 +2266,7 @@ fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	s
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -3189,7 +3189,7 @@ fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	s
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -4122,7 +4122,7 @@ fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	s
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -5071,7 +5071,7 @@ fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	s
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -6018,7 +6018,7 @@ fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	s
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -6961,7 +6961,7 @@ fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	s
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -7920,7 +7920,7 @@ fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	s
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 
 							fclose(fout); // Закрытие файла fout
 						}
@@ -9393,7 +9393,7 @@ fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	s
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
