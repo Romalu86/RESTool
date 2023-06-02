@@ -68,7 +68,7 @@ char* ReadString(FILE* file, FILE* out, char* name)
 
 	return result;
 }
-
+// считываем пути до аудио в SFX секции
 char* ReadStringNoRTN(FILE* file)
 {
 	int stringsize = 0;
@@ -100,6 +100,7 @@ char* ReadStringNoRTN(FILE* file)
 	return result;
 }
 
+// копируем содержимое файла в конечный результат (заголовки)
 void copyFileContent(const string& sourceFilename, const string& destinationFilename) {
     ifstream sourceFile(sourceFilename); // Открываем файл для чтения
     ofstream destinationFile(destinationFilename, ios::out | ios::app); // Открываем файл для записи (сохраняем текущее содержимое)
@@ -125,6 +126,7 @@ void copyFileContent(const string& sourceFilename, const string& destinationFile
     destinationFile.close();
 }
 
+// удаляем все содержимое папки unpacked_inis
 void RemoveAllFilesInDirectory(const std::string& directory)
 {
 	std::string searchPath = directory + "\\*.*";
@@ -167,7 +169,7 @@ string removeQuotes(string str)
 	return str;
 }
 
-std::string processFloatValues(const float* arrayf, int numValues)
+std::string processFloatValues(const float* arrayf, int numValues, bool useTabulation = true)
 {
 	std::vector<std::string> values;
 	for (int i = 0; i < numValues; ++i)
@@ -181,7 +183,10 @@ std::string processFloatValues(const float* arrayf, int numValues)
 	std::ostringstream oss;
 	for (const auto& value : values)
 	{
-		oss << value << "\t";
+		if (useTabulation)
+			oss << value << "\t";
+		else
+			oss << value << " ";
 	}
 
 	std::string formattedResult = oss.str();
@@ -190,12 +195,15 @@ std::string processFloatValues(const float* arrayf, int numValues)
 	return formattedResult;
 }
 
-std::string processIntValues(const int* arrayi, int numValues)
+std::string processIntValues(const int* arrayi, int numValues, bool useTabulation = true)
 {
 	std::ostringstream oss;
 	for (int i = 0; i < numValues; ++i)
 	{
-		oss << arrayi[i] << "\t";
+		if (useTabulation)
+			oss << arrayi[i] << "\t";
+		else
+			oss << arrayi[i] << " ";
 	}
 
 	std::string formattedResult = oss.str();

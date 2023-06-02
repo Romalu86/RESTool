@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
 			// File name
 			cout << "Enter the filename or path to file: ";
 			getline(cin, filename);
-			filename = removeQuotes(filename);
+			filename = removeQuotes(filename); // remove quotes from path to file
 
 			// Alternative unpacking mode (char pad in weap section)
 			cout << "Do you want to activate the alternative unpacking mode? (y/n): ";
@@ -220,7 +220,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 3);
+						std::string formattedOutput = processFloatValues(arrayf, 3, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -234,7 +234,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -245,7 +245,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -256,7 +256,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 2);
+						std::string formattedOutput = processFloatValues(arrayf, 2, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -267,7 +267,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -281,7 +281,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -295,7 +295,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 3);
+						std::string formattedOutput = processFloatValues(arrayf, 3, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -309,7 +309,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "TopZ=%s\n", obuffer);
@@ -320,7 +320,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 2);
+						std::string formattedOutput = processFloatValues(arrayf, 2, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -346,7 +346,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 17);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "NoFrame=%s\n", obuffer);
+					fprintf(fout, "NoFrame=\t%s\n", obuffer);
 					// SFX DWORD[17]
 					{
 						for (int i = 0; i < 17; ++i)
@@ -357,7 +357,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 17);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "SFX=%s\n", obuffer);
+					fprintf(fout, "SFX=\t\t%s\n", obuffer);
 					// FrameSpeed DWORD[17]
 					{
 						for (int i = 0; i < 17; ++i)
@@ -368,7 +368,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 17);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "FrameSpeed=%s\n", obuffer);
+					fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 					// ChildX FLOAT[17]
 					for (int i = 0; i < 17; ++i)
 					{
@@ -379,7 +379,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 17);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ChildX=%s\n", obuffer);
+					fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 					// ChildY FLOAT[17]
 					for (int i = 0; i < 17; ++i)
 					{
@@ -390,7 +390,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 17);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ChildY=%s\n", obuffer);
+					fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 					// ChildZ FLOAT[17]
 					for (int i = 0; i < 17; ++i)
 					{
@@ -401,7 +401,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 17);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ChildZ=%s\n", obuffer);
+					fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 					// ChildVid DWORD[17]
 					{
 						for (int i = 0; i < 17; ++i)
@@ -412,7 +412,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 17);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ChildVid=%s\n", obuffer);
+					fprintf(fout, "ChildVid=\t%s\n", obuffer);
 					// NoChild DWORD[17]
 					{
 						for (int i = 0; i < 17; ++i)
@@ -423,7 +423,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 17);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "NoChild=%s\n", obuffer);
+					fprintf(fout, "NoChild=\t%s\n", obuffer);
 					// GammaRGBA DWORD[4]
 					{
 						for (int i = 0; i < 4; ++i)
@@ -431,10 +431,10 @@ int main(int argc, char* argv[])
 							arrayi[i] = ReadInt(in);
 						}
 
-						std::string formattedOutput = processIntValues(arrayi, 4);
+						std::string formattedOutput = processIntValues(arrayi, 4, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "GammaRGBA=%s\n", obuffer);
+					fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 					// ScaleXYZ FLOAT[3]
 					for (int i = 0; i < 3; ++i)
 					{
@@ -442,14 +442,13 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 3);
+						std::string formattedOutput = processFloatValues(arrayf, 3, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+					fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 					// VidName STRING
 					ReadString(in, fout, "VidName");
-					fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-					fprintf(fout, "\n");
+					fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
 					fclose(fout); // Закрытие файла fout
 				}
 
@@ -509,7 +508,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "Length=%s\n", obuffer);
@@ -520,7 +519,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "Weight=%s\n", obuffer);
@@ -531,7 +530,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "Power=%s\n", obuffer);
@@ -542,7 +541,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -553,7 +552,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -564,7 +563,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "WeaponAim=%s\n", obuffer);
@@ -602,7 +601,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "DeadZone=%s\n", obuffer);
@@ -619,7 +618,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "Time=%s\n", obuffer);
+					fprintf(fout, "Time=\t\t%s\n", obuffer);
 					// GammaR [8] DWORD
 					{
 						for (int i = 0; i < 8; ++i)
@@ -630,7 +629,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "GammaR=%s\n", obuffer);
+					fprintf(fout, "GammaR=\t\t%s\n", obuffer);
 					// GammaG [8] DWORD
 					{
 						for (int i = 0; i < 8; ++i)
@@ -641,7 +640,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "GammaG=%s\n", obuffer);
+					fprintf(fout, "GammaG=\t\t%s\n", obuffer);
 					// GammaB [8] DWORD
 					{
 						for (int i = 0; i < 8; ++i)
@@ -652,7 +651,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "GammaB=%s\n", obuffer);
+					fprintf(fout, "GammaB=\t\t%s\n", obuffer);
 					// GammaA [8] DWORD
 					{
 						for (int i = 0; i < 8; ++i)
@@ -663,7 +662,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "GammaA=%s\n", obuffer);
+					fprintf(fout, "GammaA=\t\t%s\n", obuffer);
 					// ScaleX [8] Float
 					for (int i = 0; i < 8; ++i)
 					{
@@ -674,7 +673,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ScaleX=%s\n", obuffer);
+					fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
 					// ScaleY [8] Float
 					for (int i = 0; i < 8; ++i)
 					{
@@ -685,7 +684,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ScaleY=%s\n", obuffer);
+					fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
 					// ScaleZ [8] Float
 					for (int i = 0; i < 8; ++i)
 					{
@@ -696,7 +695,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ScaleZ=%s\n", obuffer);
+					fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
 					// ShiftX [8] Float
 					for (int i = 0; i < 8; ++i)
 					{
@@ -707,7 +706,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ShiftX=%s\n", obuffer);
+					fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
 					// ShiftY [8] Float
 					for (int i = 0; i < 8; ++i)
 					{
@@ -718,7 +717,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ShiftY=%s\n", obuffer);
+					fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
 					// ShiftZ [8] Float
 					for (int i = 0; i < 8; ++i)
 					{
@@ -729,7 +728,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ShiftZ=%s\n", obuffer);
+					fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
 					// DirectionX [8] DWORD
 					{
 						for (int i = 0; i < 8; ++i)
@@ -740,7 +739,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "DirectionX=%s\n", obuffer);
+					fprintf(fout, "DirectionX=\t%s\n", obuffer);
 					// DirectionY [8] DWORD
 					{
 						for (int i = 0; i < 8; ++i)
@@ -751,7 +750,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "DirectionY=%s\n", obuffer);
+					fprintf(fout, "DirectionY=\t%s\n", obuffer);
 					// DirectionZ [8] DWORD
 					{
 						for (int i = 0; i < 8; ++i)
@@ -762,7 +761,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "DirectionZ=%s\n", obuffer);
+					fprintf(fout, "DirectionZ=\t%s\n", obuffer);
 					// FrameSpeed [8] DWORD
 					{
 						for (int i = 0; i < 8; ++i)
@@ -773,7 +772,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processIntValues(arrayi, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "FrameSpeed=%s\n", obuffer);
+					fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 					// Speed [8] Float
 					for (int i = 0; i < 8; ++i)
 					{
@@ -784,7 +783,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "Speed=%s\n", obuffer);
+					fprintf(fout, "Speed=\t\t%s\n", obuffer);
 					// ZSpeed [8] Float
 					for (int i = 0; i < 8; ++i)
 					{
@@ -795,8 +794,7 @@ int main(int argc, char* argv[])
 						std::string formattedOutput = processFloatValues(arrayf, 8);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
-					fprintf(fout, "ZSpeed=%s\n", obuffer);
-					fprintf(fout, "\n");
+					fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 					fclose(fout); // fout file close
 				}
 
@@ -829,7 +827,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -840,7 +838,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -851,7 +849,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -862,7 +860,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -879,7 +877,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -890,7 +888,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
@@ -901,7 +899,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "PatrolRadius=%s\n", obuffer);
@@ -958,7 +956,7 @@ int main(int argc, char* argv[])
 					}
 
 					{
-						std::string formattedOutput = processFloatValues(arrayf, 1);
+						std::string formattedOutput = processFloatValues(arrayf, 1, false);
 						snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 					}
 					fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -1010,7 +1008,6 @@ int main(int argc, char* argv[])
 						arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 					fprintf(fout, "Wave=%s\n", obuffer.c_str());
-					fprintf(fout, "\n");
 					fclose(fout); // Закрываем файл fout
 				}
 			}
@@ -1113,7 +1110,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -1127,7 +1124,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -1138,7 +1135,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -1149,7 +1146,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -1160,7 +1157,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -1174,7 +1171,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -1188,7 +1185,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -1202,7 +1199,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "TopZ=%s\n", obuffer);
@@ -1213,7 +1210,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -1239,7 +1236,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoFrame=%s\n", obuffer);
+							fprintf(fout, "NoFrame=\t%s\n", obuffer);
 							// SFX DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -1250,7 +1247,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "SFX=%s\n", obuffer);
+							fprintf(fout, "SFX=\t\t%s\n", obuffer);
 							// FrameSpeed DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -1261,7 +1258,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 							// ChildX FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -1272,7 +1269,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildX=%s\n", obuffer);
+							fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 							// ChildY FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -1283,7 +1280,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildY=%s\n", obuffer);
+							fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 							// ChildZ FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -1294,7 +1291,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildZ=%s\n", obuffer);
+							fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 							// ChildVid DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -1305,7 +1302,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildVid=%s\n", obuffer);
+							fprintf(fout, "ChildVid=\t%s\n", obuffer);
 							// NoChild DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -1316,7 +1313,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoChild=%s\n", obuffer);
+							fprintf(fout, "NoChild=\t%s\n", obuffer);
 							// GammaRGBA DWORD[4]
 							{
 								for (int i = 0; i < 4; ++i)
@@ -1324,10 +1321,10 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 4);
+								std::string formattedOutput = processIntValues(arrayi, 4, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaRGBA=%s\n", obuffer);
+							fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 							// ScaleXYZ FLOAT[3]
 							for (int i = 0; i < 3; ++i)
 							{
@@ -1335,14 +1332,13 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-							fprintf(fout, "\n");
+							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -1402,7 +1398,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Length=%s\n", obuffer);
@@ -1413,7 +1409,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Weight=%s\n", obuffer);
@@ -1424,7 +1420,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Power=%s\n", obuffer);
@@ -1435,7 +1431,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -1446,7 +1442,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -1457,7 +1453,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "WeaponAim=%s\n", obuffer);
@@ -1494,14 +1490,14 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeadZone=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Period=%i\n", out);
-							//
+							// Time[8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -1511,8 +1507,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Time=%s\n", obuffer);
-							//
+							fprintf(fout, "Time=\t\t%s\n", obuffer);
+							// GammaR [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -1522,8 +1518,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaR=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaR=\t\t%s\n", obuffer);
+							// GammaG [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -1533,8 +1529,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaG=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaG=\t\t%s\n", obuffer);
+							// GammaB [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -1544,8 +1540,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaB=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaB=\t\t%s\n", obuffer);
+							// GammaA [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -1555,8 +1551,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaA=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaA=\t\t%s\n", obuffer);
+							// ScaleX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -1566,8 +1562,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleX=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
+							// ScaleY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -1577,8 +1573,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleY=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
+							// ScaleZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -1588,8 +1584,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
+							// ShiftX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -1599,8 +1595,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftX=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
+							// ShiftY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -1610,8 +1606,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
+							// ShiftZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -1621,8 +1617,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
+							// DirectionX [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -1632,8 +1628,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionX=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionX=\t%s\n", obuffer);
+							// DirectionY [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -1643,8 +1639,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionY=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionY=\t%s\n", obuffer);
+							// DirectionZ [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -1654,8 +1650,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionZ=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionZ=\t%s\n", obuffer);
+							// FrameSpeed [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -1665,8 +1661,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
-							//
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
+							// Speed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -1676,8 +1672,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Speed=%s\n", obuffer);
-							//
+							fprintf(fout, "Speed=\t\t%s\n", obuffer);
+							// ZSpeed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -1687,8 +1683,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ZSpeed=%s\n", obuffer);
-							fprintf(fout, "\n");
+							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -1720,7 +1715,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -1731,7 +1726,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -1742,7 +1737,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -1753,7 +1748,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -1770,7 +1765,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -1781,7 +1776,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
@@ -1792,7 +1787,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "PatrolRadius=%s\n", obuffer);
@@ -1849,7 +1844,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -1924,7 +1919,6 @@ int main(int argc, char* argv[])
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fprintf(fout, "\n");
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -2027,7 +2021,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -2041,7 +2035,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -2052,7 +2046,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -2063,7 +2057,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -2074,7 +2068,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -2088,7 +2082,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -2102,7 +2096,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -2116,7 +2110,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "TopZ=%s\n", obuffer);
@@ -2127,7 +2121,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -2169,7 +2163,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoFrame=%s\n", obuffer);
+							fprintf(fout, "NoFrame=\t%s\n", obuffer);
 							// SFX DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -2180,16 +2174,18 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "SFX=%s\n", obuffer);
+							fprintf(fout, "SFX=\t\t%s\n", obuffer);
 							// FrameSpeed DWORD[17]
-							for (int i = 0; i < 17; ++i)
 							{
-								arrayi[i] = ReadInt(in);
-							}
+								for (int i = 0; i < 17; ++i)
+								{
+									arrayi[i] = ReadInt(in);
+								}
 
-							std::string formattedOutput = processIntValues(arrayi, 17);
-							snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
+								std::string formattedOutput = processIntValues(arrayi, 17);
+								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
+							}
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 							// ChildX FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -2200,7 +2196,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildX=%s\n", obuffer);
+							fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 							// ChildY FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -2211,7 +2207,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildY=%s\n", obuffer);
+							fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 							// ChildZ FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -2222,7 +2218,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildZ=%s\n", obuffer);
+							fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 							// ChildVid DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -2233,7 +2229,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildVid=%s\n", obuffer);
+							fprintf(fout, "ChildVid=\t%s\n", obuffer);
 							// NoChild DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -2244,7 +2240,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoChild=%s\n", obuffer);
+							fprintf(fout, "NoChild=\t%s\n", obuffer);
 							// GammaRGBA DWORD[4]
 							{
 								for (int i = 0; i < 4; ++i)
@@ -2252,10 +2248,10 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 4);
+								std::string formattedOutput = processIntValues(arrayi, 4, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaRGBA=%s\n", obuffer);
+							fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 							// ScaleXYZ FLOAT[3]
 							for (int i = 0; i < 3; ++i)
 							{
@@ -2263,14 +2259,13 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-							fprintf(fout, "\n");
+							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -2330,7 +2325,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Length=%s\n", obuffer);
@@ -2341,7 +2336,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Weight=%s\n", obuffer);
@@ -2352,7 +2347,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Power=%s\n", obuffer);
@@ -2366,7 +2361,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -2377,7 +2372,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -2388,7 +2383,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "AimRadius=%s\n", obuffer);
@@ -2438,14 +2433,14 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeadZone=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Period=%i\n", out);
-							//
+							// Time[8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -2455,8 +2450,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Time=%s\n", obuffer);
-							//
+							fprintf(fout, "Time=\t\t%s\n", obuffer);
+							// GammaR [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -2466,8 +2461,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaR=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaR=\t\t%s\n", obuffer);
+							// GammaG [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -2477,8 +2472,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaG=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaG=\t\t%s\n", obuffer);
+							// GammaB [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -2488,8 +2483,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaB=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaB=\t\t%s\n", obuffer);
+							// GammaA [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -2499,8 +2494,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaA=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaA=\t\t%s\n", obuffer);
+							// ScaleX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -2510,8 +2505,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleX=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
+							// ScaleY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -2521,8 +2516,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleY=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
+							// ScaleZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -2532,8 +2527,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
+							// ShiftX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -2543,8 +2538,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftX=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
+							// ShiftY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -2554,8 +2549,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
+							// ShiftZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -2565,8 +2560,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
+							// DirectionX [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -2576,8 +2571,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionX=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionX=\t%s\n", obuffer);
+							// DirectionY [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -2587,8 +2582,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionY=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionY=\t%s\n", obuffer);
+							// DirectionZ [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -2598,8 +2593,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionZ=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionZ=\t%s\n", obuffer);
+							// FrameSpeed [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -2609,8 +2604,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
-							//
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
+							// Speed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -2620,8 +2615,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Speed=%s\n", obuffer);
-							//
+							fprintf(fout, "Speed=\t\t%s\n", obuffer);
+							// ZSpeed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -2631,8 +2626,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ZSpeed=%s\n", obuffer);
-							fprintf(fout, "\n");
+							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -2664,7 +2658,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -2675,7 +2669,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -2686,7 +2680,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -2697,7 +2691,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -2714,7 +2708,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -2729,7 +2723,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Friction=%s\n", obuffer);
@@ -2786,7 +2780,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -2864,7 +2858,6 @@ int main(int argc, char* argv[])
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fprintf(fout, "\n");
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -2967,7 +2960,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -2981,7 +2974,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -2992,7 +2985,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -3003,7 +2996,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -3014,7 +3007,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -3028,7 +3021,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -3042,7 +3035,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -3056,7 +3049,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "TopZ=%s\n", obuffer);
@@ -3067,7 +3060,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -3093,7 +3086,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoFrame=%s\n", obuffer);
+							fprintf(fout, "NoFrame=\t%s\n", obuffer);
 							// SFX DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -3104,7 +3097,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "SFX=%s\n", obuffer);
+							fprintf(fout, "SFX=\t\t%s\n", obuffer);
 							// FrameSpeed DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -3115,7 +3108,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 							// ChildX FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -3126,7 +3119,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildX=%s\n", obuffer);
+							fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 							// ChildY FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -3137,7 +3130,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildY=%s\n", obuffer);
+							fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 							// ChildZ FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -3148,7 +3141,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildZ=%s\n", obuffer);
+							fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 							// ChildVid DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -3159,7 +3152,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildVid=%s\n", obuffer);
+							fprintf(fout, "ChildVid=\t%s\n", obuffer);
 							// NoChild DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -3170,7 +3163,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoChild=%s\n", obuffer);
+							fprintf(fout, "NoChild=\t%s\n", obuffer);
 							// GammaRGBA DWORD[4]
 							{
 								for (int i = 0; i < 4; ++i)
@@ -3178,10 +3171,10 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 4);
+								std::string formattedOutput = processIntValues(arrayi, 4, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaRGBA=%s\n", obuffer);
+							fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 							// ScaleXYZ FLOAT[3]
 							for (int i = 0; i < 3; ++i)
 							{
@@ -3189,14 +3182,13 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-							fprintf(fout, "\n");
+							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -3256,7 +3248,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Length=%s\n", obuffer);
@@ -3267,7 +3259,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Weight=%s\n", obuffer);
@@ -3278,7 +3270,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Power=%s\n", obuffer);
@@ -3292,7 +3284,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -3303,7 +3295,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -3314,7 +3306,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "AimRadius=%s\n", obuffer);
@@ -3371,7 +3363,7 @@ int main(int argc, char* argv[])
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Period=%i\n", out);
-							//
+							// Time[8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -3381,8 +3373,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Time=%s\n", obuffer);
-							//
+							fprintf(fout, "Time=\t\t%s\n", obuffer);
+							// GammaR [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -3392,8 +3384,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaR=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaR=\t\t%s\n", obuffer);
+							// GammaG [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -3403,8 +3395,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaG=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaG=\t\t%s\n", obuffer);
+							// GammaB [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -3414,8 +3406,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaB=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaB=\t\t%s\n", obuffer);
+							// GammaA [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -3425,8 +3417,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaA=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaA=\t\t%s\n", obuffer);
+							// ScaleX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -3436,8 +3428,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleX=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
+							// ScaleY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -3447,8 +3439,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleY=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
+							// ScaleZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -3458,8 +3450,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
+							// ShiftX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -3469,8 +3461,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftX=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
+							// ShiftY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -3480,8 +3472,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
+							// ShiftZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -3491,8 +3483,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
+							// DirectionX [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -3502,8 +3494,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionX=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionX=\t%s\n", obuffer);
+							// DirectionY [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -3513,8 +3505,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionY=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionY=\t%s\n", obuffer);
+							// DirectionZ [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -3524,8 +3516,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionZ=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionZ=\t%s\n", obuffer);
+							// FrameSpeed [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -3535,8 +3527,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
-							//
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
+							// Speed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -3546,8 +3538,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Speed=%s\n", obuffer);
-							//
+							fprintf(fout, "Speed=\t\t%s\n", obuffer);
+							// ZSpeed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -3557,8 +3549,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ZSpeed=%s\n", obuffer);
-							fprintf(fout, "\n");
+							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -3590,7 +3581,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -3601,7 +3592,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -3612,7 +3603,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -3623,7 +3614,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -3640,7 +3631,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -3651,7 +3642,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
@@ -3662,7 +3653,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Friction=%s\n", obuffer);
@@ -3719,7 +3710,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -3797,7 +3788,6 @@ int main(int argc, char* argv[])
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fprintf(fout, "\n");
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -3900,7 +3890,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -3914,7 +3904,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -3925,7 +3915,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -3936,7 +3926,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -3947,7 +3937,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -3961,7 +3951,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -3975,7 +3965,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -3989,7 +3979,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "TopZ=%s\n", obuffer);
@@ -4000,7 +3990,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -4029,7 +4019,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoFrame=%s\n", obuffer);
+							fprintf(fout, "NoFrame=\t%s\n", obuffer);
 							// SFX DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -4040,7 +4030,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "SFX=%s\n", obuffer);
+							fprintf(fout, "SFX=\t\t%s\n", obuffer);
 							// FrameSpeed DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -4051,7 +4041,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 							// ChildX FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -4062,7 +4052,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildX=%s\n", obuffer);
+							fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 							// ChildY FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -4073,7 +4063,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildY=%s\n", obuffer);
+							fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 							// ChildZ FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -4084,7 +4074,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildZ=%s\n", obuffer);
+							fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 							// ChildVid DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -4095,7 +4085,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildVid=%s\n", obuffer);
+							fprintf(fout, "ChildVid=\t%s\n", obuffer);
 							// NoChild DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -4106,7 +4096,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoChild=%s\n", obuffer);
+							fprintf(fout, "NoChild=\t%s\n", obuffer);
 							// GammaRGBA DWORD[4]
 							{
 								for (int i = 0; i < 4; ++i)
@@ -4114,10 +4104,10 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 4);
+								std::string formattedOutput = processIntValues(arrayi, 4, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaRGBA=%s\n", obuffer);
+							fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 							// ScaleXYZ FLOAT[3]
 							for (int i = 0; i < 3; ++i)
 							{
@@ -4125,14 +4115,13 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-							fprintf(fout, "\n");
+							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -4192,7 +4181,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Length=%s\n", obuffer);
@@ -4203,7 +4192,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Weight=%s\n", obuffer);
@@ -4214,7 +4203,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Power=%s\n", obuffer);
@@ -4228,7 +4217,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -4239,7 +4228,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -4250,7 +4239,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "AimRadius=%s\n", obuffer);
@@ -4300,14 +4289,14 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeadZone=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Period=%i\n", out);
-							//
+							// Time[8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -4317,8 +4306,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Time=%s\n", obuffer);
-							//
+							fprintf(fout, "Time=\t\t%s\n", obuffer);
+							// GammaR [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -4328,8 +4317,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaR=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaR=\t\t%s\n", obuffer);
+							// GammaG [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -4339,8 +4328,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaG=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaG=\t\t%s\n", obuffer);
+							// GammaB [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -4350,8 +4339,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaB=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaB=\t\t%s\n", obuffer);
+							// GammaA [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -4361,8 +4350,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaA=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaA=\t\t%s\n", obuffer);
+							// ScaleX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -4372,8 +4361,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleX=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
+							// ScaleY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -4383,8 +4372,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleY=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
+							// ScaleZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -4394,8 +4383,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
+							// ShiftX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -4405,8 +4394,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftX=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
+							// ShiftY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -4416,8 +4405,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
+							// ShiftZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -4427,8 +4416,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
+							// DirectionX [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -4438,8 +4427,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionX=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionX=\t%s\n", obuffer);
+							// DirectionY [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -4449,8 +4438,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionY=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionY=\t%s\n", obuffer);
+							// DirectionZ [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -4460,8 +4449,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionZ=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionZ=\t%s\n", obuffer);
+							// FrameSpeed [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -4471,8 +4460,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
-							//
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
+							// Speed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -4482,8 +4471,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Speed=%s\n", obuffer);
-							//
+							fprintf(fout, "Speed=\t\t%s\n", obuffer);
+							// ZSpeed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -4493,8 +4482,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ZSpeed=%s\n", obuffer);
-							fprintf(fout, "\n");
+							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -4526,7 +4514,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -4537,7 +4525,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -4548,7 +4536,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -4559,7 +4547,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -4576,7 +4564,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -4587,7 +4575,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
@@ -4598,7 +4586,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Friction=%s\n", obuffer);
@@ -4655,7 +4643,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -4733,7 +4721,6 @@ int main(int argc, char* argv[])
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fprintf(fout, "\n");
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -4836,7 +4823,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -4850,7 +4837,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -4861,7 +4848,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -4872,7 +4859,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -4883,7 +4870,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -4897,7 +4884,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -4908,7 +4895,7 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 2);
+								std::string formattedOutput = processIntValues(arrayi, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathDamageMinMax=%s\n", obuffer);
@@ -4919,7 +4906,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathPush=%s\n", obuffer);
@@ -4930,7 +4917,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -4944,7 +4931,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "TopZ=%s\n", obuffer);
@@ -4955,7 +4942,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -4981,7 +4968,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoFrame=%s\n", obuffer);
+							fprintf(fout, "NoFrame=\t%s\n", obuffer);
 							// SFX DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -4992,7 +4979,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "SFX=%s\n", obuffer);
+							fprintf(fout, "SFX=\t\t%s\n", obuffer);
 							// FrameSpeed DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -5003,7 +4990,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 							// ChildX FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -5014,7 +5001,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildX=%s\n", obuffer);
+							fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 							// ChildY FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -5025,7 +5012,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildY=%s\n", obuffer);
+							fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 							// ChildZ FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -5036,7 +5023,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildZ=%s\n", obuffer);
+							fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 							// ChildVid DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -5047,7 +5034,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildVid=%s\n", obuffer);
+							fprintf(fout, "ChildVid=\t%s\n", obuffer);
 							// NoChild DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -5058,7 +5045,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoChild=%s\n", obuffer);
+							fprintf(fout, "NoChild=\t%s\n", obuffer);
 							// GammaRGBA DWORD[4]
 							{
 								for (int i = 0; i < 4; ++i)
@@ -5066,10 +5053,10 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 4);
+								std::string formattedOutput = processIntValues(arrayi, 4, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaRGBA=%s\n", obuffer);
+							fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 							// ScaleXYZ FLOAT[3]
 							for (int i = 0; i < 3; ++i)
 							{
@@ -5077,14 +5064,13 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-							fprintf(fout, "\n");
+							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -5144,7 +5130,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Length=%s\n", obuffer);
@@ -5155,7 +5141,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Weight=%s\n", obuffer);
@@ -5166,7 +5152,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Power=%s\n", obuffer);
@@ -5180,7 +5166,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -5191,7 +5177,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -5202,7 +5188,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "AimRadius=%s\n", obuffer);
@@ -5253,14 +5239,14 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeadZone=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Period=%i\n", out);
-							//
+							// Time[8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -5270,8 +5256,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Time=%s\n", obuffer);
-							//
+							fprintf(fout, "Time=\t\t%s\n", obuffer);
+							// GammaR [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -5281,8 +5267,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaR=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaR=\t\t%s\n", obuffer);
+							// GammaG [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -5292,8 +5278,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaG=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaG=\t\t%s\n", obuffer);
+							// GammaB [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -5303,8 +5289,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaB=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaB=\t\t%s\n", obuffer);
+							// GammaA [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -5314,8 +5300,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaA=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaA=\t\t%s\n", obuffer);
+							// ScaleX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -5325,8 +5311,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleX=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
+							// ScaleY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -5336,8 +5322,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleY=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
+							// ScaleZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -5347,8 +5333,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
+							// ShiftX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -5358,8 +5344,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftX=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
+							// ShiftY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -5369,8 +5355,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
+							// ShiftZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -5380,8 +5366,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
+							// DirectionX [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -5391,8 +5377,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionX=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionX=\t%s\n", obuffer);
+							// DirectionY [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -5402,8 +5388,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionY=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionY=\t%s\n", obuffer);
+							// DirectionZ [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -5413,8 +5399,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionZ=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionZ=\t%s\n", obuffer);
+							// FrameSpeed [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -5424,8 +5410,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
-							//
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
+							// Speed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -5435,8 +5421,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Speed=%s\n", obuffer);
-							//
+							fprintf(fout, "Speed=\t\t%s\n", obuffer);
+							// ZSpeed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -5446,8 +5432,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ZSpeed=%s\n", obuffer);
-							fprintf(fout, "\n");
+							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -5479,7 +5464,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -5490,7 +5475,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -5501,7 +5486,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -5512,7 +5497,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -5529,7 +5514,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -5540,7 +5525,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
@@ -5551,7 +5536,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Friction=%s\n", obuffer);
@@ -5608,7 +5593,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -5683,7 +5668,6 @@ int main(int argc, char* argv[])
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fprintf(fout, "\n");
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -5786,7 +5770,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -5800,7 +5784,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -5811,7 +5795,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -5822,7 +5806,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -5833,7 +5817,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -5847,7 +5831,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -5858,7 +5842,7 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 2);
+								std::string formattedOutput = processIntValues(arrayi, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathDamageMinMax=%s\n", obuffer);
@@ -5869,7 +5853,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathPush=%s\n", obuffer);
@@ -5880,7 +5864,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -5894,7 +5878,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "TopZ=%s\n", obuffer);
@@ -5905,7 +5889,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -5931,7 +5915,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoFrame=%s\n", obuffer);
+							fprintf(fout, "NoFrame=\t%s\n", obuffer);
 							// SFX DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -5942,7 +5926,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "SFX=%s\n", obuffer);
+							fprintf(fout, "SFX=\t\t%s\n", obuffer);
 							// FrameSpeed DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -5953,7 +5937,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 							// ChildX FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -5964,7 +5948,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildX=%s\n", obuffer);
+							fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 							// ChildY FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -5975,7 +5959,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildY=%s\n", obuffer);
+							fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 							// ChildZ FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -5986,7 +5970,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildZ=%s\n", obuffer);
+							fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 							// ChildVid DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -5997,7 +5981,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildVid=%s\n", obuffer);
+							fprintf(fout, "ChildVid=\t%s\n", obuffer);
 							// NoChild DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -6008,7 +5992,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoChild=%s\n", obuffer);
+							fprintf(fout, "NoChild=\t%s\n", obuffer);
 							// GammaRGBA DWORD[4]
 							{
 								for (int i = 0; i < 4; ++i)
@@ -6016,10 +6000,10 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 4);
+								std::string formattedOutput = processIntValues(arrayi, 4, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaRGBA=%s\n", obuffer);
+							fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 							// ScaleXYZ FLOAT[3]
 							for (int i = 0; i < 3; ++i)
 							{
@@ -6027,14 +6011,13 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-							fprintf(fout, "\n");
+							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -6094,7 +6077,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Length=%s\n", obuffer);
@@ -6105,7 +6088,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Weight=%s\n", obuffer);
@@ -6116,7 +6099,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Power=%s\n", obuffer);
@@ -6130,7 +6113,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -6141,7 +6124,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -6196,14 +6179,14 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeadZone=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Period=%i\n", out);
-							//
+							// Time[8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -6213,8 +6196,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Time=%s\n", obuffer);
-							//
+							fprintf(fout, "Time=\t\t%s\n", obuffer);
+							// GammaR [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -6224,8 +6207,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaR=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaR=\t\t%s\n", obuffer);
+							// GammaG [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -6235,8 +6218,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaG=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaG=\t\t%s\n", obuffer);
+							// GammaB [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -6246,8 +6229,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaB=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaB=\t\t%s\n", obuffer);
+							// GammaA [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -6257,8 +6240,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaA=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaA=\t\t%s\n", obuffer);
+							// ScaleX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -6268,8 +6251,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleX=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
+							// ScaleY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -6279,8 +6262,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleY=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
+							// ScaleZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -6290,8 +6273,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
+							// ShiftX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -6301,8 +6284,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftX=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
+							// ShiftY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -6312,8 +6295,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
+							// ShiftZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -6323,8 +6306,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
+							// DirectionX [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -6334,8 +6317,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionX=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionX=\t%s\n", obuffer);
+							// DirectionY [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -6345,8 +6328,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionY=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionY=\t%s\n", obuffer);
+							// DirectionZ [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -6356,8 +6339,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionZ=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionZ=\t%s\n", obuffer);
+							// FrameSpeed [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -6367,8 +6350,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
-							//
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
+							// Speed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -6378,8 +6361,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Speed=%s\n", obuffer);
-							//
+							fprintf(fout, "Speed=\t\t%s\n", obuffer);
+							// ZSpeed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -6389,8 +6372,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ZSpeed=%s\n", obuffer);
-							fprintf(fout, "\n");
+							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -6422,7 +6404,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -6433,7 +6415,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -6444,7 +6426,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -6455,7 +6437,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -6472,7 +6454,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -6483,7 +6465,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
@@ -6494,7 +6476,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Friction=%s\n", obuffer);
@@ -6551,7 +6533,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -6629,7 +6611,6 @@ int main(int argc, char* argv[])
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fprintf(fout, "\n");
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -6732,7 +6713,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -6746,7 +6727,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -6757,7 +6738,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -6768,7 +6749,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -6779,7 +6760,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -6793,7 +6774,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -6804,7 +6785,7 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 2);
+								std::string formattedOutput = processIntValues(arrayi, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathDamageMinMax=%s\n", obuffer);
@@ -6815,7 +6796,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathPush=%s\n", obuffer);
@@ -6826,7 +6807,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -6840,7 +6821,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "TopZ=%s\n", obuffer);
@@ -6851,7 +6832,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -6877,7 +6858,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoFrame=%s\n", obuffer);
+							fprintf(fout, "NoFrame=\t%s\n", obuffer);
 							// SFX DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -6888,7 +6869,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "SFX=%s\n", obuffer);
+							fprintf(fout, "SFX=\t\t%s\n", obuffer);
 							// FrameSpeed DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -6899,7 +6880,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 							// ChildX FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -6910,7 +6891,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildX=%s\n", obuffer);
+							fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 							// ChildY FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -6921,7 +6902,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildY=%s\n", obuffer);
+							fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 							// ChildZ FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -6932,7 +6913,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildZ=%s\n", obuffer);
+							fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 							// ChildVid DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -6943,7 +6924,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildVid=%s\n", obuffer);
+							fprintf(fout, "ChildVid=\t%s\n", obuffer);
 							// NoChild DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -6954,7 +6935,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoChild=%s\n", obuffer);
+							fprintf(fout, "NoChild=\t%s\n", obuffer);
 							// GammaRGBA DWORD[5]
 							{
 								for (int i = 0; i < 5; ++i)
@@ -6962,10 +6943,10 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 5);
+								std::string formattedOutput = processIntValues(arrayi, 5, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaRGBA=%s\n", obuffer);
+							fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 							// ScaleXYZ FLOAT[3]
 							for (int i = 0; i < 3; ++i)
 							{
@@ -6973,14 +6954,13 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-							fprintf(fout, "\n");
+							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -7041,7 +7021,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Length=%s\n", obuffer);
@@ -7052,7 +7032,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Weight=%s\n", obuffer);
@@ -7063,7 +7043,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Power=%s\n", obuffer);
@@ -7077,7 +7057,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -7088,7 +7068,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -7099,7 +7079,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "AimRadius=%s\n", obuffer);
@@ -7150,14 +7130,14 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeadZone=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Period=%i\n", out);
-							//
+							// Time[8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -7167,8 +7147,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Time=%s\n", obuffer);
-							//
+							fprintf(fout, "Time=\t\t%s\n", obuffer);
+							// GammaR [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -7178,8 +7158,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaR=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaR=\t\t%s\n", obuffer);
+							// GammaG [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -7189,8 +7169,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaG=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaG=\t\t%s\n", obuffer);
+							// GammaB [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -7200,8 +7180,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaB=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaB=\t\t%s\n", obuffer);
+							// GammaA [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -7211,8 +7191,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaA=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaA=\t\t%s\n", obuffer);
+							// ScaleX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -7222,8 +7202,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleX=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
+							// ScaleY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -7233,8 +7213,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleY=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
+							// ScaleZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -7244,8 +7224,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
+							// ShiftX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -7255,8 +7235,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftX=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
+							// ShiftY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -7266,8 +7246,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
+							// ShiftZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -7277,8 +7257,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
+							// DirectionX [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -7288,8 +7268,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionX=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionX=\t%s\n", obuffer);
+							// DirectionY [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -7299,8 +7279,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionY=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionY=\t%s\n", obuffer);
+							// DirectionZ [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -7310,8 +7290,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionZ=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionZ=\t%s\n", obuffer);
+							// FrameSpeed [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -7321,8 +7301,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
-							//
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
+							// Speed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -7332,8 +7312,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Speed=%s\n", obuffer);
-							//
+							fprintf(fout, "Speed=\t\t%s\n", obuffer);
+							// ZSpeed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -7343,8 +7323,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ZSpeed=%s\n", obuffer);
-							fprintf(fout, "\n");
+							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -7376,7 +7355,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -7387,7 +7366,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -7398,7 +7377,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -7409,7 +7388,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -7426,7 +7405,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -7437,7 +7416,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
@@ -7448,7 +7427,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Friction=%s\n", obuffer);
@@ -7505,7 +7484,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -7583,7 +7562,6 @@ int main(int argc, char* argv[])
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fprintf(fout, "\n");
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -7686,7 +7664,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -7700,7 +7678,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -7711,7 +7689,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -7722,7 +7700,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -7733,7 +7711,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -7747,7 +7725,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -7758,7 +7736,7 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 2);
+								std::string formattedOutput = processIntValues(arrayi, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathDamageMinMax=%s\n", obuffer);
@@ -7769,7 +7747,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathPush=%s\n", obuffer);
@@ -7780,7 +7758,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -7794,7 +7772,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "TopZ=%s\n", obuffer);
@@ -7805,7 +7783,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -7839,7 +7817,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoFrame=%s\n", obuffer);
+							fprintf(fout, "NoFrame=\t%s\n", obuffer);
 							// SFX DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -7850,7 +7828,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "SFX=%s\n", obuffer);
+							fprintf(fout, "SFX=\t\t%s\n", obuffer);
 							// FrameSpeed DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -7861,7 +7839,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 							// ChildX FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -7872,7 +7850,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildX=%s\n", obuffer);
+							fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 							// ChildY FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -7883,7 +7861,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildY=%s\n", obuffer);
+							fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 							// ChildZ FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -7894,7 +7872,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildZ=%s\n", obuffer);
+							fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 							// ChildVid DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -7905,7 +7883,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildVid=%s\n", obuffer);
+							fprintf(fout, "ChildVid=\t%s\n", obuffer);
 							// NoChild DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -7916,7 +7894,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoChild=%s\n", obuffer);
+							fprintf(fout, "NoChild=\t%s\n", obuffer);
 							// GammaRGBA DWORD[4]
 							{
 								for (int i = 0; i < 4; ++i)
@@ -7924,10 +7902,10 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 4);
+								std::string formattedOutput = processIntValues(arrayi, 4, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaRGBA=%s\n", obuffer);
+							fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 							// ScaleXYZ FLOAT[3]
 							for (int i = 0; i < 3; ++i)
 							{
@@ -7935,14 +7913,14 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-							fprintf(fout, "\n");
+							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -8002,7 +7980,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Length=%s\n", obuffer);
@@ -8013,7 +7991,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Weight=%s\n", obuffer);
@@ -8024,7 +8002,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Power=%s\n", obuffer);
@@ -8038,7 +8016,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -8049,7 +8027,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -8060,7 +8038,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "AimRadius=%s\n", obuffer);
@@ -8110,14 +8088,14 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeadZone=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Period=%i\n", out);
-							//
+							// Time[8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8127,8 +8105,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Time=%s\n", obuffer);
-							//
+							fprintf(fout, "Time=\t\t%s\n", obuffer);
+							// GammaR [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8138,8 +8116,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaR=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaR=\t\t%s\n", obuffer);
+							// GammaG [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8149,8 +8127,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaG=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaG=\t\t%s\n", obuffer);
+							// GammaB [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8160,8 +8138,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaB=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaB=\t\t%s\n", obuffer);
+							// GammaA [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8171,8 +8149,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaA=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaA=\t\t%s\n", obuffer);
+							// ScaleX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8182,8 +8160,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleX=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
+							// ScaleY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8193,8 +8171,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleY=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
+							// ScaleZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8204,8 +8182,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
+							// ShiftX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8215,8 +8193,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftX=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
+							// ShiftY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8226,8 +8204,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
+							// ShiftZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8237,8 +8215,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
+							// DirectionX [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8248,8 +8226,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionX=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionX=\t%s\n", obuffer);
+							// DirectionY [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8259,8 +8237,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionY=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionY=\t%s\n", obuffer);
+							// DirectionZ [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8270,8 +8248,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionZ=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionZ=\t%s\n", obuffer);
+							// FrameSpeed [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8281,8 +8259,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
-							//
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
+							// Speed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8292,8 +8270,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Speed=%s\n", obuffer);
-							//
+							fprintf(fout, "Speed=\t\t%s\n", obuffer);
+							// ZSpeed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8303,8 +8281,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ZSpeed=%s\n", obuffer);
-							fprintf(fout, "\n");
+							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -8336,7 +8313,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -8347,7 +8324,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -8358,7 +8335,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -8369,7 +8346,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -8386,7 +8363,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -8397,7 +8374,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
@@ -8408,7 +8385,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Friction=%s\n", obuffer);
@@ -8465,7 +8442,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -8543,7 +8520,6 @@ int main(int argc, char* argv[])
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fprintf(fout, "\n");
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -8607,7 +8583,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedX=%s\n", obuffer);
@@ -8618,7 +8594,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxScrollSpeedY=%s\n", obuffer);
@@ -8629,7 +8605,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation=%s\n", obuffer);
@@ -8640,7 +8616,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Gravitation2=%s\n", obuffer);
@@ -8657,7 +8633,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
@@ -8668,7 +8644,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
@@ -8679,7 +8655,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Friction=%s\n", obuffer);
@@ -8736,7 +8712,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SafeClashSpeed=%s\n", obuffer);
@@ -8797,7 +8773,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Length=%s\n", obuffer);
@@ -8808,7 +8784,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Weight=%s\n", obuffer);
@@ -8819,7 +8795,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Power=%s\n", obuffer);
@@ -8833,7 +8809,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DetectRange=%s\n", obuffer);
@@ -8844,7 +8820,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "BattleRange=%s\n", obuffer);
@@ -8855,7 +8831,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "AimRadius=%s\n", obuffer);
@@ -8905,14 +8881,14 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeadZone=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "Period=%i\n", out);
-							//
+							// Time[8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8922,8 +8898,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Time=%s\n", obuffer);
-							//
+							fprintf(fout, "Time=\t\t%s\n", obuffer);
+							// GammaR [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8933,8 +8909,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaR=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaR=\t\t%s\n", obuffer);
+							// GammaG [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8944,8 +8920,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaG=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaG=\t\t%s\n", obuffer);
+							// GammaB [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8955,8 +8931,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaB=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaB=\t\t%s\n", obuffer);
+							// GammaA [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -8966,8 +8942,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaA=%s\n", obuffer);
-							//
+							fprintf(fout, "GammaA=\t\t%s\n", obuffer);
+							// ScaleX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8977,8 +8953,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleX=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleX=\t\t%s\n", obuffer);
+							// ScaleY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8988,8 +8964,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleY=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleY=\t\t%s\n", obuffer);
+							// ScaleZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -8999,8 +8975,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleZ=%s\n", obuffer);
-							//
+							fprintf(fout, "ScaleZ=\t\t%s\n", obuffer);
+							// ShiftX [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -9010,8 +8986,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftX=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftX=\t\t%s\n", obuffer);
+							// ShiftY [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -9021,8 +8997,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftY=\t\t%s\n", obuffer);
+							// ShiftZ [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -9032,30 +9008,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ShiftZ=%s\n", obuffer);
-							//
-							for (int i = 0; i < 8; ++i)
-							{
-								arrayf[i] = ReadFloat(in);
-							}
-
-							{
-								std::string formattedOutput = processFloatValues(arrayf, 8);
-								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
-							}
-							fprintf(fout, "DirectionX=%s\n", obuffer);
-							//
-							for (int i = 0; i < 8; ++i)
-							{
-								arrayf[i] = ReadFloat(in);
-							}
-
-							{
-								std::string formattedOutput = processFloatValues(arrayf, 8);
-								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
-							}
-							fprintf(fout, "DirectionY=%s\n", obuffer);
-							//
+							fprintf(fout, "ShiftZ=\t\t%s\n", obuffer);
+							// DirectionX [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -9065,8 +9019,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "DirectionZ=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionX=\t%s\n", obuffer);
+							// DirectionY [8] DWORD
 							{
 								for (int i = 0; i < 8; ++i)
 								{
@@ -9076,8 +9030,30 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
-							//
+							fprintf(fout, "DirectionY=\t%s\n", obuffer);
+							// DirectionZ [8] DWORD
+							{
+								for (int i = 0; i < 8; ++i)
+								{
+									arrayi[i] = ReadInt(in);
+								}
+
+								std::string formattedOutput = processIntValues(arrayi, 8);
+								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
+							}
+							fprintf(fout, "DirectionZ=\t%s\n", obuffer);
+							// FrameSpeed [8] DWORD
+							{
+								for (int i = 0; i < 8; ++i)
+								{
+									arrayi[i] = ReadInt(in);
+								}
+
+								std::string formattedOutput = processIntValues(arrayi, 8);
+								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
+							}
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
+							// Speed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -9087,8 +9063,8 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Speed=%s\n", obuffer);
-							//
+							fprintf(fout, "Speed=\t\t%s\n", obuffer);
+							// ZSpeed [8] Float
 							for (int i = 0; i < 8; ++i)
 							{
 								arrayf[i] = ReadFloat(in);
@@ -9098,8 +9074,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 8);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ZSpeed=%s\n", obuffer);
-							fprintf(fout, "\n");
+							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -9170,7 +9145,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "SizeXYZ=%s\n", obuffer);
@@ -9184,7 +9159,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxSpeed=%s\n", obuffer);
@@ -9195,7 +9170,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "MaxZSpeed=%s\n", obuffer);
@@ -9206,7 +9181,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "Acceleration=%s\n", obuffer);
@@ -9217,7 +9192,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "RotationPeriod=%s\n", obuffer);
@@ -9231,7 +9206,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathRange=%s\n", obuffer);
@@ -9242,7 +9217,7 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 2);
+								std::string formattedOutput = processIntValues(arrayi, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathDamageMinMax=%s\n", obuffer);
@@ -9253,7 +9228,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "DeathPush=%s\n", obuffer);
@@ -9264,7 +9239,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "LinkCoor=%s\n", obuffer);
@@ -9278,7 +9253,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 1);
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "TopZ=%s\n", obuffer);
@@ -9289,7 +9264,7 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 2);
+								std::string formattedOutput = processFloatValues(arrayf, 2, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ForMoveUpDownZ=%s\n", obuffer);
@@ -9315,7 +9290,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoFrame=%s\n", obuffer);
+							fprintf(fout, "NoFrame=\t%s\n", obuffer);
 							// SFX DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -9326,7 +9301,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "SFX=%s\n", obuffer);
+							fprintf(fout, "SFX=\t\t%s\n", obuffer);
 							// FrameSpeed DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -9337,7 +9312,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "FrameSpeed=%s\n", obuffer);
+							fprintf(fout, "FrameSpeed=\t%s\n", obuffer);
 							// ChildX FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -9348,7 +9323,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildX=%s\n", obuffer);
+							fprintf(fout, "ChildX=\t\t%s\n", obuffer);
 							// ChildY FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -9359,7 +9334,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildY=%s\n", obuffer);
+							fprintf(fout, "ChildY=\t\t%s\n", obuffer);
 							// ChildZ FLOAT[17]
 							for (int i = 0; i < 17; ++i)
 							{
@@ -9370,7 +9345,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processFloatValues(arrayf, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildZ=%s\n", obuffer);
+							fprintf(fout, "ChildZ=\t\t%s\n", obuffer);
 							// ChildVid DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -9381,7 +9356,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ChildVid=%s\n", obuffer);
+							fprintf(fout, "ChildVid=\t%s\n", obuffer);
 							// NoChild DWORD[17]
 							{
 								for (int i = 0; i < 17; ++i)
@@ -9392,7 +9367,7 @@ int main(int argc, char* argv[])
 								std::string formattedOutput = processIntValues(arrayi, 17);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "NoChild=%s\n", obuffer);
+							fprintf(fout, "NoChild=\t%s\n", obuffer);
 							// GammaRGBA DWORD[4]
 							{
 								for (int i = 0; i < 4; ++i)
@@ -9400,10 +9375,10 @@ int main(int argc, char* argv[])
 									arrayi[i] = ReadInt(in);
 								}
 
-								std::string formattedOutput = processIntValues(arrayi, 4);
+								std::string formattedOutput = processIntValues(arrayi, 4, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "GammaRGBA=%s\n", obuffer);
+							fprintf(fout, "GammaRGBA=\t%s\n", obuffer);
 							// ScaleXYZ FLOAT[3]
 							for (int i = 0; i < 3; ++i)
 							{
@@ -9411,14 +9386,13 @@ int main(int argc, char* argv[])
 							}
 
 							{
-								std::string formattedOutput = processFloatValues(arrayf, 3);
+								std::string formattedOutput = processFloatValues(arrayf, 3, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "ScaleXYZ=%s\n", obuffer);
+							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";stnd stp mov strt lrot rrot op hit fgt sal sto lnk clsh wnd birth death explode\n");
-							fprintf(fout, "\n");
+							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -9495,7 +9469,6 @@ int main(int argc, char* argv[])
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fprintf(fout, "\n");
 							fclose(fout); // Закрываем файл fout
 						}
 					}
