@@ -448,7 +448,7 @@ int main(int argc, char* argv[])
 					fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 					// VidName STRING
 					ReadString(in, fout, "VidName");
-					fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 					fclose(fout); // Закрытие файла fout
 				}
 
@@ -1338,7 +1338,8 @@ int main(int argc, char* argv[])
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
+
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -2265,7 +2266,7 @@ int main(int argc, char* argv[])
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -3188,7 +3189,7 @@ int main(int argc, char* argv[])
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -4121,7 +4122,7 @@ int main(int argc, char* argv[])
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -5070,7 +5071,7 @@ int main(int argc, char* argv[])
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -6017,7 +6018,7 @@ int main(int argc, char* argv[])
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -6960,7 +6961,7 @@ int main(int argc, char* argv[])
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
@@ -7919,7 +7920,7 @@ int main(int argc, char* argv[])
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 
 							fclose(fout); // Закрытие файла fout
 						}
@@ -9392,7 +9393,7 @@ int main(int argc, char* argv[])
 							fprintf(fout, "ScaleXYZ=\t%s\n", obuffer);
 							// VidName STRING
 							ReadString(in, fout, "VidName");
-							fprintf(fout, ";       stnd  stp  mov  strt lrot rrot  op   hit fgt  sal  sto vClsh clsh wnd birth death explode\n");
+		fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 							fclose(fout); // Закрытие файла fout
 						}
 
