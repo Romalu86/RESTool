@@ -22,8 +22,8 @@ int main()
 	ClearPreviousResults(); // Before work, suggest deleting the old inis folder.
 
 	int out;
-	float arrayf[17];
 	int arrayi[17];
+	float arrayf[17];
 	char obuffer[65535];
 	char header[5];
 	FILE* in;
@@ -32,6 +32,7 @@ int main()
 	string mode;
 
 	bool fileOpened = false;
+	bool activateCharPadFlag = true;
 
 	cout << "RESTool 1.7 by Romalu86" << endl;
 	cout << endl;
@@ -53,8 +54,6 @@ int main()
 	cout << endl;
 	cout << "Alternative unpacking mode - required for unpacking data in case of incorrect section reading." << endl;
 	cout << endl;
-
-	bool activateCharPadFlag = true;
 
 	while (!fileOpened)
 	{
@@ -82,18 +81,19 @@ int main()
 			getline(cin, mode);
 			cout << endl;
 
-		in = fopen(filename.c_str(), "rb");
-		if (!in)
-		{
-			cout << "Failed to open file: " << filename << endl;
-			cout << "Press Enter to try again or enter 'q' to quit...";
-			cout << endl;
-			string userInput;
-			getline(cin, userInput);
+			// Failed to open file. Try again? 
+			in = fopen(filename.c_str(), "rb");
+			if (!in)
+			{
+				cout << "Failed to open file: " << filename << endl;
+				cout << "Press Enter to try again or enter 'q' to quit...";
+				cout << endl;
+				string userInput;
+				getline(cin, userInput);
 			if (userInput == "q" || userInput == "Q")
 				return 1;
-			continue;
-		}
+				continue;
+			}
 
 		fileOpened = true;
 	}
@@ -10347,7 +10347,8 @@ int main()
 				}
 
 				// Chacks Temple
-				else if (mode == "chackstemple")				{
+				else if (mode == "chackstemple")				
+				{
 					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
@@ -11259,30 +11260,18 @@ int main()
 						}
 					}
 				}
-
+		
+		// Invalid file mode
 		else
 		{
 			cout << "Invalid file mode: " << mode << endl;
 			cout << endl;
 			fclose(in);
 
-			// Запрос повторного ввода режима
+			// File mode
 			cout << "Enter file mode: ";
 			getline(cin, mode);
 			cout << endl;
-
-			in = fopen(filename.c_str(), "rb");
-			if (!in)
-			{
-				cout << "Failed to open file: " << filename << endl;
-				cout << "Press Enter to try again or enter 'q' to quit...";
-				cout << endl;
-				string userInput;
-				getline(cin, userInput);
-				if (userInput == "q" || userInput == "Q")
-					return 1;
-				continue;
-			}
 		}
 	}
 	cout << endl;
