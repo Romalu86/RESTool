@@ -1,7 +1,4 @@
-# RESTool
-
-Fixed Headers read.
-
+# RESTool 1.7
 --- List of games with which the program works:
 
 - Games on the engine AS1\ZS1:
@@ -11,6 +8,8 @@ Alien Shooter - Lost World (Theseus Mobile);
 Alien Shooter - World (Mobile);
 Theseus (PC);
 Zombie Shooter 1 (PC\Mobile);
+Crazy Lunch (PC\Mobile);
+Chacks Temple.
 
 - Games on the engine AS2\ZS2:
 Alien Shooter - Revisited;
