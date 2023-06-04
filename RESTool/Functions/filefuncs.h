@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include <Windows.h>
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -12,10 +13,6 @@ char bufferrn[64];
 FILE* OpenFile(char* name)
 {
 	FILE* file = fopen(name, "rb");
-	if (!file)
-	{
-		printf("ERROR: Could not open %s! \n", name);
-	}
 	return file;
 }
 int ReadByte(FILE* file)
@@ -32,7 +29,6 @@ int ReadInt(FILE* file)
 	return number;
 }
 
-
 float ReadFloat(FILE* file)
 {
 	float number;
@@ -40,6 +36,7 @@ float ReadFloat(FILE* file)
 	return number;
 }
 
+// Name & VidName strings function
 char* ReadString(FILE* file, FILE* out, char* name)
 {
 	char buffer[256]; // 256 Limit for new games.
@@ -68,7 +65,8 @@ char* ReadString(FILE* file, FILE* out, char* name)
 
 	return result;
 }
-// считываем пути до аудио в SFX секции
+
+// // SFX & ForceFeedback strings function
 char* ReadStringNoRTN(FILE* file)
 {
 	int stringsize = 0;
@@ -100,12 +98,13 @@ char* ReadStringNoRTN(FILE* file)
 	return result;
 }
 
-// копируем содержимое файла в конечный результат (заголовки)
+// Copy Header to Output files function
 void copyFileContent(const string& sourceFilename, const string& destinationFilename) {
-    ifstream sourceFile(sourceFilename); // Открываем файл для чтения
-    ofstream destinationFile(destinationFilename, ios::out | ios::app); // Открываем файл для записи (сохраняем текущее содержимое)
+    ifstream sourceFile(sourceFilename); // Open file (Read)
+    ofstream destinationFile(destinationFilename, ios::out | ios::app); // Open file (Write)
 
-	if (!sourceFile.is_open()) {
+	if (!sourceFile.is_open())
+	{
 		std::cerr << "ERROR: Failed to open file " << sourceFilename << std::endl;
 		cout << endl;
 		std::cerr << "Press Enter to exit..." << std::endl;
@@ -113,7 +112,8 @@ void copyFileContent(const string& sourceFilename, const string& destinationFile
 		exit(1);
 	}
 
-	if (!destinationFile.is_open()) {
+	if (!destinationFile.is_open())
+	{
 		std::cerr << "ERROR: Failed to open file " << destinationFilename << std::endl;
 		cout << endl;
 		std::cerr << "Press Enter to exit..." << std::endl;
@@ -123,16 +123,16 @@ void copyFileContent(const string& sourceFilename, const string& destinationFile
 
     string line;
 
-    // Копирование содержимого файла sourceFilename в файл destinationFilename
-    while (getline(sourceFile, line)) {
-        destinationFile << line << endl; // Добавляем символ новой строки в конец строки
+    // Copy file "sourceFilename" in file "destinationFilename"
+    while (getline(sourceFile, line))
+	{
+        destinationFile << line << endl; // New line
     }
-
     sourceFile.close();
     destinationFile.close();
 }
 
-// удаляем все содержимое папки unpacked_inis
+// Delete files and folder unpacked_inis
 void RemoveAllFilesInDirectory(const std::string& directory)
 {
 	std::string searchPath = directory + "\\*.*";
@@ -163,7 +163,7 @@ void RemoveAllFilesInDirectory(const std::string& directory)
 	}
 }
 
-// Функция для удаления кавычек из строки
+// Remove quotes from path to file
 string removeQuotes(string str)
 {
 	size_t firstQuote = str.find_first_of("\"");
@@ -175,6 +175,7 @@ string removeQuotes(string str)
 	return str;
 }
 
+// Working with float`s
 std::string processFloatValues(const float* arrayf, int numValues, bool useTabulation = true)
 {
 	std::vector<std::string> values;
@@ -196,11 +197,12 @@ std::string processFloatValues(const float* arrayf, int numValues, bool useTabul
 	}
 
 	std::string formattedResult = oss.str();
-	formattedResult.pop_back(); // Удаление последнего пробела
+	formattedResult.pop_back(); // Delete last tabulation or space
 
 	return formattedResult;
 }
 
+// Working with int`s
 std::string processIntValues(const int* arrayi, int numValues, bool useTabulation = true)
 {
 	std::ostringstream oss;
@@ -213,7 +215,7 @@ std::string processIntValues(const int* arrayi, int numValues, bool useTabulatio
 	}
 
 	std::string formattedResult = oss.str();
-	formattedResult.pop_back(); // Удаление последнего пробела
+	formattedResult.pop_back(); // Delete last tabulation or space
 
 	return formattedResult;
 }
@@ -225,5 +227,39 @@ void showError(const std::string& errorMessage)
 	std::cout << "Press Enter to exit..." << std::endl;
 	std::cin.ignore();
 	exit(1);
+}
+
+// Clear previous results
+void ClearPreviousResults()
+{
+	char currentPath[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH, currentPath);
+
+	std::string folderPath = std::string(currentPath) + "\\unpacked_inis";
+
+	std::cout << "To avoid problems with unpacking, it is recommended to clear the previous results in the 'unpacked_inis' folder. Do you want to remove them? (y/n): ";
+	std::string response;
+	std::getline(std::cin, response);
+	std::cout << std::endl;
+
+	if (response == "y" || response == "Y")
+	{
+		if (CreateDirectory(folderPath.c_str(), NULL) || GetLastError() == ERROR_ALREADY_EXISTS)
+		{
+			RemoveAllFilesInDirectory(folderPath);
+
+			if (RemoveDirectory(folderPath.c_str()))
+			{
+				std::cout << "Folder 'unpacked_inis' deleted successfully." << std::endl;
+				std::cout << std::endl;
+			}
+			else
+			{
+				std::cout << "Failed to delete folder 'unpacked_inis'." << std::endl;
+				std::cout << "Error code: " << GetLastError() << std::endl;
+				std::cout << std::endl;
+			}
+		}
+	}
 }
 // End of File Functions

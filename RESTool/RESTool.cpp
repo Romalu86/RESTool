@@ -1,7 +1,6 @@
 // RESTool by romalu86
 
 #include "stdafx.h"
-#include <Windows.h>
 #include "Functions\filefuncs.h"
 #include "Functions\SpriteTypeParser.h"
 #include "Functions\SpriteClassParser.h"
@@ -20,35 +19,7 @@ using namespace std;
 
 int main()
 {
-	char currentPath[MAX_PATH];
-	GetCurrentDirectory(MAX_PATH, currentPath);
-
-	std::string folderPath = std::string(currentPath) + "\\unpacked_inis";
-
-	std::cout << "To avoid problems with unpacking, it is recommended to clear the previous results in the 'unpacked_inis' folder. Do you want to remove them? (y/n): ";
-	std::string response;
-	std::getline(std::cin, response);
-	cout << endl;
-
-	if (response == "y" || response == "Y")
-	{
-		if (CreateDirectory(folderPath.c_str(), NULL) || GetLastError() == ERROR_ALREADY_EXISTS)
-		{
-			RemoveAllFilesInDirectory(folderPath);
-
-			if (RemoveDirectory(folderPath.c_str()))
-			{
-				std::cout << "Folder 'unpacked_inis' deleted successfully." << std::endl;
-				cout << endl;
-			}
-			else
-			{
-				std::cout << "Failed to delete folder 'unpacked_inis'." << std::endl;
-				std::cout << "Error code: " << GetLastError() << std::endl;
-				cout << endl;
-			}
-		}
-	}
+	ClearPreviousResults(); // Before work, suggest deleting the old inis folder.
 
 	int out;
 	float arrayf[17];
