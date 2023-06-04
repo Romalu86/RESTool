@@ -1,5 +1,7 @@
 # RESTool
 
+Fixed Headers read.
+
 --- List of games with which the program works:
 
 - Games on the engine AS1\ZS1:
