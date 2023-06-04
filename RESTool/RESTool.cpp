@@ -1,3 +1,5 @@
+// RESTool by romalu86
+
 #include "stdafx.h"
 #include <Windows.h>
 #include "Functions\filefuncs.h"
@@ -16,7 +18,7 @@
 #include <string>
 using namespace std;
 
-int main(int argc, char* argv[])
+int main()
 {
 	char currentPath[MAX_PATH];
 	GetCurrentDirectory(MAX_PATH, currentPath);
@@ -52,6 +54,7 @@ int main(int argc, char* argv[])
 	float arrayf[17];
 	int arrayi[17];
 	char obuffer[65535];
+	char header[5];
 	FILE* in;
 	FILE* fout;
 	string filename;
@@ -59,7 +62,7 @@ int main(int argc, char* argv[])
 
 	bool fileOpened = false;
 
-	cout << "RESTool 1.6 by Romalu86" << endl;
+	cout << "RESTool 1.7 by Romalu86" << endl;
 	cout << endl;
 	cout << "File modes:" << endl;
 	cout << "as1_engine - works with Alien Shooter 1 (PC & Mobile), Alien Shooter 1 Last Hope (PC & Mobile), Alien Shooter - Lost World (Theseus Mobile) " << endl;
@@ -130,39 +133,42 @@ int main(int argc, char* argv[])
 				CreateDirectoryA("unpacked_inis", NULL);
 				copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 			{
-				// RES Header
-				out = ReadInt(in);
-				printf("OK: RES Header found\n", out);
-				if (!out == 'RES ')
-				{
-					printf("ERROR: Could not find RES header! \n");
-					fclose(in);
-					return 1;
-				}
+					// RES Header
+					fread(header, sizeof(char), 4, in);
+					header[4] = '\0';
 
-				// RES File Size
-				out = ReadInt(in);
-				printf("OK: RES Size %d bytes\n", out);
+					if (strcmp(header, "RES ") != 0) {
+						showError("Could not find RES header!\n");
+					}
+					else {
+						printf("OK: RES Header found\n");
 
-				// DATA Header
-				out = ReadInt(in);
-				printf("OK: DATA Header found\n", out);
-				if (!out == 'DATA')
-				{
-					printf("ERROR: Could not find DATA header! \n");
-					fclose(in);
-					return 1;
-				}
+						// size
+						out = ReadInt(in);
+						printf("OK: RES Size %d bytes\n", out);
 
-				// OBJ Header
-				out = ReadInt(in);
-				printf("OK: OBJ Header found\n", out);
-				if (!out == 'OBJ ')
-				{
-					printf("ERROR: Could not find OBJ header! \n");
-					fclose(in);
-					return 1;
-				}
+						// DATA Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "DATA") != 0) {
+							showError("Could not find DATA header!\n");
+						}
+						else {
+							printf("OK: DATA Header found\n");
+
+							// OBJ Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
+
+							if (strcmp(header, "OBJ ") != 0) {
+								showError("Could not find OBJ header!\n");
+							}
+							else {
+								printf("OK: OBJ Header found\n");
+							}
+						}
+					}
 
 				out = ReadInt(in); // Section Size
 				out = ReadInt(in); // unk1
@@ -461,12 +467,16 @@ int main(int argc, char* argv[])
 					fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 				}
 				// WEAP Header
-				out = ReadInt(in);
-				printf("OK: WEAP Header found\n", out);
-				if (!out == 'WEAP')
+				fread(header, sizeof(char), 4, in);
+				header[4] = '\0';
+
+				if (strcmp(header, "WEAP") != 0)
 				{
-					printf("ERROR: WEAP header not found! \n");
-					return 1;
+					showError("Could not find WEAP header!\n");
+				}
+				else
+				{
+					printf("OK: WEAP Header found\n");
 				}
 				out = ReadInt(in); // Section size
 				out = ReadInt(in); // unk1
@@ -801,12 +811,16 @@ int main(int argc, char* argv[])
 				// Read CNST section
 				copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
 				// CNST Header
-				out = ReadInt(in);
-				printf("OK: CNST Header found\n", out);
-				if (!out == 'CNST')
+				fread(header, sizeof(char), 4, in);
+				header[4] = '\0';
+
+				if (strcmp(header, "CNST") != 0)
 				{
-					printf("ERROR: CNST header not found! \n");
-					return 1;
+					showError("Could not find CNST header!");
+				}
+				else
+				{
+					printf("OK: CNST Header found\n");
 				}
 				out = ReadInt(in); // unk1
 				out = ReadInt(in); // unk2
@@ -970,12 +984,17 @@ int main(int argc, char* argv[])
 
 				// Read SFX Section
 				copyFileContent("data\\SFX\\non_extSFX.ini", "unpacked_inis\\SFX.ini");
-				out = ReadInt(in);
-				printf("OK: SFX Header found\n", out);
-				if (!out == 'SFX ')
+				// SFX Header
+				fread(header, sizeof(char), 4, in);
+				header[4] = '\0';
+
+				if (strcmp(header, "SFX ") != 0)
 				{
-					printf("ERROR: SFX header not found! \n");
-					return 1;
+					showError("Could not find SFX header!\n");
+				}
+				else
+				{
+					printf("OK: SFX Header found\n");
 				}
 				out = ReadInt(in); // Section size
 				out = ReadInt(in); // unk1
@@ -1020,38 +1039,41 @@ int main(int argc, char* argv[])
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
-						//header
-						out = ReadInt(in);
-						printf("OK: RES Header found\n", out);
-						if (!out == 'RES ')
-						{
-							printf("ERROR: Could not find RES header! \n");
-							fclose(in);
-							return 1;
+						// RES Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "RES ") != 0) {
+							showError("Could not find RES header!\n");
 						}
+						else {
+							printf("OK: RES Header found\n");
 
-						//size
-						out = ReadInt(in);
-						printf("OK: RES Size %d bytes\n", out);
+							// size
+							out = ReadInt(in);
+							printf("OK: RES Size %d bytes\n", out);
 
-						//data
-						out = ReadInt(in);
-						printf("OK: DATA Header found\n", out);
-						if (!out == 'DATA')
-						{
-							printf("ERROR: Could not find DATA header! \n");
-							fclose(in);
-							return 1;
-						}
+							// DATA Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
 
-						//obj
-						out = ReadInt(in);
-						printf("OK: OBJ Header found\n", out);
-						if (!out == 'OBJ ')
-						{
-							printf("ERROR: Could not find OBJ header! \n");
-							fclose(in);
-							return 1;
+							if (strcmp(header, "DATA") != 0) {
+								showError("Could not find DATA header!\n");
+							}
+							else {
+								printf("OK: DATA Header found\n");
+
+								// OBJ Header
+								fread(header, sizeof(char), 4, in);
+								header[4] = '\0';
+
+								if (strcmp(header, "OBJ ") != 0) {
+									showError("Could not find OBJ header!\n");
+								}
+								else {
+									printf("OK: OBJ Header found\n");
+								}
+							}
 						}
 
 						out = ReadInt(in); // Section Size
@@ -1352,12 +1374,16 @@ int main(int argc, char* argv[])
 							fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 						}
 						// WEAP Header
-						out = ReadInt(in);
-						printf("OK: WEAP Header found\n", out);
-						if (!out == 'WEAP')
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "WEAP") != 0)
 						{
-							printf("ERROR: WEAP header not found! \n");
-							return 1;
+							showError("Could not find WEAP header!\n");
+						}
+						else
+						{
+							printf("OK: WEAP Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -1688,14 +1714,17 @@ int main(int argc, char* argv[])
 							fclose(fout); // Закрытие файла fout
 						}
 
-						// Read CNST section
-						copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
-						out = ReadInt(in);
-						printf("OK: CNST Header found\n", out);
-						if (!out == 'CNST')
+						// CNST Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "CNST") != 0)
 						{
-							printf("ERROR: CNST header not found! \n");
-							return 1;
+							showError("Could not find CNST header!");
+						}
+						else
+						{
+							printf("OK: CNST Header found\n");
 						}
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -1859,12 +1888,17 @@ int main(int argc, char* argv[])
 
 						// Read SFX Section
 						copyFileContent("data\\SFX\\gen1.1_extSFX.ini", "unpacked_inis\\SFX.ini");
-						out = ReadInt(in);
-						printf("OK: SFX Header found\n", out);
-						if (!out == 'SFX ')
+						// SFX Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "SFX ") != 0)
 						{
-							printf("ERROR: SFX header not found! \n");
-							return 1;
+							showError("Could not find SFX header!\n");
+						}
+						else
+						{
+							printf("OK: SFX Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -1932,38 +1966,41 @@ int main(int argc, char* argv[])
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\asworld_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
-						//header
-						out = ReadInt(in);
-						printf("OK: RES Header found\n", out);
-						if (!out == 'RES ')
-						{
-							printf("ERROR: Could not find RES header! \n");
-							fclose(in);
-							return 1;
+						// RES Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "RES ") != 0) {
+							showError("Could not find RES header!\n");
 						}
+						else {
+							printf("OK: RES Header found\n");
 
-						//size
-						out = ReadInt(in);
-						printf("OK: RES Size %d bytes\n", out);
+							// size
+							out = ReadInt(in);
+							printf("OK: RES Size %d bytes\n", out);
 
-						//data
-						out = ReadInt(in);
-						printf("OK: DATA Header found\n", out);
-						if (!out == 'DATA')
-						{
-							printf("ERROR: Could not find DATA header! \n");
-							fclose(in);
-							return 1;
-						}
+							// DATA Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
 
-						//obj
-						out = ReadInt(in);
-						printf("OK: OBJ Header found\n", out);
-						if (!out == 'OBJ ')
-						{
-							printf("ERROR: Could not find OBJ header! \n");
-							fclose(in);
-							return 1;
+							if (strcmp(header, "DATA") != 0) {
+								showError("Could not find DATA header!\n");
+							}
+							else {
+								printf("OK: DATA Header found\n");
+
+								// OBJ Header
+								fread(header, sizeof(char), 4, in);
+								header[4] = '\0';
+
+								if (strcmp(header, "OBJ ") != 0) {
+									showError("Could not find OBJ header!\n");
+								}
+								else {
+									printf("OK: OBJ Header found\n");
+								}
+							}
 						}
 
 						out = ReadInt(in); // Section Size
@@ -2279,12 +2316,16 @@ int main(int argc, char* argv[])
 							fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 						}
 						// WEAP Header
-						out = ReadInt(in);
-						printf("OK: WEAP Header found\n", out);
-						if (!out == 'WEAP')
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "WEAP") != 0)
 						{
-							printf("ERROR: WEAP header not found! \n");
-							return 1;
+							showError("Could not find WEAP header!\n");
+						}
+						else
+						{
+							printf("OK: WEAP Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -2631,14 +2672,17 @@ int main(int argc, char* argv[])
 							fclose(fout); // Закрытие файла fout
 						}
 
-						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
-						out = ReadInt(in);
-						printf("OK: CNST Header found\n", out);
-						if (!out == 'CNST')
+						// CNST Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "CNST") != 0)
 						{
-							printf("ERROR: CNST header not found! \n");
-							return 1;
+							showError("Could not find CNST header!");
+						}
+						else
+						{
+							printf("OK: CNST Header found\n");
 						}
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -2793,14 +2837,17 @@ int main(int argc, char* argv[])
 							fclose(fout); // Закрытие файла fout
 						}
 
-						// Read SFX Section
-						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
-						out = ReadInt(in);
-						printf("OK: SFX Header found\n", out);
-						if (!out == 'SFX ')
+						// SFX Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "SFX ") != 0)
 						{
-							printf("ERROR: SFX header not found! \n");
-							return 1;
+							showError("Could not find SFX header!\n");
+						}
+						else
+						{
+							printf("OK: SFX Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -2871,38 +2918,41 @@ int main(int argc, char* argv[])
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1.1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
-						//header
-						out = ReadInt(in);
-						printf("OK: RES Header found\n", out);
-						if (!out == 'RES ')
-						{
-							printf("ERROR: Could not find RES header! \n");
-							fclose(in);
-							return 1;
+						// RES Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "RES ") != 0) {
+							showError("Could not find RES header!\n");
 						}
+						else {
+							printf("OK: RES Header found\n");
 
-						//size
-						out = ReadInt(in);
-						printf("OK: RES Size %d bytes\n", out);
+							// size
+							out = ReadInt(in);
+							printf("OK: RES Size %d bytes\n", out);
 
-						//data
-						out = ReadInt(in);
-						printf("OK: DATA Header found\n", out);
-						if (!out == 'DATA')
-						{
-							printf("ERROR: Could not find DATA header! \n");
-							fclose(in);
-							return 1;
-						}
+							// DATA Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
 
-						//obj
-						out = ReadInt(in);
-						printf("OK: OBJ Header found\n", out);
-						if (!out == 'OBJ ')
-						{
-							printf("ERROR: Could not find OBJ header! \n");
-							fclose(in);
-							return 1;
+							if (strcmp(header, "DATA") != 0) {
+								showError("Could not find DATA header!\n");
+							}
+							else {
+								printf("OK: DATA Header found\n");
+
+								// OBJ Header
+								fread(header, sizeof(char), 4, in);
+								header[4] = '\0';
+
+								if (strcmp(header, "OBJ ") != 0) {
+									showError("Could not find OBJ header!\n");
+								}
+								else {
+									printf("OK: OBJ Header found\n");
+								}
+							}
 						}
 
 						out = ReadInt(in); // Section Size
@@ -3202,12 +3252,16 @@ int main(int argc, char* argv[])
 							fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 						}
 						// WEAP Header
-						out = ReadInt(in);
-						printf("OK: WEAP Header found\n", out);
-						if (!out == 'WEAP')
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "WEAP") != 0)
 						{
-							printf("ERROR: WEAP header not found! \n");
-							return 1;
+							showError("Could not find WEAP header!\n");
+						}
+						else
+						{
+							printf("OK: WEAP Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -3556,12 +3610,17 @@ int main(int argc, char* argv[])
 
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
-						out = ReadInt(in);
-						printf("OK: CNST Header found\n", out);
-						if (!out == 'CNST')
+						// CNST Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "CNST") != 0)
 						{
-							printf("ERROR: CNST header not found! \n");
-							return 1;
+							showError("Could not find CNST header!");
+						}
+						else
+						{
+							printf("OK: CNST Header found\n");
 						}
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -3725,12 +3784,17 @@ int main(int argc, char* argv[])
 
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
-						out = ReadInt(in);
-						printf("OK: SFX Header found\n", out);
-						if (!out == 'SFX ')
+						// SFX Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "SFX ") != 0)
 						{
-							printf("ERROR: SFX header not found! \n");
-							return 1;
+							showError("Could not find SFX header!\n");
+						}
+						else
+						{
+							printf("OK: SFX Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -3801,38 +3865,41 @@ int main(int argc, char* argv[])
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\zs1mobile_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
-						//header
-						out = ReadInt(in);
-						printf("OK: RES Header found\n", out);
-						if (!out == 'RES ')
-						{
-							printf("ERROR: Could not find RES header! \n");
-							fclose(in);
-							return 1;
+						// RES Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "RES ") != 0) {
+							showError("Could not find RES header!\n");
 						}
+						else {
+							printf("OK: RES Header found\n");
 
-						//size
-						out = ReadInt(in);
-						printf("OK: RES Size %d bytes\n", out);
+							// size
+							out = ReadInt(in);
+							printf("OK: RES Size %d bytes\n", out);
 
-						//data
-						out = ReadInt(in);
-						printf("OK: DATA Header found\n", out);
-						if (!out == 'DATA')
-						{
-							printf("ERROR: Could not find DATA header! \n");
-							fclose(in);
-							return 1;
-						}
+							// DATA Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
 
-						//obj
-						out = ReadInt(in);
-						printf("OK: OBJ Header found\n", out);
-						if (!out == 'OBJ ')
-						{
-							printf("ERROR: Could not find OBJ header! \n");
-							fclose(in);
-							return 1;
+							if (strcmp(header, "DATA") != 0) {
+								showError("Could not find DATA header!\n");
+							}
+							else {
+								printf("OK: DATA Header found\n");
+
+								// OBJ Header
+								fread(header, sizeof(char), 4, in);
+								header[4] = '\0';
+
+								if (strcmp(header, "OBJ ") != 0) {
+									showError("Could not find OBJ header!\n");
+								}
+								else {
+									printf("OK: OBJ Header found\n");
+								}
+							}
 						}
 
 						out = ReadInt(in); // Section Size
@@ -4135,12 +4202,16 @@ int main(int argc, char* argv[])
 							fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 						}
 						// WEAP Header
-						out = ReadInt(in);
-						printf("OK: WEAP Header found\n", out);
-						if (!out == 'WEAP')
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "WEAP") != 0)
 						{
-							printf("ERROR: WEAP header not found! \n");
-							return 1;
+							showError("Could not find WEAP header!\n");
+						}
+						else
+						{
+							printf("OK: WEAP Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -4489,12 +4560,17 @@ int main(int argc, char* argv[])
 
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
-						out = ReadInt(in);
-						printf("OK: CNST Header found\n", out);
-						if (!out == 'CNST')
+						// CNST Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "CNST") != 0)
 						{
-							printf("ERROR: CNST header not found! \n");
-							return 1;
+							showError("Could not find CNST header!");
+						}
+						else
+						{
+							printf("OK: CNST Header found\n");
 						}
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -4658,12 +4734,17 @@ int main(int argc, char* argv[])
 
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
-						out = ReadInt(in);
-						printf("OK: SFX Header found\n", out);
-						if (!out == 'SFX ')
+						// SFX Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "SFX ") != 0)
 						{
-							printf("ERROR: SFX header not found! \n");
-							return 1;
+							showError("Could not find SFX header!\n");
+						}
+						else
+						{
+							printf("OK: SFX Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -4734,38 +4815,41 @@ int main(int argc, char* argv[])
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
-						//header
-						out = ReadInt(in);
-						printf("OK: RES Header found\n", out);
-						if (!out == 'RES ')
-						{
-							printf("ERROR: Could not find RES header! \n");
-							fclose(in);
-							return 1;
+						// RES Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "RES ") != 0) {
+							showError("Could not find RES header!\n");
 						}
+						else {
+							printf("OK: RES Header found\n");
 
-						//size
-						out = ReadInt(in);
-						printf("OK: RES Size %d bytes\n", out);
+							// size
+							out = ReadInt(in);
+							printf("OK: RES Size %d bytes\n", out);
 
-						//data
-						out = ReadInt(in);
-						printf("OK: DATA Header found\n", out);
-						if (!out == 'DATA')
-						{
-							printf("ERROR: Could not find DATA header! \n");
-							fclose(in);
-							return 1;
-						}
+							// DATA Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
 
-						//obj
-						out = ReadInt(in);
-						printf("OK: OBJ Header found\n", out);
-						if (!out == 'OBJ ')
-						{
-							printf("ERROR: Could not find OBJ header! \n");
-							fclose(in);
-							return 1;
+							if (strcmp(header, "DATA") != 0) {
+								showError("Could not find DATA header!\n");
+							}
+							else {
+								printf("OK: DATA Header found\n");
+
+								// OBJ Header
+								fread(header, sizeof(char), 4, in);
+								header[4] = '\0';
+
+								if (strcmp(header, "OBJ ") != 0) {
+									showError("Could not find OBJ header!\n");
+								}
+								else {
+									printf("OK: OBJ Header found\n");
+								}
+							}
 						}
 
 						out = ReadInt(in); // Section Size
@@ -5084,12 +5168,16 @@ int main(int argc, char* argv[])
 							fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 						}
 						// WEAP Header
-						out = ReadInt(in);
-						printf("OK: WEAP Header found\n", out);
-						if (!out == 'WEAP')
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "WEAP") != 0)
 						{
-							printf("ERROR: WEAP header not found! \n");
-							return 1;
+							showError("Could not find WEAP header!\n");
+						}
+						else
+						{
+							printf("OK: WEAP Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -5439,12 +5527,17 @@ int main(int argc, char* argv[])
 
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
-						out = ReadInt(in);
-						printf("OK: CNST Header found\n", out);
-						if (!out == 'CNST')
+						// CNST Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "CNST") != 0)
 						{
-							printf("ERROR: CNST header not found! \n");
-							return 1;
+							showError("Could not find CNST header!");
+						}
+						else
+						{
+							printf("OK: CNST Header found\n");
 						}
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -5608,12 +5701,17 @@ int main(int argc, char* argv[])
 
 						// Read SFX Section
 						copyFileContent("data\\SFX\\gen1.1_extSFX.ini", "unpacked_inis\\SFX.ini");
-						out = ReadInt(in);
-						printf("OK: SFX Header found\n", out);
-						if (!out == 'SFX ')
+						// SFX Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "SFX ") != 0)
 						{
-							printf("ERROR: SFX header not found! \n");
-							return 1;
+							showError("Could not find SFX header!\n");
+						}
+						else
+						{
+							printf("OK: SFX Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -5681,38 +5779,41 @@ int main(int argc, char* argv[])
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
-						//header
-						out = ReadInt(in);
-						printf("OK: RES Header found\n", out);
-						if (!out == 'RES ')
-						{
-							printf("ERROR: Could not find RES header! \n");
-							fclose(in);
-							return 1;
+						// RES Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "RES ") != 0) {
+							showError("Could not find RES header!\n");
 						}
+						else {
+							printf("OK: RES Header found\n");
 
-						//size
-						out = ReadInt(in);
-						printf("OK: RES Size %d bytes\n", out);
+							// size
+							out = ReadInt(in);
+							printf("OK: RES Size %d bytes\n", out);
 
-						//data
-						out = ReadInt(in);
-						printf("OK: DATA Header found\n", out);
-						if (!out == 'DATA')
-						{
-							printf("ERROR: Could not find DATA header! \n");
-							fclose(in);
-							return 1;
-						}
+							// DATA Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
 
-						//obj
-						out = ReadInt(in);
-						printf("OK: OBJ Header found\n", out);
-						if (!out == 'OBJ ')
-						{
-							printf("ERROR: Could not find OBJ header! \n");
-							fclose(in);
-							return 1;
+							if (strcmp(header, "DATA") != 0) {
+								showError("Could not find DATA header!\n");
+							}
+							else {
+								printf("OK: DATA Header found\n");
+
+								// OBJ Header
+								fread(header, sizeof(char), 4, in);
+								header[4] = '\0';
+
+								if (strcmp(header, "OBJ ") != 0) {
+									showError("Could not find OBJ header!\n");
+								}
+								else {
+									printf("OK: OBJ Header found\n");
+								}
+							}
 						}
 
 						out = ReadInt(in); // Section Size
@@ -6031,12 +6132,16 @@ int main(int argc, char* argv[])
 							fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 						}
 						// WEAP Header
-						out = ReadInt(in);
-						printf("OK: WEAP Header found\n", out);
-						if (!out == 'WEAP')
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "WEAP") != 0)
 						{
-							printf("ERROR: WEAP header not found! \n");
-							return 1;
+							showError("Could not find WEAP header!\n");
+						}
+						else
+						{
+							printf("OK: WEAP Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -6379,12 +6484,17 @@ int main(int argc, char* argv[])
 
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
-						out = ReadInt(in);
-						printf("OK: CNST Header found\n", out);
-						if (!out == 'CNST')
+						// CNST Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "CNST") != 0)
 						{
-							printf("ERROR: CNST header not found! \n");
-							return 1;
+							showError("Could not find CNST header!");
+						}
+						else
+						{
+							printf("OK: CNST Header found\n");
 						}
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -6548,12 +6658,17 @@ int main(int argc, char* argv[])
 
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
-						out = ReadInt(in);
-						printf("OK: SFX Header found\n", out);
-						if (!out == 'SFX ')
+						// SFX Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "SFX ") != 0)
 						{
-							printf("ERROR: SFX header not found! \n");
-							return 1;
+							showError("Could not find SFX header!\n");
+						}
+						else
+						{
+							printf("OK: SFX Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -6624,38 +6739,41 @@ int main(int argc, char* argv[])
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
-						//header
-						out = ReadInt(in);
-						printf("OK: RES Header found\n", out);
-						if (!out == 'RES ')
-						{
-							printf("ERROR: Could not find RES header! \n");
-							fclose(in);
-							return 1;
+						// RES Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "RES ") != 0) {
+							showError("Could not find RES header!\n");
 						}
+						else {
+							printf("OK: RES Header found\n");
 
-						//size
-						out = ReadInt(in);
-						printf("OK: RES Size %d bytes\n", out);
+							// size
+							out = ReadInt(in);
+							printf("OK: RES Size %d bytes\n", out);
 
-						//data
-						out = ReadInt(in);
-						printf("OK: DATA Header found\n", out);
-						if (!out == 'DATA')
-						{
-							printf("ERROR: Could not find DATA header! \n");
-							fclose(in);
-							return 1;
-						}
+							// DATA Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
 
-						//obj
-						out = ReadInt(in);
-						printf("OK: OBJ Header found\n", out);
-						if (!out == 'OBJ ')
-						{
-							printf("ERROR: Could not find OBJ header! \n");
-							fclose(in);
-							return 1;
+							if (strcmp(header, "DATA") != 0) {
+								showError("Could not find DATA header!\n");
+							}
+							else {
+								printf("OK: DATA Header found\n");
+
+								// OBJ Header
+								fread(header, sizeof(char), 4, in);
+								header[4] = '\0';
+
+								if (strcmp(header, "OBJ ") != 0) {
+									showError("Could not find OBJ header!\n");
+								}
+								else {
+									printf("OK: OBJ Header found\n");
+								}
+							}
 						}
 
 						out = ReadInt(in); // Section Size
@@ -6974,12 +7092,16 @@ int main(int argc, char* argv[])
 							fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 						}
 						// WEAP Header
-						out = ReadInt(in);
-						printf("OK: WEAP Header found\n", out);
-						if (!out == 'WEAP')
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "WEAP") != 0)
 						{
-							printf("ERROR: WEAP header not found! \n");
-							return 1;
+							showError("Could not find WEAP header!\n");
+						}
+						else
+						{
+							printf("OK: WEAP Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -7330,12 +7452,17 @@ int main(int argc, char* argv[])
 
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
-						out = ReadInt(in);
-						printf("OK: CNST Header found\n", out);
-						if (!out == 'CNST')
+						// CNST Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "CNST") != 0)
 						{
-							printf("ERROR: CNST header not found! \n");
-							return 1;
+							showError("Could not find CNST header!");
+						}
+						else
+						{
+							printf("OK: CNST Header found\n");
 						}
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -7499,12 +7626,17 @@ int main(int argc, char* argv[])
 
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
-						out = ReadInt(in);
-						printf("OK: SFX Header found\n", out);
-						if (!out == 'SFX ')
+						// SFX Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "SFX ") != 0)
 						{
-							printf("ERROR: SFX header not found! \n");
-							return 1;
+							showError("Could not find SFX header!\n");
+						}
+						else
+						{
+							printf("OK: SFX Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -7575,38 +7707,41 @@ int main(int argc, char* argv[])
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\legend_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
-						//header
-						out = ReadInt(in);
-						printf("OK: RES Header found\n", out);
-						if (!out == 'RES ')
-						{
-							printf("ERROR: Could not find RES header! \n");
-							fclose(in);
-							return 1;
+						// RES Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "RES ") != 0) {
+							showError("Could not find RES header!\n");
 						}
+						else {
+							printf("OK: RES Header found\n");
 
-						//size
-						out = ReadInt(in);
-						printf("OK: RES Size %d bytes\n", out);
+							// size
+							out = ReadInt(in);
+							printf("OK: RES Size %d bytes\n", out);
 
-						//data
-						out = ReadInt(in);
-						printf("OK: DATA Header found\n", out);
-						if (!out == 'DATA')
-						{
-							printf("ERROR: Could not find DATA header! \n");
-							fclose(in);
-							return 1;
-						}
+							// DATA Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
 
-						//obj
-						out = ReadInt(in);
-						printf("OK: OBJ Header found\n", out);
-						if (!out == 'OBJ ')
-						{
-							printf("ERROR: Could not find OBJ header! \n");
-							fclose(in);
-							return 1;
+							if (strcmp(header, "DATA") != 0) {
+								showError("Could not find DATA header!\n");
+							}
+							else {
+								printf("OK: DATA Header found\n");
+
+								// OBJ Header
+								fread(header, sizeof(char), 4, in);
+								header[4] = '\0';
+
+								if (strcmp(header, "OBJ ") != 0) {
+									showError("Could not find OBJ header!\n");
+								}
+								else {
+									printf("OK: OBJ Header found\n");
+								}
+							}
 						}
 
 						out = ReadInt(in); // Section Size
@@ -7934,12 +8069,16 @@ int main(int argc, char* argv[])
 							fread(&pad, sizeof(char), 1, in);  // Char PAD for WEAP Section
 						}
 						// WEAP Header
-						out = ReadInt(in);
-						printf("OK: WEAP Header found\n", out);
-						if (!out == 'WEAP')
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "WEAP") != 0)
 						{
-							printf("ERROR: WEAP header not found! \n");
-							return 1;
+							showError("Could not find WEAP header!\n");
+						}
+						else
+						{
+							printf("OK: WEAP Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -8288,12 +8427,17 @@ int main(int argc, char* argv[])
 
 						// Read CNST section
 						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
-						out = ReadInt(in);
-						printf("OK: CNST Header found\n", out);
-						if (!out == 'CNST')
+						// CNST Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "CNST") != 0)
 						{
-							printf("ERROR: CNST header not found! \n");
-							return 1;
+							showError("Could not find CNST header!");
+						}
+						else
+						{
+							printf("OK: CNST Header found\n");
 						}
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -8457,12 +8601,17 @@ int main(int argc, char* argv[])
 
 						// Read SFX Section
 						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
-						out = ReadInt(in);
-						printf("OK: SFX Header found\n", out);
-						if (!out == 'SFX ')
+						// SFX Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "SFX ") != 0)
 						{
-							printf("ERROR: SFX header not found! \n");
-							return 1;
+							showError("Could not find SFX header!\n");
+						}
+						else
+						{
+							printf("OK: SFX Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -8533,37 +8682,41 @@ int main(int argc, char* argv[])
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 					{
-						//header
-						out = ReadInt(in);
-						printf("OK: RES Header found\n", out);
-						if (!out == 'RES ')
-						{
-							printf("ERROR: Could not find RES header! \n");
-							fclose(in);
-							return 1;
+						// RES Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "RES ") != 0) {
+							showError("Could not find RES header!\n");
 						}
+						else {
+							printf("OK: RES Header found\n");
 
-						//size
-						out = ReadInt(in);
-						printf("OK: RES Size %d bytes\n", out);
+							// size
+							out = ReadInt(in);
+							printf("OK: RES Size %d bytes\n", out);
 
-						//data
-						out = ReadInt(in);
-						printf("OK: DB Header found\n", out);
-						if (!out == 'DB  ')
-						{
-							printf("ERROR: Could not find DB header! \n");
-							fclose(in);
-							return 1;
-						}
+							// DATA Header
+							fread(header, sizeof(char), 4, in);
+							header[4] = '\0';
 
-						// Read CNST section
-						out = ReadInt(in);
-						printf("OK: CNST Header found\n", out);
-						if (!out == 'CNST')
-						{
-							printf("ERROR: CNST header not found! \n");
-							return 1;
+							if (strcmp(header, "DB") != 0) {
+								showError("Could not find DB header!\n");
+							}
+							else {
+								printf("OK: DB Header found\n");
+
+								// OBJ Header
+								fread(header, sizeof(char), 4, in);
+								header[4] = '\0';
+
+								if (strcmp(header, "CNST") != 0) {
+									showError("Could not find CNST header!");
+								}
+								else {
+									printf("OK: CNST Header found\n");
+								}
+							}
 						}
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -8727,12 +8880,17 @@ int main(int argc, char* argv[])
 
 						// Read Weapon section
 						copyFileContent("data\\WEAP\\gen2_WEAP.ini", "unpacked_inis\\WEAP.ini");
-						out = ReadInt(in);
-						printf("OK: WEAP Header found\n", out);
-						if (!out == 'WEAP')
+						// WEAP Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "WEAP") != 0)
 						{
-							printf("ERROR: WEAP header not found! \n");
-							return 1;
+							showError("Could not find WEAP header!\n");
+						}
+						else
+						{
+							printf("OK: WEAP Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1
@@ -9081,15 +9239,18 @@ int main(int argc, char* argv[])
 
 						//obj
 						copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
-						out = ReadInt(in);
-						printf("OK: OBJ Header found\n", out);
-						if (!out == 'OBJ ')
-						{
-							printf("ERROR: Could not find OBJ header! \n");
-							fclose(in);
-							return 1;
-						}
+						// OBJ Header
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
 
+						if (strcmp(header, "OBJ ") != 0)
+						{
+							showError("Could not find OBJ header!\n");
+						}
+						else
+						{
+							printf("OK: OBJ Header found\n");
+						}
 						out = ReadInt(in); // Section Size
 						out = ReadInt(in); // unk1
 						out = ReadInt(in); // unk2
@@ -9406,12 +9567,16 @@ int main(int argc, char* argv[])
 							fread(&pad, sizeof(char), 1, in);
 						}
 						// SFX Header
-						out = ReadInt(in);
-						printf("OK: SFX Header found\n", out);
-						if (!out == 'SFX ')
+						fread(header, sizeof(char), 4, in);
+						header[4] = '\0';
+
+						if (strcmp(header, "SFX ") != 0)
 						{
-							printf("ERROR: SFX header not found! \n");
-							return 1;
+							showError("Could not find SFX header!\n");
+						}
+						else
+						{
+							printf("OK: SFX Header found\n");
 						}
 						out = ReadInt(in); // Section size
 						out = ReadInt(in); // unk1

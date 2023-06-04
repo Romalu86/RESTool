@@ -211,4 +211,13 @@ std::string processIntValues(const int* arrayi, int numValues, bool useTabulatio
 
 	return formattedResult;
 }
+
+// Headers errors
+void showError(const std::string& errorMessage)
+{
+	std::cout << "ERROR: " << errorMessage << std::endl;
+	std::cout << "Press Enter to exit..." << std::endl;
+	std::cin.ignore();
+	exit(1);
+}
 // End of File Functions
