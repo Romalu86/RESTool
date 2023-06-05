@@ -21,28 +21,28 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Functions\DefaultBehaveParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Functions\filefuncs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Functions\NWeaponPropertyParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Functions\ObjectsPropertyParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Functions\SFXPropertyParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Functions\SpriteClassParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Functions\SpriteTypeParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\parsers\DefaultBehaveParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\parsers\NWeaponPropertyParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\parsers\ObjectsPropertyParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\parsers\SFXPropertyParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\parsers\SpriteClassParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\parsers\SpriteTypeParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions\file_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,22 +53,22 @@
     <ClCompile Include="RESTool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Functions\DefaultBehaveParser.cpp">
+    <ClCompile Include="Functions\parsers\DefaultBehaveParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Functions\NWeaponPropertyParser.cpp">
+    <ClCompile Include="Functions\parsers\NWeaponPropertyParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Functions\ObjectsPropertyParser.cpp">
+    <ClCompile Include="Functions\parsers\ObjectsPropertyParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Functions\SFXPropertyParser.cpp">
+    <ClCompile Include="Functions\parsers\SFXPropertyParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Functions\SpriteClassParser.cpp">
+    <ClCompile Include="Functions\parsers\SpriteClassParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Functions\SpriteTypeParser.cpp">
+    <ClCompile Include="Functions\parsers\SpriteTypeParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,5 +81,24 @@
     <Image Include="icon1.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\constants.ini" />
+    <None Include="data\WEAP\CrazyLunch_WEAP.ini" />
+    <None Include="data\WEAP\gen1.1_WEAP.ini" />
+    <None Include="data\WEAP\gen1_WEAP.ini" />
+    <None Include="data\WEAP\gen2_WEAP.ini" />
+    <None Include="data\SFX\extSFX.ini" />
+    <None Include="data\SFX\gen1.1_extSFX.ini" />
+    <None Include="data\SFX\non_extSFX.ini" />
+    <None Include="data\OBJ\asworld_OBJ.ini" />
+    <None Include="data\OBJ\gen1.1_OBJ.ini" />
+    <None Include="data\OBJ\gen1_OBJ.ini" />
+    <None Include="data\OBJ\gen2_OBJ.ini" />
+    <None Include="data\OBJ\legend_OBJ.ini" />
+    <None Include="data\OBJ\zs1mobile_OBJ.ini" />
+    <None Include="data\OBJ\zs2_OBJ.ini" />
+    <None Include="data\CNST\gen1_CNST.ini" />
+    <None Include="data\CNST\gen2_CNST.ini" />
   </ItemGroup>
 </Project>

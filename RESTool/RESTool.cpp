@@ -1,13 +1,13 @@
-// RESTool by romalu86
+ï»¿// RESTool by romalu86
 
 #include "stdafx.h"
-#include "Functions\filefuncs.h"
-#include "Functions\SpriteTypeParser.h"
-#include "Functions\SpriteClassParser.h"
-#include "Functions\DefaultBehaveParser.h"
-#include "Functions\ObjectsPropertyParser.h"
-#include "Functions\NWeaponPropertyParser.h"
-#include "Functions\SFXPropertyParser.h"
+#include "Functions\file_functions.h"
+#include "Functions\parsers\SpriteTypeParser.h"
+#include "Functions\parsers\SpriteClassParser.h"
+#include "Functions\parsers\DefaultBehaveParser.h"
+#include "Functions\parsers\ObjectsPropertyParser.h"
+#include "Functions\parsers\NWeaponPropertyParser.h"
+#include "Functions\parsers\SFXPropertyParser.h"
 #include <cmath>
 #include <cstdio>
 #include <cstring>
@@ -19,21 +19,21 @@ using namespace std;
 
 int main()
 {
-	ClearPreviousResults(); // Before work, suggest deleting the old inis folder.
-
-	int out;
-	int arrayi[17];
-	float arrayf[17];
-	char obuffer[65535];
-	char header[5];
-	FILE* in;
-	FILE* fout;
-	string filename;
-	string mode;
-
-	bool fileOpened = false;
-	bool activateCharPadFlag = true;
-
+	int out;							// Output value to screen or file
+	int arrayi[17];						// Maximum number of Int values â€‹â€‹per line
+	float arrayf[17];					// Maximum number of Float values â€‹â€‹per line
+	char obuffer[65535];				// Maximum buffer for values
+	char header[5];						// File header length
+	FILE* in;							// Opening a file in read mode
+	FILE* fout;							// Opening a file in write mode
+	string filename;					// Used to open a file by its name or path
+	string mode;						// Used to specify the operating mode when opening a file
+	//
+	bool fileOpened = false;			// File status check (Open or not)
+	bool activateCharPadFlag = true;	// Alternative unpacking mode check
+	//
+	ClearPreviousResults();				// Before work, offer deleting the old inis folder.
+	//
 	cout << "RESTool 1.7 by Romalu86" << endl;
 	cout << endl;
 	cout << "File modes:" << endl;
@@ -54,14 +54,13 @@ int main()
 	cout << endl;
 	cout << "Alternative unpacking mode - required for unpacking data in case of incorrect section reading." << endl;
 	cout << endl;
-
+	//
 	while (!fileOpened)
 	{
 			// File name
 			cout << "Enter the filename or path to file: ";
 			getline(cin, filename);
 			filename = removeQuotes(filename); // remove quotes from path to file
-
 			// Alternative unpacking mode (char pad in weap section)
 			cout << "Do you want to activate the alternative unpacking mode? (y/n): ";
 			string activateCharPadMode;
@@ -75,12 +74,10 @@ int main()
 			{
 				activateCharPadFlag = false;
 			}
-
 			// File mode
 			cout << "Enter file mode: ";
 			getline(cin, mode);
 			cout << endl;
-
 			// Failed to open file. Try again? 
 			in = fopen(filename.c_str(), "rb");
 			if (!in)
@@ -90,7 +87,7 @@ int main()
 				cout << endl;
 				string userInput;
 				getline(cin, userInput);
-			if (userInput == "q" || userInput == "Q")
+				if (userInput == "q" || userInput == "Q")
 				return 1;
 				continue;
 			}
@@ -426,7 +423,7 @@ int main()
 					// VidName STRING
 					ReadString(in, fout, "VidName");
 					fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-					fclose(fout); // Çàêðûòèå ôàéëà fout
+					fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 				}
 
 				// Read Weapon section
@@ -941,7 +938,7 @@ int main()
 					fprintf(fout, "MessageStartDelay=%i\n", out);
 					//
 					printf("OK: Reading CNST Section\n");
-					fclose(fout); // Çàêðûòèå ôàéëà fout
+					fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 				}
 
 				// Read SFX Section
@@ -972,20 +969,20 @@ int main()
 					out = ReadByte(in); // Priority
 					fprintf(fout, "Priority=%i\n", out);
 					// Wave
-					std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+					std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-					// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+					// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 					for (int i = 0; i < 8; ++i) {
 						if (!feof(in)) {
 							arraySFX[i] = ReadStringNoRTN(in);
 						}
 					}
-					// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+					// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 					std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 						arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 					fprintf(fout, "Wave=%s\n", obuffer.c_str());
-					fclose(fout); // Çàêðûâàåì ôàéë fout
+					fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 				}
 			}
 		}
@@ -1316,7 +1313,7 @@ int main()
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -1661,7 +1658,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// CNST Header
@@ -1828,7 +1825,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -1869,33 +1866,33 @@ int main()
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -2241,7 +2238,7 @@ int main()
 							// VidName STRING
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -2602,7 +2599,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// CNST Header
@@ -2762,7 +2759,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// SFX Header
@@ -2804,33 +2801,33 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -3160,7 +3157,7 @@ int main()
 							// VidName STRING
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -3521,7 +3518,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read CNST section
@@ -3690,7 +3687,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -3734,33 +3731,33 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -4093,7 +4090,7 @@ int main()
 							// VidName STRING
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -4454,7 +4451,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read CNST section
@@ -4623,7 +4620,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -4667,33 +4664,33 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -5042,7 +5039,7 @@ int main()
 							// VidName STRING
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -5404,7 +5401,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read CNST section
@@ -5573,7 +5570,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -5614,33 +5611,33 @@ int main()
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -5989,7 +5986,7 @@ int main()
 							// VidName STRING
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -6344,7 +6341,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read CNST section
@@ -6513,7 +6510,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -6557,33 +6554,33 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -6932,7 +6929,7 @@ int main()
 							// VidName STRING
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -7294,7 +7291,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read CNST section
@@ -7463,7 +7460,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -7507,33 +7504,33 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -7891,7 +7888,7 @@ int main()
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
 
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -8251,7 +8248,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read CNST section
@@ -8420,7 +8417,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -8464,33 +8461,33 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -8690,7 +8687,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -9045,7 +9042,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						//obj
@@ -9362,7 +9359,7 @@ int main()
 							// VidName STRING
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -9412,33 +9409,33 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -9768,7 +9765,7 @@ int main()
 							// VidName STRING
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -10128,7 +10125,7 @@ int main()
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
 							fprintf(fout, "ZSpeed=\t\t%s\n", obuffer);
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read CNST section
@@ -10297,7 +10294,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -10328,20 +10325,20 @@ int main()
 							out = ReadByte(in); // Priority
 							fprintf(fout, "Priority=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
@@ -10671,7 +10668,7 @@ int main()
 							// VidName STRING
 							ReadString(in, fout, "VidName");
 							fprintf(fout, ";       	stnd  	stp  	mov  	strt 	lrot 	rrot  	op   	hit 	fgt  	sal  	sto 	vClsh 	clsh 	wnd 	birth 	death 	explode\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read Weapon section
@@ -11186,7 +11183,7 @@ int main()
 							fprintf(fout, "MessageStartDelay=%i\n", out);
 							//
 							printf("OK: Reading CNST Section\n");
-							fclose(fout); // Çàêðûòèå ôàéëà fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ðµ Ñ„Ð°Ð¹Ð»Ð° fout
 						}
 
 						// Read SFX Section
@@ -11230,55 +11227,53 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arraySFX[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arraySFX[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
 								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
 
 							fprintf(fout, "Wave=%s\n", obuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Ìàññèâ äëÿ õðàíåíèÿ ïóòåé äî ôàéëîâ
+							std::string arrayForceFeedBack[8]; // ÐœÐ°ÑÑÐ¸Ð² Ð´Ð»Ñ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 
-							// Ñ÷èòûâàåì 8 ñòðîê äëÿ ïóòåé äî ôàéëîâ
+							// Ð¡Ñ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ 8 ÑÑ‚Ñ€Ð¾Ðº Ð´Ð»Ñ Ð¿ÑƒÑ‚ÐµÐ¹ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							for (int i = 0; i < 8; ++i) {
 								if (!feof(in)) {
 									arrayForceFeedBack[i] = ReadStringNoRTN(in);
 								}
 							}
-							// Ôîðìèðóåì ñòðîêó ñ ïóòÿìè äî ôàéëîâ
+							// Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ñ Ð¿ÑƒÑ‚ÑÐ¼Ð¸ Ð´Ð¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²
 							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
 								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
 							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
-							fclose(fout); // Çàêðûâàåì ôàéë fout
+							fclose(fout); // Ð—Ð°ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ñ„Ð°Ð¹Ð» fout
 						}
 					}
 				}
 		
-		// Invalid file mode
-		else
-		{
-			cout << "Invalid file mode: " << mode << endl;
-			cout << endl;
-			fclose(in);
-
-			// File mode
-			cout << "Enter file mode: ";
-			getline(cin, mode);
-			cout << endl;
-		}
+				else
+				{
+					// Invalid mode error
+					cout << "Invalid file mode: " << mode << endl;
+					cout << endl;
+					fclose(in);
+					// File mode
+					cout << "Enter file mode: ";
+					getline(cin, mode);
+					cout << endl;
+				}
 	}
 	cout << endl;
 	cout << filename << " has been unpacked into the 'unpacked_inis' folder." << endl;
 	cout << endl;
 	cout << "Press Enter to exit..." << endl;
 	getchar();
-
 	return 0;
 }

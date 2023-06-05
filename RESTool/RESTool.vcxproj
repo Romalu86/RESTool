@@ -117,6 +117,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,24 +143,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Functions\DefaultBehaveParser.h" />
-    <ClInclude Include="Functions\filefuncs.h" />
-    <ClInclude Include="Functions\NWeaponPropertyParser.h" />
-    <ClInclude Include="Functions\ObjectsPropertyParser.h" />
-    <ClInclude Include="Functions\SFXPropertyParser.h" />
-    <ClInclude Include="Functions\SpriteClassParser.h" />
-    <ClInclude Include="Functions\SpriteTypeParser.h" />
+    <ClInclude Include="Functions\file_functions.h" />
+    <ClInclude Include="Functions\parsers\DefaultBehaveParser.h" />
+    <ClInclude Include="Functions\parsers\NWeaponPropertyParser.h" />
+    <ClInclude Include="Functions\parsers\ObjectsPropertyParser.h" />
+    <ClInclude Include="Functions\parsers\SFXPropertyParser.h" />
+    <ClInclude Include="Functions\parsers\SpriteClassParser.h" />
+    <ClInclude Include="Functions\parsers\SpriteTypeParser.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Functions\DefaultBehaveParser.cpp" />
-    <ClCompile Include="Functions\NWeaponPropertyParser.cpp" />
-    <ClCompile Include="Functions\ObjectsPropertyParser.cpp" />
-    <ClCompile Include="Functions\SFXPropertyParser.cpp" />
-    <ClCompile Include="Functions\SpriteClassParser.cpp" />
-    <ClCompile Include="Functions\SpriteTypeParser.cpp" />
+    <ClCompile Include="Functions\parsers\DefaultBehaveParser.cpp" />
+    <ClCompile Include="Functions\parsers\NWeaponPropertyParser.cpp" />
+    <ClCompile Include="Functions\parsers\ObjectsPropertyParser.cpp" />
+    <ClCompile Include="Functions\parsers\SFXPropertyParser.cpp" />
+    <ClCompile Include="Functions\parsers\SpriteClassParser.cpp" />
+    <ClCompile Include="Functions\parsers\SpriteTypeParser.cpp" />
     <ClCompile Include="RESTool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -173,6 +174,25 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\CNST\gen1_CNST.ini" />
+    <None Include="data\CNST\gen2_CNST.ini" />
+    <None Include="data\constants.ini" />
+    <None Include="data\OBJ\asworld_OBJ.ini" />
+    <None Include="data\OBJ\gen1.1_OBJ.ini" />
+    <None Include="data\OBJ\gen1_OBJ.ini" />
+    <None Include="data\OBJ\gen2_OBJ.ini" />
+    <None Include="data\OBJ\legend_OBJ.ini" />
+    <None Include="data\OBJ\zs1mobile_OBJ.ini" />
+    <None Include="data\OBJ\zs2_OBJ.ini" />
+    <None Include="data\SFX\extSFX.ini" />
+    <None Include="data\SFX\gen1.1_extSFX.ini" />
+    <None Include="data\SFX\non_extSFX.ini" />
+    <None Include="data\WEAP\CrazyLunch_WEAP.ini" />
+    <None Include="data\WEAP\gen1.1_WEAP.ini" />
+    <None Include="data\WEAP\gen1_WEAP.ini" />
+    <None Include="data\WEAP\gen2_WEAP.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
