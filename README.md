@@ -1,4 +1,10 @@
-# RESTool 1.7
+# RESTool 1.7 by romalu86
+
+
+
+
+
+
 --- List of games with which the program works:
 
 - Games on the engine AS1\ZS1:
@@ -59,5 +65,6 @@ The program supports the ability to supplement the base of unknown variables tha
 
 "oe_engine" - works with Objects Extended Project (version 1.1.0.6+)
 
+"crazylunch" - works with Crazy Lunch
 
-thx ermaccer for original c++ project. Many things helped to release this program much faster.
+"chackstemple" - works with Chacks Temple
