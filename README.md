@@ -1,7 +1,7 @@
 # RESTool 1.7 by romalu86
---- List of games with which the program works:
+**List of games with which the program works:**
 
-Games on the engine AS1\ZS1:
+**Games on the engine AS1\ZS1:**
 - Alien Shooter (PC\Mobile),
 - Alien Shooter - Last Hope (Steam\Mobile),
 - Alien Shooter - Lost World (Theseus Mobile),
@@ -11,7 +11,7 @@ Games on the engine AS1\ZS1:
 - Crazy Lunch (PC\Mobile),
 - Chacks Temple.
 
-Games on the engine AS2\ZS2:
+**Games on the engine AS2\ZS2:**
 - Alien Shooter - Revisited,
 - Alien Shooter 2 - Gold,
 - Alien Shooter 2 - Vengeance,
@@ -23,7 +23,7 @@ Games on the engine AS2\ZS2:
 - Zombie Shooter 2,
 - Objects Extended Project (Old \ New versions),
 
---- How to use?
+**How to use?**
 
 The program currently operates through the console. To unpack the file, you need to launch RESTool and follow the instructions on the screen.
 
@@ -33,32 +33,32 @@ The reverse compilation process is also possible. The folder with the program co
 When you run one of the available batch files, the program takes the files "OBJ.ini, WEAP.ini, CNST.ini, SFX.ini.", and performs a reverse compilation.
 If the process was successful, the test.res or test.db file will appear in the root directory.
 
---- Dictionary of variables:
+**Dictionary of variables:**
 
-The program supports the ability to supplement the base of unknown variables that are unpacked in the INT format (numbers - 1, 2, 4, etc.) or hexadecimal number system (example 0x1000). All information is in the constants.ini file, new values ​​are added by analogy with others.
+The program supports the ability to supplement the base of unknown variables that are unpacked in the INT format (numbers - 1, 2, 4, etc.) or hexadecimal number system (example 0x1000). All information is in the constants.ini file, new values are added by analogy with others.
 
---- File modes list:
+**File modes list:**
 
-"as1_engine" - works with Alien Shooter 1, Alien Shooter 1 Last Hope, Alien Shooter - Lost World (Theseus Mobile) 
+- as1_engine - works with Alien Shooter 1, Alien Shooter 1 Last Hope, Alien Shooter - Lost World (Theseus Mobile) 
 
-"theseus_pc" - works with Theseus (PC Only)
+- theseus_pc - works with Theseus (PC Only)
 
-"as1world" - works with Alien Shooter 1 - World
+- as1world - works with Alien Shooter 1 - World
 
-"zs1" - works with Zombie Shooter 1
+- zs1 - works with Zombie Shooter 1
 
-"zs1_mobile" - works with Zombie Shooter 1 (Mobile)
+- zs1_mobile - works with Zombie Shooter 1 (Mobile)
 
-"as2_original" - works with Gold and Vengeance editions
+- as2_original - works with Gold and Vengeance editions
 
-"as2_addons" - works with Reloaded, Conscription, Zombie Shooter 2 Teaser, Objects Extended Project (Old versions before 1.1.0.6)
+- as2_addons - works with Reloaded, Conscription, Zombie Shooter 2 Teaser, Objects Extended Project (Old versions before 1.1.0.6)
 
-"zs2_engine" - works with Zombie Shooter 2 / Alien Shooter: Revisited
+- zs2_engine - works with Zombie Shooter 2 / Alien Shooter: Revisited
 
-"as2legend_engine" - works with Alien Shooter 2 Legend & TD (Steam and Mobile), Alien Shooter 2 New Era, Alien Shooter 2 Reloaded (Mobile)
+- as2legend_engine - works with Alien Shooter 2 Legend & TD (Steam and Mobile), Alien Shooter 2 New Era, Alien Shooter 2 Reloaded (Mobile)
 
-"oe_engine" - works with Objects Extended Project (version 1.1.0.6+)
+- oe_engine - works with Objects Extended Project (version 1.1.0.6+)
 
-"crazylunch" - works with Crazy Lunch
+- crazylunch - works with Crazy Lunch
 
-"chackstemple" - works with Chacks Temple
+- chackstemple - works with Chacks Temple
