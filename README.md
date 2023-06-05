@@ -49,33 +49,33 @@ The program supports the ability to supplement the base of unknown variables tha
 
 **File modes list:**
 
-- as1_pad - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope (Steam & Mobile), Alien Shooter - Lost World (Theseus Mobile)
+- as1pad - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope (Steam & Mobile), Alien Shooter - Lost World (Theseus Mobile)
 
-- as1_nonpad - works with Alien Shooter 1 - Old (NonSteam)
+- as1nopad - works with Alien Shooter 1 - Old (NonSteam)
 
-- theseus_pc - works with Theseus
+- theseus - works with Theseus
 
-- as1world_pad - works with Alien Shooter 1 - World (Mobile)
+- as1mobile_pad - works with Alien Shooter 1 - World (Mobile)
 
-- as1world_nonpad - works with Alien Shooter 1 - World (Mobile)
+- as1mobile_nonpad - works with Alien Shooter 1 - World (Mobile)
 
 - zs1 - works with Zombie Shooter 1
 
-- zs1_mobile - works with Zombie Shooter 1
+- zs1mobile - works with Zombie Shooter 1
 
-- as2_original - works with Gold and Vengeance editions
+- as2original - works with Gold and Vengeance editions
 
-- as2_addons - works with Reloaded, Conscription
+- as2addons - works with Reloaded, Conscription
 
-- zs2_nonpad - works with Zombie Shooter 2 (Steam)
+- zs2nonpad - works with Zombie Shooter 2 (Steam)
 
-- zs2_pad - works with Zombie Shooter 2 (NonSteam)
+- zs2pad - works with Zombie Shooter 2 (NonSteam)
 
 - asr - works with Alien Shooter Revisited
 
-- as2legend_pad - works with Alien Shooter 2 Legend & TD (Steam\Mobile)
+- as2legend - works with Alien Shooter 2 Legend & TD (Steam\Mobile)
 
-- as2legend_nonpad - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)
+- as2legendpad - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)
 
 - oe - works with Objects Extended Project
 
