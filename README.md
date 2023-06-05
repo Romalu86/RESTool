@@ -13,7 +13,7 @@
 - Alien Shooter - Lost World (Theseus Mobile),
 - Alien Shooter - World (Mobile),
 - Theseus (PC),
-- Zombie Shooter 1 (PC\Mobile),
+- Zombie Shooter 1 (PC\Mobile).
 
 **Games on the engine AS2\ZS2:**
 - Alien Shooter - Revisited,
@@ -25,7 +25,7 @@
 - Alien Shooter 2 - Tower Defence (Steam\Mobile),
 - Alien Shooter 2 - New Era,
 - Zombie Shooter 2,
-- Objects Extended Project (Old \ New versions),
+- Objects Extended Project (Old \ New versions).
 
 **How to use?**
 
