@@ -1,71 +1,72 @@
-# RESTool
-RESTool v1.3 by romalu86
+# RESTool 1.3 by romalu86
 
-List of games with which the program works at the moment:
+**Changelist:**
+- Added support: Alien Shooter 2 - New era, Alien Shooter 2 - Reloaded (Mobile), Zombie Shooter 2 (NonSteam), Objects Extended Project.
+- Tested and confirmed support for: Alien Shooter 1 - Last Hope (Mobile), Zombie Shooter 1 (NonSteam), Alien Shooter 2 - Vengeance, Alien Shooter 2 - TD (Mobile), Alien Shooter 2 - The Legend (Mobile).
 
-- Games on the engine AS1\ZS1:
-Alien Shooter (PC NonSteam);
-Alien Shooter (Steam);
-Alien Shooter - Last Hope (Steam\Mobile);
-Alien Shooter - Lost World (Theseus Mobile);
-Alien Shooter - World (Mobile);
-Alien Shooter - Revisited;
-Theseus (PC);
-Zombie Shooter 1 (PC Steam & NonSteam);
-Zombie Shooter 1 (Mobile).
+**List of games with which the program works:**
 
-- Games on the engine AS2\ZS2:
-Alien Shooter - Revisited;
-Alien Shooter 2 - Gold;
-Alien Shooter 2 - Vengeance;
-Alien Shooter 2 - Reloaded;
-Alien Shooter 2 - Conscription;
-Alien Shooter 2 - The Legend (Steam\Mobile);
-Alien Shooter 2 - Tower Defence (Steam\Mobile);
-Alien Shooter 2 - Reloaded (Mobile);
-Alien Shooter 2 - New Era (Steam);
-Zombie Shooter 2 (Steam\NonSteam);
-Objects Extended Project.
+**Games on the engine AS1\ZS1:**
+- Alien Shooter (PC NonSteam),
+- Alien Shooter (Steam),
+- Alien Shooter - Last Hope (Steam\Mobile),
+- Alien Shooter - Lost World (Theseus Mobile),
+- Alien Shooter - World (Mobile),
+- Alien Shooter - Revisited,
+- Theseus (PC),
+- Zombie Shooter 1 (PC Steam & NonSteam),
+- Zombie Shooter 1 (Mobile).
 
-How to use?
+**Games on the engine AS2\ZS2:**
+- Alien Shooter - Revisited,
+- Alien Shooter 2 - Gold,
+- Alien Shooter 2 - Vengeance,
+- Alien Shooter 2 - Reloaded,
+- Alien Shooter 2 - Conscription,
+- Alien Shooter 2 - The Legend (Steam\Mobile),
+- Alien Shooter 2 - Tower Defence (Steam\Mobile),
+- Alien Shooter 2 - Reloaded (Mobile),
+- Alien Shooter 2 - New Era (Steam),
+- Zombie Shooter 2 (Steam\NonSteam),
+- Objects Extended Project.
 
-The program currently works through the console. For unpacking, you need to create a bat file. Its structure consists of three variables.
+**How to use?**
+
+The program works through the console. For unpacking, you need to create a bat file. Its structure consists of three variables.
 
 example: RESTool objects.res as1pad
 
 The archive includes demo bat files, and RES files for testing. The specified objects.res file must be located on the path specified in the batch file or in the same folder with the program if the path is not specified.
 After Bat File completes the work, 4 files will appear in the folder: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
 
-File modes list:
-"as1pad" - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope (Steam & Mobile), Alien Shooter - Lost World (Theseus Mobile)
+**File modes list:**
 
-"as1nopad" - works with Alien Shooter 1 - Old (NonSteam)
+- as1pad - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope (Steam & Mobile), Alien Shooter - Lost World (Theseus Mobile)
 
-"theseus" - works with Theseus
+- as1nopad - works with Alien Shooter 1 - Old (NonSteam)
 
-"as1mobile" - works with Alien Shooter 1 - World (Mobile)
+- theseus - works with Theseus
 
-"zs1" - works with Zombie Shooter 1
+- as1mobile - works with Alien Shooter 1 - World (Mobile)
 
-"zs1mobile" - works with Zombie Shooter 1
+- zs1 - works with Zombie Shooter 1
 
-"as2original" - works with Gold and Vengeance editions
+- zs1mobile - works with Zombie Shooter 1
 
-"as2addons" - works with Reloaded, Conscription
+- as2original - works with Gold and Vengeance editions
 
-"zs2nonpad" - works with Zombie Shooter 2 (Steam)
+- as2addons - works with Reloaded, Conscription
 
-"zs2pad" - works with Zombie Shooter 2 (NonSteam)
+- zs2nonpad - works with Zombie Shooter 2 (Steam)
 
-"asr" - works with Alien Shooter Revisited
+- zs2pad - works with Zombie Shooter 2 (NonSteam)
 
-"as2legend" - works with Alien Shooter 2 Legend & TD (Steam\Mobile)
+- asr - works with Alien Shooter Revisited
 
-"as2legendpad" - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)
+- as2legend - works with Alien Shooter 2 Legend & TD (Steam\Mobile)
 
-"oe" - works with Objects Extended Project
+- as2legendpad - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)
 
-"oe1105" - works with Objects Extended Project (Old Versions)
+- oe - works with Objects Extended Project
 
-
-thx ermaccer for original c++ project. Many things helped to release this program much faster.
+- oe1105 - works with Objects Extended Project (Old Versions)
