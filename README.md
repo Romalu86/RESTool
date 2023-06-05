@@ -1,4 +1,10 @@
 # RESTool 1.6 by romalu86
+
+**Changelist:**
+- The program's logic has been modified. (Batch file processing has been disabled, everything is done directly through the program, with logging of all user actions).
+- Added functionality for alternative file unpacking (required if the file is unpacked incorrectly after modifications).
+- Improved work with Float values. Now readings are more accurate (Removed results like 0.152000, now they are displayed as 0.152)
+
 **List of games with which the program works:**
 
 **Games on the engine AS1\ZS1:**
