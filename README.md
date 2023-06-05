@@ -1,78 +1,82 @@
-# RESTool
-RESTool v1.4 by romalu86
+# RESTool 1.4b by romalu86
 
-List of games with which the program works at the moment:
+**Changelist:**
+- Added a dictionary for text values, and the ability to supplement it. Allows you to fully unpack the file with the preservation of text values instead of "1 or 0x0001".
+ The dictionary has all currently known variables for full unpacking of files. Will be updated as new information becomes available.
+- Added extended support for the mobile version of AS1 World in case of problems with unpacking. Modes: "as1mobile_pad & as1mobile_nonpad"
 
-- Games on the engine AS1\ZS1:
-Alien Shooter (PC NonSteam);
-Alien Shooter (Steam);
-Alien Shooter - Last Hope (Steam\Mobile);
-Alien Shooter - Lost World (Theseus Mobile);
-Alien Shooter - World (Mobile);
-Alien Shooter - Revisited;
-Theseus (PC);
-Zombie Shooter 1 (PC Steam & NonSteam);
-Zombie Shooter 1 (Mobile);
+**List of games with which the program works:**
 
-- Games on the engine AS2\ZS2:
-Alien Shooter - Revisited;
-Alien Shooter 2 - Gold;
-Alien Shooter 2 - Vengeance;
-Alien Shooter 2 - Reloaded;
-Alien Shooter 2 - Conscription;
-Alien Shooter 2 - The Legend (Steam\Mobile);
-Alien Shooter 2 - Tower Defence (Steam\Mobile);
-Alien Shooter 2 - Reloaded (Mobile);
-Alien Shooter 2 - New Era (Steam);
-Zombie Shooter 2 (Steam\NonSteam);
-Objects Extended Project.
+**Games on the engine AS1\ZS1:**
+- Alien Shooter (PC NonSteam),
+- Alien Shooter (Steam),
+- Alien Shooter - Last Hope (Steam\Mobile),
+- Alien Shooter - Lost World (Theseus Mobile),
+- Alien Shooter - World (Mobile),
+- Alien Shooter - Revisited,
+- Theseus (PC),
+- Zombie Shooter 1 (PC Steam & NonSteam),
+- Zombie Shooter 1 (Mobile).
 
-How to use?
+**Games on the engine AS2\ZS2:**
+- Alien Shooter - Revisited,
+- Alien Shooter 2 - Gold,
+- Alien Shooter 2 - Vengeance,
+- Alien Shooter 2 - Reloaded,
+- Alien Shooter 2 - Conscription,
+- Alien Shooter 2 - The Legend (Steam\Mobile),
+- Alien Shooter 2 - Tower Defence (Steam\Mobile),
+- Alien Shooter 2 - Reloaded (Mobile),
+- Alien Shooter 2 - New Era (Steam),
+- Zombie Shooter 2 (Steam\NonSteam),
+- Objects Extended Project.
+
+**How to use?**
 
 The program currently works through the console. For unpacking, you need to create a bat file. Its structure consists of three variables.
 
-example: RESTool objects.res as1pad
+example: RESTool objects.res as1_pad
 
-Also, unpacking through Unpack.bat has been added. You need to specify the path to the file or just its name if it is located in the same folder, and then choose the operating mode.
+or run the !Unpack_RES.bat file and follow the instructions on the screen.
 
-After Bat File completes the work, 4 files will appear in the folder: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
+After the decompilation process is completed, the "unpacked_inis" folder will appear with the files: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
 
-Dictionary of variables:
+The reverse compilation process is also possible. The folder with the program contains everything you need (the compiler and customized batch files !MakeRES !MakeDB_OE_old !MakeDB_OE_new). When you run one of the available batch files, the program takes the files "OBJ.ini, WEAP.ini, CNST.ini, SFX.ini.", and performs a reverse compilation. If the process was successful, the test.res or test.db file will appear in the root directory.
 
-The program supports the ability to supplement the base of unknown variables that are unpacked in the INT format (numbers - 1, 2, 4, etc.) or hexadecimal number system (example 0x1000). All information is in the constants.ini file, new values ​​are added by analogy with others.
+**Dictionary of variables:**
 
-File modes list:
-"as1pad" - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope (Steam & Mobile), Alien Shooter - Lost World (Theseus Mobile)
+The program supports the ability to supplement the base of unknown variables that are unpacked in the INT format (numbers - 1, 2, 4, etc.) or hexadecimal number system (example 0x1000). All information is in the constants.ini file, new values are added by analogy with others.
 
-"as1nopad" - works with Alien Shooter 1 - Old (NonSteam)
+**File modes list:**
 
-"theseus" - works with Theseus
+- as1_pad - works with Alien Shooter 1 Steam, Alien Shooter 1 Last Hope (Steam & Mobile), Alien Shooter - Lost World (Theseus Mobile)
 
-"as1pad" - works with Alien Shooter 1 - World (Mobile)
+- as1_nonpad - works with Alien Shooter 1 - Old (NonSteam)
 
-"as1nopad" - works with Alien Shooter 1 - World (Mobile)
+- theseus_pc - works with Theseus
 
-"zs1" - works with Zombie Shooter 1
+- as1world_pad - works with Alien Shooter 1 - World (Mobile)
 
-"zs1mobile" - works with Zombie Shooter 1
+- as1world_nonpad - works with Alien Shooter 1 - World (Mobile)
 
-"as2original" - works with Gold and Vengeance editions
+- zs1 - works with Zombie Shooter 1
 
-"as2addons" - works with Reloaded, Conscription
+- zs1_mobile - works with Zombie Shooter 1
 
-"zs2nonpad" - works with Zombie Shooter 2 (Steam)
+- as2_original - works with Gold and Vengeance editions
 
-"zs2pad" - works with Zombie Shooter 2 (NonSteam)
+- as2_addons - works with Reloaded, Conscription
 
-"asr" - works with Alien Shooter Revisited
+- zs2_nonpad - works with Zombie Shooter 2 (Steam)
 
-"as2legend" - works with Alien Shooter 2 Legend & TD (Steam\Mobile)
+- zs2_pad - works with Zombie Shooter 2 (NonSteam)
 
-"as2legendpad" - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)
+- asr - works with Alien Shooter Revisited
 
-"oe" - works with Objects Extended Project
+- as2legend_pad - works with Alien Shooter 2 Legend & TD (Steam\Mobile)
 
-"oe1105" - works with Objects Extended Project (Old Versions)
+- as2legend_nonpad - works with Alien Shooter 2 New Era (Steam) & Alien Shooter 2 Reloaded (Mobile)
 
+- oe - works with Objects Extended Project
 
-thx ermaccer for original c++ project. Many things helped to release this program much faster.
+- oe1105 - works with Objects Extended Project (Old Versions)
