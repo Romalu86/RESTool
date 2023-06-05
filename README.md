@@ -1,4 +1,11 @@
 # RESTool 1.7 by romalu86
+
+**Changelist:**
+- The functionality for file checking has been fixed. Now the program correctly verifies file headers before unpacking.
+- The logging logic has been fixed and updated. All errors and warnings are now displayed in the program window.
+- Added support for res files from the games: Crazy Lunch and Chacks Temple.
+- Added variables to the dictionary from the games: Crazy Lunch and Chacks Temple.
+
 **List of games with which the program works:**
 
 **Games on the engine AS1\ZS1:**
