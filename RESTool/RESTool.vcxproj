@@ -175,25 +175,6 @@
   <ItemGroup>
     <Image Include="icon1.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="data\CNST\gen1_CNST.ini" />
-    <None Include="data\CNST\gen2_CNST.ini" />
-    <None Include="data\constants.ini" />
-    <None Include="data\OBJ\asworld_OBJ.ini" />
-    <None Include="data\OBJ\gen1.1_OBJ.ini" />
-    <None Include="data\OBJ\gen1_OBJ.ini" />
-    <None Include="data\OBJ\gen2_OBJ.ini" />
-    <None Include="data\OBJ\legend_OBJ.ini" />
-    <None Include="data\OBJ\zs1mobile_OBJ.ini" />
-    <None Include="data\OBJ\zs2_OBJ.ini" />
-    <None Include="data\SFX\extSFX.ini" />
-    <None Include="data\SFX\gen1.1_extSFX.ini" />
-    <None Include="data\SFX\non_extSFX.ini" />
-    <None Include="data\WEAP\CrazyLunch_WEAP.ini" />
-    <None Include="data\WEAP\gen1.1_WEAP.ini" />
-    <None Include="data\WEAP\gen1_WEAP.ini" />
-    <None Include="data\WEAP\gen2_WEAP.ini" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

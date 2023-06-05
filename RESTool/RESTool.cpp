@@ -61,6 +61,7 @@ int main()
 			cout << "Enter the filename or path to file: ";
 			getline(cin, filename);
 			filename = removeQuotes(filename); // remove quotes from path to file
+
 			// Alternative unpacking mode (char pad in weap section)
 			cout << "Do you want to activate the alternative unpacking mode? (y/n): ";
 			string activateCharPadMode;
@@ -74,10 +75,26 @@ int main()
 			{
 				activateCharPadFlag = false;
 			}
+
 			// File mode
 			cout << "Enter file mode: ";
 			getline(cin, mode);
 			cout << endl;
+
+			// Dictionary check
+			std::ifstream file("data/constants.ini");
+
+			if (!file) 
+			{
+				std::cout << "WARNING: Failed to open file data/constants.ini" << std::endl;
+				std::cout << "WARNING: Description of object properties will be unavailable!" << std::endl;
+
+			}
+			else 
+			{
+				std::cout << "OK: Constants file loaded" << std::endl;
+			}
+
 			// Failed to open file. Try again? 
 			in = fopen(filename.c_str(), "rb");
 			if (!in)
@@ -1662,6 +1679,8 @@ int main()
 						}
 
 						// CNST Header
+						copyFileContent("data\\CNST\\gen1_CNST.ini", "unpacked_inis\\CNST.ini");
+						//
 						fread(header, sizeof(char), 4, in);
 						header[4] = '\0';
 
@@ -2602,6 +2621,8 @@ int main()
 							fclose(fout); // Закрытие файла fout
 						}
 
+						// Read CNST section
+						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 						// CNST Header
 						fread(header, sizeof(char), 4, in);
 						header[4] = '\0';
@@ -2762,7 +2783,8 @@ int main()
 							fclose(fout); // Закрытие файла fout
 						}
 
-						// SFX Header
+						// Read SFX Section
+						copyFileContent("data\\SFX\\extSFX.ini", "unpacked_inis\\SFX.ini");
 						fread(header, sizeof(char), 4, in);
 						header[4] = '\0';
 

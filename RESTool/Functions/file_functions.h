@@ -105,11 +105,8 @@ void copyFileContent(const string& sourceFilename, const string& destinationFile
 
 	if (!sourceFile.is_open())
 	{
-		std::cerr << "ERROR: Failed to open file " << sourceFilename << std::endl;
-		cout << endl;
-		std::cerr << "Press Enter to exit..." << std::endl;
-		std::cin.ignore();
-		exit(1);
+		std::cerr << "WARNING: Failed to open file " << sourceFilename << std::endl;
+		std::cerr << "WARNING: The output file will be created without a compiler header!" << endl;
 	}
 
 	if (!destinationFile.is_open())
