@@ -17,7 +17,7 @@
 - Zombie Shooter 1 (PC\Mobile),
 - Crazy Lunch (PC\Mobile),
 - Chacks Temple,
-- Steamland (Locoland in Steam)
+- Steamland (Locoland in Steam).
 
 **Games on the engine AS2\ZS2:**
 - Alien Shooter - Revisited,
@@ -37,7 +37,7 @@ The program currently operates through the console. To unpack the file, you need
 
 After the decompilation process is completed, the "unpacked_inis" folder will appear with the files: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
 
-The reverse compilation process is also possible. The folder with the program contains everything you need (the compiler and customized batch files !MakeRES !MakeDB_OE_old !MakeDB_OE_new).
+The reverse compilation process is also possible. The folder with the program contains everything you need (the compiler and customized batch files !MakeRES !MakeDB_OE_old, !MakeDB_OE_new, !MakeRES_Locoland).
 When you run one of the available batch files, the program takes the files "OBJ.ini, WEAP.ini, CNST.ini, SFX.ini.", and performs a reverse compilation.
 If the process was successful, the test.res or test.db file will appear in the root directory.
 
