@@ -29,6 +29,13 @@ int ReadInt(FILE* file)
 	return number;
 }
 
+uint32_t ReadUInt(FILE* file)
+{
+	uint32_t number;
+	fread(&number, sizeof(uint32_t), 1, file);
+	return number;
+}
+
 float ReadFloat(FILE* file)
 {
 	float number;
