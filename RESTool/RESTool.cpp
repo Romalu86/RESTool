@@ -11282,7 +11282,7 @@ int main()
 				}
 
 				// Locoland (SteamLand or Road to Khon-Ka-Du)
-				if (mode == "locoland")
+				else if (mode == "locoland")
 				{
 					validMode = true;
 					CreateDirectoryA("unpacked_inis", NULL);
