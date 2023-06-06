@@ -3,8 +3,8 @@
 **Changelist:**
 - The functionality for file checking has been fixed. Now the program correctly verifies file headers before unpacking.
 - The logging logic has been fixed and updated. All errors and warnings are now displayed in the program window.
-- Added support for res files from the games: Crazy Lunch and Chacks Temple.
-- Added variables to the dictionary from the games: Crazy Lunch and Chacks Temple.
+- Added support for res files from the games: Crazy Lunch, Chacks Temple, Steamland (Locoland in Steam).
+- Added variables to the dictionary from the games: Crazy Lunch, Chacks Temple, Steamland (Locoland in Steam).
 
 **List of games with which the program works:**
 
@@ -16,7 +16,8 @@
 - Theseus (PC),
 - Zombie Shooter 1 (PC\Mobile),
 - Crazy Lunch (PC\Mobile),
-- Chacks Temple.
+- Chacks Temple,
+- Steamland (Locoland in Steam)
 
 **Games on the engine AS2\ZS2:**
 - Alien Shooter - Revisited,
@@ -69,3 +70,5 @@ The program supports the ability to supplement the base of unknown variables tha
 - crazylunch - works with Crazy Lunch
 
 - chackstemple - works with Chacks Temple
+
+- locoland - works with Steamland (Locoland in Steam)
