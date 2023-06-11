@@ -2,6 +2,7 @@
 
 **Changelist:**
 - DefaultBehave values are now read in HEX format. Previously read was in Decimal format.
+- File Mode function fixed
 
 **List of games with which the program works:**
 
