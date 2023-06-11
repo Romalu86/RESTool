@@ -53,7 +53,7 @@ int main()
 	cout << "chackstemple - works with Chacks Temple" << endl;
 	cout << "locoland - works with Steamland (Locoland in Steam)" << endl;
 	cout << endl;
-	cout << "Alternative unpacking mode - required for unpacking data in case of incorrect section reading." << endl;
+	cout << "For proper unpacking, you need to select the correct mode and enable/disable the alternative unpacking mode." << endl;
 	cout << endl;
 	//
 	while (!fileOpened)
