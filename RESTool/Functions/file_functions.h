@@ -119,7 +119,6 @@ void copyFileContent(const string& sourceFilename, const string& destinationFile
 	if (!destinationFile.is_open())
 	{
 		std::cerr << "ERROR: Failed to open file " << destinationFilename << std::endl;
-		cout << endl;
 		std::cerr << "Press Enter to exit..." << std::endl;
 		std::cin.ignore();
 		exit(1);
@@ -228,6 +227,7 @@ std::string processIntValues(const int* arrayi, int numValues, bool useTabulatio
 void showError(const std::string& errorMessage)
 {
 	std::cout << "ERROR: " << errorMessage << std::endl;
+	cout << endl;
 	std::cout << "Press Enter to exit..." << std::endl;
 	std::cin.ignore();
 	exit(1);

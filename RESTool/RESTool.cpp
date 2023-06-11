@@ -34,7 +34,7 @@ int main()
 	//
 	ClearPreviousResults();				// Before work, offer deleting the old inis folder.
 	//
-	cout << "RESTool 1.7 by Romalu86" << endl;
+	cout << "RESTool 1.8 by Romalu86" << endl;
 	cout << endl;
 	cout << "File modes:" << endl;
 	cout << "as1_engine - works with Alien Shooter 1 (PC & Mobile), Alien Shooter 1 Last Hope (PC & Mobile), Alien Shooter - Lost World (Theseus Mobile)" << endl;
@@ -578,7 +578,7 @@ int main()
 						fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 					}
 					else {
-						fprintf(fout, "DefaultBehave=%i\n", out);
+						fprintf(fout, "DefaultBehave=0x%X\n", out);
 					}
 					// Icon DWORD
 					out = ReadInt(in);
@@ -1467,7 +1467,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -2404,7 +2404,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -3326,7 +3326,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -4259,7 +4259,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -5209,7 +5209,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -6149,7 +6149,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -7099,7 +7099,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -8056,7 +8056,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -8850,7 +8850,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -9935,7 +9935,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							//
 							out = ReadInt(in);
@@ -10828,7 +10828,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							// Icon DWORD
 							out = ReadInt(in);
@@ -11844,7 +11844,7 @@ int main()
 								fprintf(fout, "DefaultBehave=%s\n", DefaultBehaveText.c_str());
 							}
 							else {
-								fprintf(fout, "DefaultBehave=%i\n", out);
+								fprintf(fout, "DefaultBehave=0x%X\n", out);
 							}
 							// EnemyRating DWORD
 							out = ReadInt(in);

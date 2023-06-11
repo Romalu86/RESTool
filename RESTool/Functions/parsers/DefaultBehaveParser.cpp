@@ -24,21 +24,28 @@ std::string GetDefaultBehaveText(int value)
         {
             if (line.empty() || line[0] == ';') continue; // Пропустить пустые строки и комментарии
 
-            if (line == section)
-            {
-                foundSection = true;
-                continue;
-            }
-
             if (foundSection)
             {
                 size_t pos = line.find('=');
                 if (pos != std::string::npos)
                 {
-                    int intValue = std::stoi(line.substr(0, pos));
-                    if (intValue == value)
+                    std::string keyString = line.substr(0, pos);
+                    std::string valueString = line.substr(pos + 1);
+
+                    keyString.erase(0, 2); // Удаление префикса "0x"
+                    valueString.erase(0, valueString.find_first_not_of(' ')); // Удаление начальных пробелов
+
+                    unsigned int keyValue;
+                    try {
+                        keyValue = std::stoul(keyString, nullptr, 16); // Преобразование ключа в числовое значение без знака
+                    }
+                    catch (...) {
+                        continue; // Пропуск строки, если ключ не может быть преобразован в число
+                    }
+
+                    if (keyValue == static_cast<unsigned int>(value))
                     {
-                        return line.substr(pos + 1);
+                        return valueString;
                     }
                 }
                 else
@@ -46,10 +53,15 @@ std::string GetDefaultBehaveText(int value)
                     break; // Конец секции, выходим из цикла
                 }
             }
-        }
-    }
 
-    return ""; // Если значение не найдено, возвращаем пустую строку
+            if (line == section)
+            {
+                foundSection = true;
+            }
+        }
+
+        return ""; // Если значение не найдено, возвращаем пустую строку
+    }
 }
 
 // Alien Shooter 2 \ Zombie Shooter 2 Engines
@@ -67,21 +79,28 @@ std::string GetDefaultBehave2Text(int value)
         {
             if (line.empty() || line[0] == ';') continue; // Пропустить пустые строки и комментарии
 
-            if (line == section)
-            {
-                foundSection = true;
-                continue;
-            }
-
             if (foundSection)
             {
                 size_t pos = line.find('=');
                 if (pos != std::string::npos)
                 {
-                    int intValue = std::stoi(line.substr(0, pos));
-                    if (intValue == value)
+                    std::string keyString = line.substr(0, pos);
+                    std::string valueString = line.substr(pos + 1);
+
+                    keyString.erase(0, 2); // Удаление префикса "0x"
+                    valueString.erase(0, valueString.find_first_not_of(' ')); // Удаление начальных пробелов
+
+                    unsigned int keyValue;
+                    try {
+                        keyValue = std::stoul(keyString, nullptr, 16); // Преобразование ключа в числовое значение без знака
+                    }
+                    catch (...) {
+                        continue; // Пропуск строки, если ключ не может быть преобразован в число
+                    }
+
+                    if (keyValue == static_cast<unsigned int>(value))
                     {
-                        return line.substr(pos + 1);
+                        return valueString;
                     }
                 }
                 else
@@ -89,8 +108,13 @@ std::string GetDefaultBehave2Text(int value)
                     break; // Конец секции, выходим из цикла
                 }
             }
-        }
-    }
 
-    return ""; // Если значение не найдено, возвращаем пустую строку
+            if (line == section)
+            {
+                foundSection = true;
+            }
+        }
+
+        return ""; // Если значение не найдено, возвращаем пустую строку
+    }
 }
