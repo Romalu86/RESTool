@@ -1,10 +1,7 @@
-# RESTool 1.7 by romalu86
+# RESTool 1.8 by romalu86
 
 **Changelist:**
-- The functionality for file checking has been fixed. Now the program correctly verifies file headers before unpacking.
-- The logging logic has been fixed and updated. All errors and warnings are now displayed in the program window.
-- Added support for res files from the games: Crazy Lunch, Chacks Temple, Steamland (Locoland in Steam).
-- Added variables to the dictionary from the games: Crazy Lunch, Chacks Temple, Steamland (Locoland in Steam).
+- DefaultBehave values are now read in HEX format. Previously read was in Decimal format.
 
 **List of games with which the program works:**
 
