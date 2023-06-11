@@ -265,4 +265,20 @@ void ClearPreviousResults()
 		}
 	}
 }
+
+// checkDictionary function
+void checkDictionary()
+{
+	std::ifstream file("data/constants.ini");
+
+	if (!file)
+	{
+		std::cout << "WARNING: Failed to open file data/constants.ini" << std::endl;
+		std::cout << "WARNING: Description of object properties will be unavailable!" << std::endl;
+	}
+	else
+	{
+		std::cout << "OK: Constants file loaded" << std::endl;
+	}
+}
 // End of File Functions

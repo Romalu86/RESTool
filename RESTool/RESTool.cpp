@@ -77,25 +77,6 @@ int main()
 				activateCharPadFlag = false;
 			}
 
-			// File mode
-			cout << "Enter file mode: ";
-			getline(cin, mode);
-			cout << endl;
-
-			// Dictionary check
-			std::ifstream file("data/constants.ini");
-
-			if (!file) 
-			{
-				std::cout << "WARNING: Failed to open file data/constants.ini" << std::endl;
-				std::cout << "WARNING: Description of object properties will be unavailable!" << std::endl;
-
-			}
-			else 
-			{
-				std::cout << "OK: Constants file loaded" << std::endl;
-			}
-
 			// Failed to open file. Try again? 
 			in = fopen(filename.c_str(), "rb");
 			if (!in)
@@ -113,13 +94,21 @@ int main()
 		fileOpened = true;
 	}
 
+	// File modes
 	bool validMode = false;
+
 	while (!validMode)
 	{
+				// Enter file mode dialog
+				cout << "Enter file mode: ";
+				getline(cin, mode);
+				cout << endl;
+
 				// Alien Shooter 1 Engine
 				if (mode == "as1_engine")
 				{
 				validMode = true;
+				checkDictionary(); // Check Dictionary file
 				CreateDirectoryA("unpacked_inis", NULL);
 				copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 			{
@@ -1009,6 +998,7 @@ int main()
 				else if (mode == "theseus_pc")
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -1921,6 +1911,7 @@ int main()
 				else if (mode == "as1world")
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\asworld_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -2859,6 +2850,7 @@ int main()
 				else if (mode == "zs1")				
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1.1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -3789,6 +3781,7 @@ int main()
 				else if (mode == "zs1_mobile")
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\zs1mobile_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -4722,6 +4715,7 @@ int main()
 				else if (mode == "as2_original")				
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -5669,6 +5663,7 @@ int main()
 				else if (mode == "as2_addons")
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -6612,6 +6607,7 @@ int main()
 				else if (mode == "zs2_engine")
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\zs2_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -7562,6 +7558,7 @@ int main()
 				else if (mode == "as2legend_engine")
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\legend_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -8519,6 +8516,7 @@ int main()
 				else if (mode == "oe_engine")
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
 					{
@@ -9467,6 +9465,7 @@ int main()
 				else if (mode == "crazylunch")
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -10370,6 +10369,7 @@ int main()
 				else if (mode == "chackstemple")				
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen1_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -11285,6 +11285,7 @@ int main()
 				else if (mode == "locoland")
 				{
 					validMode = true;
+					checkDictionary(); // Check Dictionary file
 					CreateDirectoryA("unpacked_inis", NULL);
 					copyFileContent("data\\OBJ\\gen0_OBJ.ini", "unpacked_inis\\OBJ.ini");
 					{
@@ -11909,11 +11910,6 @@ int main()
 				{
 					// Invalid mode error
 					cout << "Invalid file mode: " << mode << endl;
-					cout << endl;
-					fclose(in);
-					// File mode
-					cout << "Enter file mode: ";
-					getline(cin, mode);
 					cout << endl;
 				}
 	}
