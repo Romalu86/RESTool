@@ -73,7 +73,7 @@ char* ReadString(FILE* file, FILE* out, char* name)
 	return result;
 }
 
-// // SFX & ForceFeedback strings function
+// SFX & ForceFeedback strings function
 char* ReadStringNoRTN(FILE* file)
 {
 	int stringsize = 0;
@@ -227,7 +227,6 @@ std::string processIntValues(const int* arrayi, int numValues, bool useTabulatio
 void showError(const std::string& errorMessage)
 {
 	std::cout << "ERROR: " << errorMessage << std::endl;
-	cout << endl;
 	std::cout << "Press Enter to exit..." << std::endl;
 	std::cin.ignore();
 	exit(1);
