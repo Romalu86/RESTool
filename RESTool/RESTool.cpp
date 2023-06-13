@@ -2612,7 +2612,7 @@ int main()
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen3_CNST.ini", "unpacked_inis\\CNST.ini");
+						copyFileContent("data\\CNST\\NewEngineAS1_CNST.ini", "unpacked_inis\\CNST.ini");
 						// CNST Header
 						fread(header, sizeof(char), 4, in);
 						header[4] = '\0';
@@ -2714,7 +2714,7 @@ int main()
 								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Friction=%s\n", obuffer);
+							fprintf(fout, "PatrolRadius=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "DepoMillisecondsInSecond=%i\n", out);
@@ -4481,7 +4481,7 @@ int main()
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen3_CNST.ini", "unpacked_inis\\CNST.ini");
+						copyFileContent("data\\CNST\\NewEngineAS1_CNST.ini", "unpacked_inis\\CNST.ini");
 						// CNST Header
 						fread(header, sizeof(char), 4, in);
 						header[4] = '\0';
@@ -4583,7 +4583,7 @@ int main()
 								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "Friction=%s\n", obuffer);
+							fprintf(fout, "PatrolRadius=%s\n", obuffer);
 							//
 							out = ReadInt(in);
 							fprintf(fout, "DepoMillisecondsInSecond=%i\n", out);
@@ -8282,7 +8282,7 @@ int main()
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen3_CNST.ini", "unpacked_inis\\CNST.ini");
+						copyFileContent("data\\CNST\\NewEngineAS2_CNST.ini", "unpacked_inis\\CNST.ini");
 						// CNST Header
 						fread(header, sizeof(char), 4, in);
 						header[4] = '\0';
