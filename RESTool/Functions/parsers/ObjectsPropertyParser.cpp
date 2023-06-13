@@ -118,14 +118,14 @@ std::string GetObjects2PropertyText(int value)
     }
 }
     
-// Legend Engine Property2
+// New Engine ext1Property
 
-    std::string GetLegendObjectsProperty2Text(int value)
+    std::string GetExt1PropertyText(int value)
     {
         std::ifstream file("data\\constants.ini");
         if (file)
         {
-            std::string section = "[LegendEngine_property2]";
+            std::string section = "[ext1Property]";
             bool foundSection = false;
 
             std::string line;
@@ -172,125 +172,15 @@ std::string GetObjects2PropertyText(int value)
             return ""; // Если значение не найдено, возвращаем пустую строку
         }
     }
-    
- // AS1 World Property2
+ 
+ // New Engine ext2Property
 
-    std::string GetWorldObjectsProperty2Text(int value)
+    std::string GetExt2PropertyText(int value)
     {
         std::ifstream file("data\\constants.ini");
         if (file)
         {
-            std::string section = "[AS1Mobile_property2]";
-            bool foundSection = false;
-
-            std::string line;
-            while (std::getline(file, line))
-            {
-                if (line.empty() || line[0] == ';') continue; // Пропустить пустые строки и комментарии
-
-                if (foundSection)
-                {
-                    size_t pos = line.find('=');
-                    if (pos != std::string::npos)
-                    {
-                        std::string keyString = line.substr(0, pos);
-                        std::string valueString = line.substr(pos + 1);
-
-                        keyString.erase(0, 2); // Удаление префикса "0x"
-                        valueString.erase(0, valueString.find_first_not_of(' ')); // Удаление начальных пробелов
-
-                        unsigned int keyValue;
-                        try {
-                            keyValue = std::stoul(keyString, nullptr, 16); // Преобразование ключа в числовое значение без знака
-                        }
-                        catch (...) {
-                            continue; // Пропуск строки, если ключ не может быть преобразован в число
-                        }
-
-                        if (keyValue == static_cast<unsigned int>(value))
-                        {
-                            return valueString;
-                        }
-                    }
-                    else
-                    {
-                        break; // Конец секции, выходим из цикла
-                    }
-                }
-
-                if (line == section)
-                {
-                    foundSection = true;
-                }
-            }
-
-            return ""; // Если значение не найдено, возвращаем пустую строку
-        }
-    }
-    
- // AS1 World Property3
-
-    std::string GetWorldObjectsProperty3Text(int value)
-    {
-        std::ifstream file("data\\constants.ini");
-        if (file)
-        {
-            std::string section = "[AS1Mobile_property3]";
-            bool foundSection = false;
-
-            std::string line;
-            while (std::getline(file, line))
-            {
-                if (line.empty() || line[0] == ';') continue; // Пропустить пустые строки и комментарии
-
-                if (foundSection)
-                {
-                    size_t pos = line.find('=');
-                    if (pos != std::string::npos)
-                    {
-                        std::string keyString = line.substr(0, pos);
-                        std::string valueString = line.substr(pos + 1);
-
-                        keyString.erase(0, 2); // Удаление префикса "0x"
-                        valueString.erase(0, valueString.find_first_not_of(' ')); // Удаление начальных пробелов
-
-                        unsigned int keyValue;
-                        try {
-                            keyValue = std::stoul(keyString, nullptr, 16); // Преобразование ключа в числовое значение без знака
-                        }
-                        catch (...) {
-                            continue; // Пропуск строки, если ключ не может быть преобразован в число
-                        }
-
-                        if (keyValue == static_cast<unsigned int>(value))
-                        {
-                            return valueString;
-                        }
-                    }
-                    else
-                    {
-                        break; // Конец секции, выходим из цикла
-                    }
-                }
-
-                if (line == section)
-                {
-                    foundSection = true;
-                }
-            }
-
-            return ""; // Если значение не найдено, возвращаем пустую строку
-        }
-    }
-
-    // Zombie Shooter Mobile Engine ext1Property
-
-    std::string GetZSMObjectsProperty2Text(int value)
-    {
-        std::ifstream file("data\\constants.ini");
-        if (file)
-        {
-            std::string section = "[ZS1Mobile_property2]";
+            std::string section = "[ext2Property]";
             bool foundSection = false;
 
             std::string line;

@@ -2111,18 +2111,18 @@ int main()
 							fprintf(fout, "LifeTime=%i\n", out);
 							// ext1Property DWORD
 							out = ReadInt(in);
-							string property2Text = GetWorldObjectsProperty2Text(out);
-							if (!property2Text.empty()) {
-								fprintf(fout, "ext1Property=%s\n", property2Text.c_str());
+							string ext1Property = GetExt1PropertyText(out);
+							if (!ext1Property.empty()) {
+								fprintf(fout, "ext1Property=%s\n", ext1Property.c_str());
 							}
 							else {
 								fprintf(fout, "ext1Property=0x%X\n", out);
 							}
 							// ext2Property DWORD
 							out = ReadInt(in);
-							string property3Text = GetWorldObjectsProperty3Text(out);
-							if (!property3Text.empty()) {
-								fprintf(fout, "ext2Property=%s\n", property3Text.c_str());
+							string ext2Property = GetExt2PropertyText(out);
+							if (!ext2Property.empty()) {
+								fprintf(fout, "ext2Property=%s\n", ext2Property.c_str());
 							}
 							else {
 								fprintf(fout, "ext2Property=0x%X\n", out);
@@ -3988,9 +3988,9 @@ int main()
 							fprintf(fout, "LifeTime=%i\n", out);
 							// ext1Property DWORD
 							out = ReadInt(in);
-							string ext1propertyText = GetZSMObjectsProperty2Text(out);
-							if (!ext1propertyText.empty()) {
-								fprintf(fout, "ext1Property=%s\n", ext1propertyText.c_str());
+							string ext1Property = GetExt1PropertyText(out);
+							if (!ext1Property.empty()) {
+								fprintf(fout, "ext1Property=%s\n", ext1Property.c_str());
 							}
 							else {
 								fprintf(fout, "ext1Property=0x%X\n", out);
@@ -7789,9 +7789,9 @@ int main()
 							fprintf(fout, "LifeTime=%i\n", out);
 							// ext1Property DWORD
 							out = ReadInt(in);
-							string property2Text = GetLegendObjectsProperty2Text(out);
-							if (!property2Text.empty()) {
-								fprintf(fout, "ext1Property=%s\n", property2Text.c_str());
+							string ext1Property = GetExt1PropertyText(out);
+							if (!ext1Property.empty()) {
+								fprintf(fout, "ext1Property=%s\n", ext1Property.c_str());
 							}
 							else {
 								fprintf(fout, "ext1Property=0x%X\n", out);
