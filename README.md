@@ -2,9 +2,10 @@
 
 **Changelist:**
 - DefaultBehave values are now read in HEX format. Previously read was in Decimal format.
-- File Mode function fixed
-- Added GEN3 Const header for new games (Legend Engine, World, ZS1 Mobile).
-- Added dictionary support for ZS1 Mobile
+- Minor fixes have been made in the program code and in the unpacking loops.
+- The operation of the mode input function has been fixed. Now, in case of incorrect input, it works correctly.
+- Previously unknown variables from new games (Legend, World, etc.) have been added to the dictionary.
+- Support for new variables has been added to the compiler's headers.
 
 **List of games with which the program works:**
 
