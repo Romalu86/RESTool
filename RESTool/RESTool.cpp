@@ -28,12 +28,13 @@ int main()
 	FILE* fout;							// Opening a file in write mode
 	string filename;					// Used to open a file by its name or path
 	string mode;						// Used to specify the operating mode when opening a file
-	//
+	
 	bool fileOpened = false;			// File status check (Open or not)
 	bool activateCharPadFlag = true;	// Alternative unpacking mode check
-	//
+	bool validMode = false;				// File Mode Check
+	
 	ClearPreviousResults();				// Before work, offer deleting the old inis folder.
-	//
+	
 	cout << "RESTool 1.8 by Romalu86" << endl;
 	cout << endl;
 	cout << "File modes:" << endl;
@@ -55,7 +56,7 @@ int main()
 	cout << endl;
 	cout << "For proper unpacking, you need to select the correct mode and enable/disable the alternative unpacking mode." << endl;
 	cout << endl;
-	//
+
 	while (!fileOpened)
 	{
 			// File name
@@ -93,9 +94,6 @@ int main()
 
 		fileOpened = true;
 	}
-
-	// File modes
-	bool validMode = false;
 
 	while (!validMode)
 	{
@@ -2111,23 +2109,23 @@ int main()
 							// LifeTime DWORD
 							out = ReadInt(in);
 							fprintf(fout, "LifeTime=%i\n", out);
-							// Property2 DWORD
+							// ext1Property DWORD
 							out = ReadInt(in);
 							string property2Text = GetWorldObjectsProperty2Text(out);
 							if (!property2Text.empty()) {
-								fprintf(fout, "Property2=%s\n", property2Text.c_str());
+								fprintf(fout, "ext1Property=%s\n", property2Text.c_str());
 							}
 							else {
-								fprintf(fout, "Property2=0x%X\n", out);
+								fprintf(fout, "ext1Property=0x%X\n", out);
 							}
-							// Property3 DWORD
+							// ext2Property DWORD
 							out = ReadInt(in);
 							string property3Text = GetWorldObjectsProperty3Text(out);
 							if (!property3Text.empty()) {
-								fprintf(fout, "Property3=%s\n", property3Text.c_str());
+								fprintf(fout, "ext2Property=%s\n", property3Text.c_str());
 							}
 							else {
-								fprintf(fout, "Property3=0x%X\n", out);
+								fprintf(fout, "ext2Property=0x%X\n", out);
 							}
 							// Reserved CHAR[8]
 							arrayf[0] = ReadFloat(in);
@@ -2614,7 +2612,7 @@ int main()
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
+						copyFileContent("data\\CNST\\gen3_CNST.ini", "unpacked_inis\\CNST.ini");
 						// CNST Header
 						fread(header, sizeof(char), 4, in);
 						header[4] = '\0';
@@ -2694,11 +2692,18 @@ int main()
 								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
+							fprintf(fout, "CriticalHitMulti=%s\n", obuffer);
 							//
-							arrayf[0] = ReadFloat(in);
-							sprintf(obuffer, "%.f", arrayf[0]);
-							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
+							for (int i = 0; i < 1; ++i)
+							{
+								arrayf[i] = ReadFloat(in);
+							}
+
+							{
+								std::string formattedOutput = processFloatValues(arrayf, 1, false);
+								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
+							}
+							fprintf(fout, "BrutalDeathHPMulti=%s\n", obuffer);
 							//
 							for (int i = 0; i < 1; ++i)
 							{
@@ -3981,10 +3986,15 @@ int main()
 							// LifeTime DWORD
 							out = ReadInt(in);
 							fprintf(fout, "LifeTime=%i\n", out);
-							// Property2 DWORD
+							// ext1Property DWORD
 							out = ReadInt(in);
-							sprintf(obuffer, "0x%X", out);
-							fprintf(fout, "Property2=%s\n", obuffer);
+							string ext1propertyText = GetZSMObjectsProperty2Text(out);
+							if (!ext1propertyText.empty()) {
+								fprintf(fout, "ext1Property=%s\n", ext1propertyText.c_str());
+							}
+							else {
+								fprintf(fout, "ext1Property=0x%X\n", out);
+							}
 							// Reserved CHAR[12]
 							arrayf[0] = ReadFloat(in);
 							arrayf[1] = ReadFloat(in);
@@ -4471,7 +4481,7 @@ int main()
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
+						copyFileContent("data\\CNST\\gen3_CNST.ini", "unpacked_inis\\CNST.ini");
 						// CNST Header
 						fread(header, sizeof(char), 4, in);
 						header[4] = '\0';
@@ -4551,7 +4561,7 @@ int main()
 								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
+							fprintf(fout, "CriticalHitMulti=%s\n", obuffer);
 							//
 							for (int i = 0; i < 1; ++i)
 							{
@@ -4562,7 +4572,7 @@ int main()
 								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
+							fprintf(fout, "BrutalDeathHPMulti=%s\n", obuffer);
 							//
 							for (int i = 0; i < 1; ++i)
 							{
@@ -7777,14 +7787,14 @@ int main()
 							// LifeTime DWORD
 							out = ReadInt(in);
 							fprintf(fout, "LifeTime=%i\n", out);
-							// Property2 DWORD
+							// ext1Property DWORD
 							out = ReadInt(in);
 							string property2Text = GetLegendObjectsProperty2Text(out);
 							if (!property2Text.empty()) {
-								fprintf(fout, "Property2=%s\n", property2Text.c_str());
+								fprintf(fout, "ext1Property=%s\n", property2Text.c_str());
 							}
 							else {
-								fprintf(fout, "Property2=0x%X\n", out);
+								fprintf(fout, "ext1Property=0x%X\n", out);
 							}
 							// Reserved CHAR[12]
 							arrayf[0] = ReadFloat(in);
@@ -8272,7 +8282,7 @@ int main()
 						}
 
 						// Read CNST section
-						copyFileContent("data\\CNST\\gen2_CNST.ini", "unpacked_inis\\CNST.ini");
+						copyFileContent("data\\CNST\\gen3_CNST.ini", "unpacked_inis\\CNST.ini");
 						// CNST Header
 						fread(header, sizeof(char), 4, in);
 						header[4] = '\0';
@@ -8352,7 +8362,7 @@ int main()
 								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "RailRepairSpeed=%s\n", obuffer);
+							fprintf(fout, "CriticalHitMulti=%s\n", obuffer);
 							//
 							for (int i = 0; i < 1; ++i)
 							{
@@ -8363,7 +8373,7 @@ int main()
 								std::string formattedOutput = processFloatValues(arrayf, 1, false);
 								snprintf(obuffer, sizeof(obuffer), "%s", formattedOutput.c_str());
 							}
-							fprintf(fout, "MasterRepairSpeed=%s\n", obuffer);
+							fprintf(fout, "BrutalDeathHPMulti=%s\n", obuffer);
 							//
 							for (int i = 0; i < 1; ++i)
 							{
