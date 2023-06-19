@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 #include "Functions\file_functions.h"
-//include "Functions\licnese_checker.h"
+#include "Functions\licnese_checker.h"
 #include "Functions\parsers\SpriteTypeParser.h"
 #include "Functions\parsers\SpriteClassParser.h"
 #include "Functions\parsers\DefaultBehaveParser.h"
@@ -34,45 +34,7 @@ int main()
 	bool activateCharPadFlag = true;	// Alternative unpacking mode check
 	bool validMode = false;				// File Mode Check
 
-	// Проверка лицензионного ключа
-	/*
-	std::string licenseKey;
-	std::ifstream licenseFile("license.key");
-	if (licenseFile.is_open())
-	{
-		std::string line;
-		while (std::getline(licenseFile, line))
-		{
-			if (line.find("licensekey=") == 0)
-			{
-				licenseKey = line.substr(11);
-				break;
-			}
-		}
-		licenseFile.close();
-	}
-
-	if (licenseKey.empty())
-	{
-		std::cerr << "License key not found. Contact the author of the program for details." << std::endl;
-		cout << endl;
-		cout << "Press Enter to exit..." << endl;
-		getchar();
-		return 1;
-	}
-
-	std::string appSecret = "1a595bf1010cbec2c6b32759d5068c2f";  // AppSecret
-
-	if (!verifyLicenseKey(licenseKey, appSecret))
-	{
-		std::cerr << "Invalid or blocked license key. Contact the author of the program for details." << std::endl;
-		cout << endl;
-		cout << "Press Enter to exit..." << endl;
-		getchar();
-		return 1;
-	}
-	*/
-	
+	//checkLicenseKey();					// Enable License check API
 	ClearPreviousResults();				// Before work, offer deleting the old inis folder.
 	
 	cout << "RESTool 1.8 by Romalu86" << endl;
