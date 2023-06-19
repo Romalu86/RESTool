@@ -45,6 +45,9 @@
     <ClInclude Include="Functions\file_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Functions\licnese_checker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

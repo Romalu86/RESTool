@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Functions\file_functions.h" />
+    <ClInclude Include="Functions\licnese_checker.h" />
     <ClInclude Include="Functions\parsers\DefaultBehaveParser.h" />
     <ClInclude Include="Functions\parsers\NWeaponPropertyParser.h" />
     <ClInclude Include="Functions\parsers\ObjectsPropertyParser.h" />
