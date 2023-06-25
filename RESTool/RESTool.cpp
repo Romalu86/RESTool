@@ -976,19 +976,9 @@ int main()
 					out = ReadByte(in); // Priority
 					fprintf(fout, "Priority=%i\n", out);
 					// Wave
-					std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-					// Считываем 8 строк для путей до файлов
-					for (int i = 0; i < 8; ++i) {
-						if (!feof(in)) {
-							arraySFX[i] = ReadStringNoRTN(in);
-						}
-					}
-					// Формируем строку с путями до файлов
-					std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-						arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-					fprintf(fout, "Wave=%s\n", obuffer.c_str());
+					const int waveNumStrings = 8;
+					std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+					fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 					fclose(fout); // Закрываем файл fout
 				}
 			}
@@ -1876,32 +1866,13 @@ int main()
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -2822,32 +2793,13 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -3753,32 +3705,13 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -4692,32 +4625,13 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -5640,32 +5554,13 @@ int main()
 							out = ReadByte(in);
 							fprintf(fout, "Priority=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -6584,32 +6479,13 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -7535,32 +7411,13 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -8493,32 +8350,13 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -9442,32 +9280,13 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -10359,19 +10178,9 @@ int main()
 							out = ReadByte(in); // Priority
 							fprintf(fout, "Priority=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -11262,32 +11071,13 @@ int main()
 							out = ReadInt(in);
 							fprintf(fout, "Volume=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							// ForceFeedBack
-							std::string arrayForceFeedBack[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arrayForceFeedBack[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer2 = arrayForceFeedBack[0] + " " + arrayForceFeedBack[1] + " " + arrayForceFeedBack[2] + " " + arrayForceFeedBack[3] + " " +
-								arrayForceFeedBack[4] + " " + arrayForceFeedBack[5] + " " + arrayForceFeedBack[6] + " " + arrayForceFeedBack[7];
-							fprintf(fout, "ForceFeedBack=%s\n", obuffer2.c_str());
+							const int forceFeedBackNumStrings = 8;
+							std::string forceFeedBackBuffer = readPathsFromFile(in, forceFeedBackNumStrings);
+							fprintf(fout, "ForceFeedBack=%s\n", forceFeedBackBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -11900,19 +11690,9 @@ int main()
 							out = ReadByte(in); // Priority
 							fprintf(fout, "Priority=%i\n", out);
 							// Wave
-							std::string arraySFX[8]; // Массив для хранения путей до файлов
-
-							// Считываем 8 строк для путей до файлов
-							for (int i = 0; i < 8; ++i) {
-								if (!feof(in)) {
-									arraySFX[i] = ReadStringNoRTN(in);
-								}
-							}
-							// Формируем строку с путями до файлов
-							std::string obuffer = arraySFX[0] + " " + arraySFX[1] + " " + arraySFX[2] + " " + arraySFX[3] + " " +
-								arraySFX[4] + " " + arraySFX[5] + " " + arraySFX[6] + " " + arraySFX[7];
-
-							fprintf(fout, "Wave=%s\n", obuffer.c_str());
+							const int waveNumStrings = 8;
+							std::string waveBuffer = readPathsFromFile(in, waveNumStrings);
+							fprintf(fout, "Wave=%s\n", waveBuffer.c_str());
 							fclose(fout); // Закрываем файл fout
 						}
 					}
@@ -11922,7 +11702,13 @@ int main()
 				{
 					// Invalid mode error
 					cout << "Invalid file mode: " << mode << endl;
+					cout << "Press Enter to try again or enter 'q' to quit...";
 					cout << endl;
+					string userInput;
+					getline(cin, userInput);
+					if (userInput == "q" || userInput == "Q")
+					return 1;
+					continue;
 				}
 	}
 	cout << endl;

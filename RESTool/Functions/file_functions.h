@@ -29,13 +29,6 @@
 		return number;
 	}
 
-	uint32_t ReadUInt(FILE* file)
-	{
-		uint32_t number;
-		fread(&number, sizeof(uint32_t), 1, file);
-		return number;
-	}
-
 	float ReadFloat(FILE* file)
 	{
 		float number;
@@ -73,37 +66,44 @@
 		return result;
 	}
 
-	// SFX & ForceFeedback strings function
-	char* ReadStringNoRTN(FILE* file)
-	{
+		// SFX & ForceFeedback strings function
+		std::string ReadStringNoRTN(FILE* file) {
 		int stringsize = 0;
-		char* buffer = NULL;
 		char ch;
-		while (fread(&ch, sizeof(char), 1, file) == 1)
-		{
-			if (ch == 0x00)
-			{
+		std::string buffer;
+
+		while (fread(&ch, sizeof(char), 1, file) == 1) {
+			if (ch == 0x00) {
 				break;
 			}
-			char* temp = (char*)realloc(buffer, (stringsize + 1) * sizeof(char));
-			if (temp == NULL)
-			{
-				// Обработка ошибки выделения памяти
-				// Можно вернуть NULL или предпринять другие действия
-				free(buffer);
-				return NULL;
-			}
-			buffer = temp;
-			buffer[stringsize] = ch;
+			buffer += ch;
 			stringsize++;
 		}
-		char* result = (char*)realloc(buffer, (stringsize + 1) * sizeof(char));
-		if (result != NULL)
-		{
-			result[stringsize] = '\0';
+
+		return buffer;
 		}
-		return result;
-	}
+
+		// Функция для считывания заданного количества строк из файла и формирования строки с путями
+		std::string readPathsFromFile(FILE* file, int numStrings) {
+		std::vector<std::string> paths;
+		std::string path;
+
+		// Считываем заданное количество строк для путей до файлов
+		for (int i = 0; i < numStrings; ++i) {
+			if (!feof(file)) {
+				path = ReadStringNoRTN(file);
+				paths.push_back(path);
+			}
+		}
+
+		// Формируем строку с путями до файлов
+		std::string buffer;
+		for (const std::string& p : paths) {
+			buffer += p + " ";
+		}
+
+		return buffer;
+		}
 
 	// Copy Header to Output files function
 	void copyFileContent(const string& sourceFilename, const string& destinationFilename) {
