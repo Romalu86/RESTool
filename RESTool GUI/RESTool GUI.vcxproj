@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Functions\file_modes.cpp" />
     <ClCompile Include="Functions\parsers\DefaultBehaveParser.cpp" />
     <ClCompile Include="Functions\parsers\NWeaponPropertyParser.cpp" />
     <ClCompile Include="Functions\parsers\ObjectsPropertyParser.cpp" />
@@ -188,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Functions\file_functions.h" />
+    <ClInclude Include="Functions\file_modes.h" />
     <ClInclude Include="Functions\licnese_checker.h" />
     <ClInclude Include="Functions\parsers\DefaultBehaveParser.h" />
     <ClInclude Include="Functions\parsers\NWeaponPropertyParser.h" />
