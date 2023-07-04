@@ -322,6 +322,30 @@ void MainWindow::handleMakeResButtonClicked()
     QString mode = packModeComboBox->currentText();
     qDebug() << "MakeRes mode:" << mode;
 
+	QString workingDirectory = QCoreApplication::applicationDirPath();
+	QString ini2resPath = workingDirectory + "/bin/ini2res.exe";
+	QString ini2dbPath = workingDirectory + "/bin/ini2db.exe";
+
+	// Проверяем наличие файлов ini2res и ini2db
+	bool ini2resExists = QFile::exists(ini2resPath);
+	bool ini2dbExists = QFile::exists(ini2dbPath);
+
+	if ((mode == "AS/ZS Engine" && !ini2resExists) ||
+		(mode == "Objects Extended Engine" && !ini2dbExists) ||
+		(mode == "Locoland Engine" && !ini2resExists))
+	{
+		// Если файл ini2res или ini2db не найден, выводим предупреждение и блокируем кнопку
+		QString errorMessage = "Compilation cancelled. Compilers not found. Please check the installation of the program.\n\n"
+			"The following files are missing:\n\n";
+		if (!ini2resExists)
+			errorMessage += "bin/ini2res.exe\n";
+		if (!ini2dbExists)
+			errorMessage += "bin/ini2db.exe\n";
+
+		QMessageBox::critical(this, "Res Compilation - Files Missing", errorMessage);
+		return;
+	}
+
 	if (mode == "AS/ZS Engine")
 	{
 		QString workingDirectory = QCoreApplication::applicationDirPath();
@@ -335,9 +359,6 @@ void MainWindow::handleMakeResButtonClicked()
 		// Удаляем папку compiled_res, если она существует
 		QDir compiledResDir(workingDirectory + "/compiled_res");
 		compiledResDir.removeRecursively();
-
-		// Создаем папку compiled_res
-		QDir().mkpath(workingDirectory + "/compiled_res");
 
 		QStringList iniFiles = {
 			"OBJ.ini",
@@ -365,6 +386,9 @@ void MainWindow::handleMakeResButtonClicked()
 			foreach(const QString & iniFile, iniFiles)
 			{
 				QString iniFilePath = workingDirectory + "/unpacked_inis/" + iniFile;
+
+				// Создаем папку compiled_res
+				QDir().mkpath(workingDirectory + "/compiled_res");
 
 				// Запускаем процесс ini2res для каждого ini-файла
 				QProcess process;
@@ -406,9 +430,6 @@ void MainWindow::handleMakeResButtonClicked()
 		QDir compiledResDir(workingDirectory + "/compiled_res");
 		compiledResDir.removeRecursively();
 
-		// Создаем папку compiled_res
-		QDir().mkpath(workingDirectory + "/compiled_res");
-
 		QStringList iniFiles = {
 			"CNST.ini",
 			"WEAP.ini",
@@ -435,6 +456,9 @@ void MainWindow::handleMakeResButtonClicked()
 			foreach(const QString & iniFile, iniFiles)
 			{
 				QString iniFilePath = workingDirectory + "/unpacked_inis/" + iniFile;
+
+				// Создаем папку compiled_res
+				QDir().mkpath(workingDirectory + "/compiled_res");
 
 				// Запускаем процесс ini2res для каждого ini-файла
 				QProcess process;
@@ -476,9 +500,6 @@ void MainWindow::handleMakeResButtonClicked()
 		QDir compiledResDir(workingDirectory + "/compiled_res");
 		compiledResDir.removeRecursively();
 
-		// Создаем папку compiled_res
-		QDir().mkpath(workingDirectory + "/compiled_res");
-
 		QStringList iniFiles = {
 			"OBJ.ini",
 			"CNST.ini",
@@ -505,6 +526,9 @@ void MainWindow::handleMakeResButtonClicked()
 			foreach(const QString & iniFile, iniFiles)
 			{
 				QString iniFilePath = workingDirectory + "/unpacked_inis/" + iniFile;
+
+				// Создаем папку compiled_res
+				QDir().mkpath(workingDirectory + "/compiled_res");
 
 				// Запускаем процесс ini2res для каждого ini-файла
 				QProcess process;
