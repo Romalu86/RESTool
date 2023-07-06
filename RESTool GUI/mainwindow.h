@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget* parent = nullptr);
 
 private slots:
     void handleBrowseButtonClicked();
@@ -31,10 +31,10 @@ private slots:
 private:
     static void myMessageOutput(QtMsgType type, const QMessageLogContext& context, const QString& msg);
     static QPlainTextEdit* debugTextEdit;
-    QLabel* filenameLabel;
+    QPushButton* makeResButton;
+    QComboBox* packModeComboBox;
     QLineEdit* filenameLineEdit;
     QPushButton* browseButton;
-    QLabel* modeLabel;
     QComboBox* modeComboBox;
     QPushButton* unpackButton;
     bool alternativeModeEnabled;

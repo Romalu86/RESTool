@@ -4,11 +4,9 @@
 #include "Functions/file_modes.h"
 #include <QProcess>
 
-QString ResFilename;
-QPushButton* makeResButton;
-QComboBox* packModeComboBox;
+QString ResFilename; // инициализация переменной для проверки файла
 
-
+// ComboBox description function
 void MainWindow::handleModeComboBoxChanged(const QString& mode)
 {
 	QString description;
@@ -78,11 +76,12 @@ void MainWindow::handleModeComboBoxChanged(const QString& mode)
 // Инициализация статической переменной debugTextEdit
 QPlainTextEdit* MainWindow::debugTextEdit = nullptr;
 
+// interface functional code
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
     setWindowTitle("RESTool by Romalu86");
-	setFixedSize(370, 300); // Установка фиксированного размера окна
+	setFixedSize(500, 400); // Установка фиксированного размера окна
 
     // Создание виджетов
     filenameLineEdit = new QLineEdit;
@@ -154,6 +153,7 @@ MainWindow::MainWindow(QWidget* parent)
 	qInstallMessageHandler(myMessageOutput); // Устанавливаем обработчик сообщений для qDebug
 }
 
+// debugtextedit functional
 void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext& context, const QString& msg)
 {
 	QByteArray localMsg = msg.toLocal8Bit();
@@ -167,6 +167,7 @@ void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext& conte
 	}
 }
 
+// check files
 bool checkFilesExistence()
 {
 	QStringList filepaths;  // Создаем список для хранения путей к файлам
@@ -219,6 +220,7 @@ bool checkFilesExistence()
 	return true;
 }
 
+// browse button functional
 void MainWindow::handleBrowseButtonClicked()
 {
 	QString gameFilesFilter = "Game Files (*.res *.db)";
@@ -235,6 +237,7 @@ void MainWindow::handleBrowseButtonClicked()
 	}
 }
 
+// unpack button functional
 void MainWindow::handleUnpackButtonClicked()
 {
 	ResFilename = filenameLineEdit->text();
@@ -315,6 +318,7 @@ void MainWindow::handleUnpackButtonClicked()
 	QDesktopServices::openUrl(QUrl::fromLocalFile(unpackedFolderPath));
 }
 
+// makeres button functional
 void MainWindow::handleMakeResButtonClicked()
 {
     debugTextEdit->clear();

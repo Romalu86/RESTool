@@ -45,13 +45,13 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.5.1</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;qml;quick;quickcontrols2;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtToolsDesignTime>false</QtToolsDesignTime>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.5.1</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;qml;quick;quickcontrols2;quicklayouts;widgets;core5compat</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtToolsDesignTime>false</QtToolsDesignTime>
   </PropertyGroup>
@@ -114,18 +114,7 @@
     <ClCompile Include="Functions\parsers\SpriteClassParser.cpp" />
     <ClCompile Include="Functions\parsers\SpriteTypeParser.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mainwindow.cpp">
-      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">input</DynamicSource>
-      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).moc</QtMocFileName>
-      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
-      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
-      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">input</DynamicSource>
-      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).moc</QtMocFileName>
-      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
-      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
-    </ClCompile>
-    <QtRcc Include="qml.qrc" />
-    <None Include="main.qml" />
+    <ClCompile Include="mainwindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Functions\file_functions.h" />
@@ -136,14 +125,14 @@
     <ClInclude Include="Functions\parsers\SFXPropertyParser.h" />
     <ClInclude Include="Functions\parsers\SpriteClassParser.h" />
     <ClInclude Include="Functions\parsers\SpriteTypeParser.h" />
-    <ClInclude Include="resource.h" />
     <QtMoc Include="mainwindow.h" />
+    <ClInclude Include="resources\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon1.ico" />
+    <Image Include="resources\icon1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="RESTool.rc" />
+    <ResourceCompile Include="resources\RESTool.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

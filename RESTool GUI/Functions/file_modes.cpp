@@ -7,6 +7,7 @@
 #include "parsers/SpriteClassParser.h"
 #include "parsers/SpriteTypeParser.h"
 #include <QDir>
+#include <QApplication>
 
 int out;							// Output value
 int arrayi[17];						// Maximum number of Int values ​​per line
@@ -30,10 +31,14 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 	if (alternativeModeAnswer == QMessageBox::Yes)
 	{
 		alternativeModeEnabled = true;
+		qDebug() << "Alternative mode: Enabled\n";
+		QCoreApplication::processEvents(); // Обновляем интерфейс для отображения нового текста
 	}
 	else
 	{
 		alternativeModeEnabled = false;
+		qDebug() << "Alternative mode: Disabled\n";
+		QCoreApplication::processEvents(); // Обновляем интерфейс для отображения нового текста
 	}
 
 	// Alien Shooter 1 Engine
