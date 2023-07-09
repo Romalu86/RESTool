@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RESTool_32bit", "RESTool_32bit\RESTool_32bit.vcxproj", "{CF002F65-5646-413E-AD7E-3FB24298B4BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF002F65-5646-413E-AD7E-3FB24298B4BF}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF002F65-5646-413E-AD7E-3FB24298B4BF}.Debug|x86.Build.0 = Debug|Win32
+		{CF002F65-5646-413E-AD7E-3FB24298B4BF}.Release|x86.ActiveCfg = Release|Win32
+		{CF002F65-5646-413E-AD7E-3FB24298B4BF}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ECEDE896-A622-45B2-8ED0-43E6F998C7FA}
+	EndGlobalSection
+EndGlobal
