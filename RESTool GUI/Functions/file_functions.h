@@ -33,9 +33,8 @@ float ReadFloat(FILE* file)
 // Name & VidName strings function
 char* ReadString(FILE* file, FILE* out, const char* name)
 {
-	char buffer[256]; // 256 Limit for new games.
+	char buffer[4096];
 	int stringsize = 0;
-	char msgbuffer[128];
 	fread(buffer, sizeof(char), sizeof(buffer) - 1, file);
 
 	for (int i = 0; i < sizeof(buffer) - 1; ++i)
@@ -48,11 +47,9 @@ char* ReadString(FILE* file, FILE* out, const char* name)
 		}
 	}
 
-	sprintf(msgbuffer, "%s", buffer);
-
-	// Dynamic memory allocation and copying the contents of a buffer
-	char* result = (char*)malloc((stringsize + 1) * sizeof(char)); // Adding +1 for the null character at the end of the string
-	strcpy(result, buffer);
+	char* result = (char*)malloc((stringsize + 1) * sizeof(char));
+	memcpy(result, buffer, stringsize);
+	result[stringsize] = '\0';
 
 	fprintf(out, "%s=%s\n", name, buffer);
 
