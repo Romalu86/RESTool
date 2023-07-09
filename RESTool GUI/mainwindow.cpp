@@ -1,126 +1,31 @@
 // Testing Build
 
 #include "mainwindow.h"
+#include "./ui_mainwindow.h"
 #include "Functions/file_modes.h"
 #include <QProcess>
 
 QString ResFilename; // инициализация переменной для проверки файла
+QPlainTextEdit* MainWindow::debugTextEdit = nullptr; // Инициализация статической переменной debugTextEdit
 
-// ComboBox description function
-void MainWindow::handleModeComboBoxChanged(const QString& mode)
-{
-	QString description;
-
-	if (mode == "as1_engine") {
-		description = "Alien Shooter 1 (PC/Mobile)\n"
-			"Alien Shooter 1 - Last Hope (PC/Mobile)\n"
-			"Alien Shooter 1 - Lost World (Theseus Mobile)";
-	}
-	else if (mode == "theseus_pc") {
-		description = "Theseus - Return of the Hero (PC Only)";
-	}
-	else if (mode == "as1world") {
-		description = "Alien Shooter 1 - World";
-	}
-	else if (mode == "zs1") {
-		description = "Zombie Shooter 1 (PC Only)";
-	}
-	else if (mode == "zs1_mobile") {
-		description = "Zombie Shooter 1 (Mobile Only)";
-	}
-	else if (mode == "as2_original") {
-		description = "Alien Shooter 2 (1.0/Gold/Vengeance)";
-	}
-	else if (mode == "as2_addons") {
-		description = "Alien Shooter 2 - Reloaded\n"
-			"Alien Shooter 2 - Conscription\n"
-			"Zombie Shooter 2 - Teaser";
-	}
-	else if (mode == "zs2_engine") {
-		description = "Zombie Shooter 2\n"
-			"Alien Shooter - Revisited";
-	}
-	else if (mode == "as2legend_engine") {
-		description = "Alien Shooter 2 - The Legend (PC/Mobile)\n"
-			"Alien Shooter 2 - TD (PC/Mobile)\n"
-			"Alien Shooter 2 - New Era\n"
-			"Alien Shooter 2 - Reloaded (Mobile)";
-	}
-	else if (mode == "oe_engine") {
-		description = "Objects Extended Project (version 1.1.0.6+)";
-	}
-	else if (mode == "crazylunch") {
-		description = "Crazy Lunch";
-	}
-	else if (mode == "chackstemple") {
-		description = "Chacks Temple";
-	}
-	else if (mode == "locoland") {
-		description = "Locoland/Steamland";
-	}
-	else if (mode == "AS/ZS Engine") {
-		description = "The compiler supports all Alien Shooter and Zombie Shooter games.";
-	}
-	else if (mode == "Objects Extended Engine") {
-		description = "The compiler only supports the Objects Extended Project.";
-	}
-	else if (mode == "Locoland Engine") {
-		description = "The compiler only supports the Locoland/Steamland.";
-	}
-
-	debugTextEdit->clear();  // Очистить содержимое перед добавлением нового текста
-	debugTextEdit->appendPlainText("Game support:\n" + description);
-
-}
-
-// Инициализация статической переменной debugTextEdit
-QPlainTextEdit* MainWindow::debugTextEdit = nullptr;
-
-// interface functional code
+// UI interface intialization
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent)
+	: QMainWindow(parent)
 {
-    setWindowTitle("RESTool by Romalu86");
-	setFixedSize(500, 400); // Установка фиксированного размера окна
+	setFixedSize(755, 400); // Установка фиксированного размера окна
 
-    // Создание виджетов
-    filenameLineEdit = new QLineEdit;
-    browseButton = new QPushButton("Browse");
-    modeComboBox = new QComboBox;
-    unpackButton = new QPushButton("Unpack");
-    QFrame* line = new QFrame;
-    line->setFrameShape(QFrame::HLine);
-    line->setFrameShadow(QFrame::Sunken);
-    packModeComboBox = new QComboBox;
-    makeResButton = new QPushButton("MakeRes");
-	debugTextEdit = new QPlainTextEdit;
-	debugTextEdit->setReadOnly(true);
+	Ui::MainWindow ui; // Создание объекта класса Ui::MainWindow
+	ui.setupUi(this); // Настройка пользовательского интерфейса
 
-    // Заблокировать поле ввода
-    filenameLineEdit->setEnabled(false);
-    // Установить текст по умолчанию
-    filenameLineEdit->setText("File not selected");
+	// Получение указателей на виджеты из загруженного .ui файла
+	filenameLineEdit = findChild<QLineEdit*>("filenameLineEdit");
+	browseButton = findChild<QPushButton*>("browseButton");
+	modeComboBox = findChild<QComboBox*>("modeComboBox");
+	unpackButton = findChild<QPushButton*>("unpackButton");
+	packModeComboBox = findChild<QComboBox*>("packModeComboBox");
+	makeResButton = findChild<QPushButton*>("makeResButton");
+	debugTextEdit = findChild<QPlainTextEdit*>("debugTextEdit");
 
-    QVBoxLayout* filenameLayout = new QVBoxLayout;
-    QVBoxLayout* modeLayout = new QVBoxLayout;
-    QVBoxLayout* alternativeModeLayout = new QVBoxLayout;
-    QVBoxLayout* mainLayout = new QVBoxLayout;
-
-    // Настройка компоновки
-    filenameLayout->addWidget(filenameLineEdit);
-    filenameLayout->addWidget(browseButton);
-    modeLayout->addWidget(modeComboBox);
-    mainLayout->addLayout(filenameLayout);
-    mainLayout->addLayout(modeLayout);
-    mainLayout->addWidget(unpackButton);
-    mainLayout->addWidget(line);
-    mainLayout->addWidget(packModeComboBox);
-    mainLayout->addWidget(makeResButton);
-	mainLayout->addWidget(debugTextEdit);
-
-    QWidget* centralWidget = new QWidget(this);
-    centralWidget->setLayout(mainLayout);
-    setCentralWidget(centralWidget);
 	// принудительно ставим режим чтобы показать его описание при первом запуске
 	modeComboBox->setCurrentText("as1_engine");
 	handleModeComboBoxChanged("as1_engine");
@@ -138,19 +43,24 @@ MainWindow::MainWindow(QWidget* parent)
 	modeComboBox->addItem("crazylunch");
 	modeComboBox->addItem("chackstemple");
 	modeComboBox->addItem("locoland");
-    // список режимов упаковки
-    packModeComboBox->addItem("AS/ZS Engine");
-    packModeComboBox->addItem("Objects Extended Engine");
-    packModeComboBox->addItem("Locoland Engine");
+	// список режимов упаковки
+	packModeComboBox->addItem("AS/ZS Engine");
+	packModeComboBox->addItem("Objects Extended Engine");
+	packModeComboBox->addItem("Locoland Engine");
 
-    // Подключение обработчиков событий
-    connect(browseButton, &QPushButton::clicked, this, &MainWindow::handleBrowseButtonClicked);
-    connect(unpackButton, &QPushButton::clicked, this, &MainWindow::handleUnpackButtonClicked);
+	// Подключение обработчиков событий
+	connect(browseButton, &QPushButton::clicked, this, &MainWindow::handleBrowseButtonClicked);
+	connect(unpackButton, &QPushButton::clicked, this, &MainWindow::handleUnpackButtonClicked);
 	connect(modeComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::handleModeComboBoxChanged);
-	connect(packModeComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::handleModeComboBoxChanged);
+	connect(packModeComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::handlePackModeComboBoxChanged);
 	connect(makeResButton, &QPushButton::clicked, this, &MainWindow::handleMakeResButtonClicked);
 
 	qInstallMessageHandler(myMessageOutput); // Устанавливаем обработчик сообщений для qDebug
+}
+
+MainWindow::~MainWindow()
+{
+	delete ui;
 }
 
 // debugtextedit functional
@@ -324,6 +234,7 @@ void MainWindow::handleMakeResButtonClicked()
     debugTextEdit->clear();
 
     QString mode = packModeComboBox->currentText();
+
     qDebug() << "MakeRes mode:" << mode;
 
 	QString workingDirectory = QCoreApplication::applicationDirPath();
@@ -563,4 +474,91 @@ void MainWindow::handleMakeResButtonClicked()
     {
         return;
     }
+}
+
+// Unpack description function
+void MainWindow::handleModeComboBoxChanged(const QString& mode)
+{
+	QString description;
+
+	if (mode == "as1_engine") {
+		description = "Alien Shooter 1 (PC/Mobile)\n"
+			"Alien Shooter 1 - Last Hope (PC/Mobile)\n"
+			"Alien Shooter 1 - Lost World (Theseus Mobile)";
+	}
+	else if (mode == "theseus_pc") {
+		description = "Theseus - Return of the Hero (PC Only)";
+	}
+	else if (mode == "as1world") {
+		description = "Alien Shooter 1 - World";
+	}
+	else if (mode == "zs1") {
+		description = "Zombie Shooter 1 (PC Only)";
+	}
+	else if (mode == "zs1_mobile") {
+		description = "Zombie Shooter 1 (Mobile Only)";
+	}
+	else if (mode == "as2_original") {
+		description = "Alien Shooter 2 (1.0/Gold/Vengeance)";
+	}
+	else if (mode == "as2_addons") {
+		description = "Alien Shooter 2 - Reloaded\n"
+			"Alien Shooter 2 - Conscription\n"
+			"Zombie Shooter 2 - Teaser";
+	}
+	else if (mode == "zs2_engine") {
+		description = "Zombie Shooter 2\n"
+			"Alien Shooter - Revisited";
+	}
+	else if (mode == "as2legend_engine") {
+		description = "Alien Shooter 2 - The Legend (PC/Mobile)\n"
+			"Alien Shooter 2 - TD (PC/Mobile)\n"
+			"Alien Shooter 2 - New Era\n"
+			"Alien Shooter 2 - Reloaded (Mobile)";
+	}
+	else if (mode == "oe_engine") {
+		description = "Objects Extended Project (version 1.1.0.6+)";
+	}
+	else if (mode == "crazylunch") {
+		description = "Crazy Lunch";
+	}
+	else if (mode == "chackstemple") {
+		description = "Chacks Temple";
+	}
+	else if (mode == "locoland") {
+		description = "Locoland/Steamland";
+	}
+	else if (mode == "AS/ZS Engine") {
+		description = "The compiler supports all Alien Shooter and Zombie Shooter games.";
+	}
+	else if (mode == "Objects Extended Engine") {
+		description = "The compiler only supports the Objects Extended Project.";
+	}
+	else if (mode == "Locoland Engine") {
+		description = "The compiler only supports the Locoland/Steamland.";
+	}
+
+	debugTextEdit->clear();  // Очистить содержимое перед добавлением нового текста
+	debugTextEdit->appendPlainText("Game support:\n" + description);
+
+}
+
+// MakeRes description function
+void MainWindow::handlePackModeComboBoxChanged(const QString& mode)
+{
+	QString description;
+
+	if (mode == "AS/ZS Engine") {
+		description = "The compiler supports all Alien Shooter and Zombie Shooter games.";
+	}
+	else if (mode == "Objects Extended Engine") {
+		description = "The compiler only supports the Objects Extended Project.";
+	}
+	else if (mode == "Locoland Engine") {
+		description = "The compiler only supports the Locoland/Steamland.";
+	}
+
+	debugTextEdit->clear();  // Очистить содержимое перед добавлением нового текста
+	debugTextEdit->appendPlainText("Compiler support:\n" + description);
+
 }
