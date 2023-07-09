@@ -1,11 +1,9 @@
-# RESTool 1.8 by romalu86
+# RESTool 1.9 by romalu86
 
 **Changelist:**
-- DefaultBehave values are now read in HEX format. Previously read was in Decimal format.
-- Minor fixes have been made in the program code and in the unpacking loops.
-- The operation of the mode input function has been fixed. Now, in case of incorrect input, it works correctly.
-- Previously unknown variables from new games (Legend, World, etc.) have been added to the dictionary.
-- Support for new variables has been added to the compiler's headers.
+- Increased buffer for some operations. Eliminates possible unpack issues in the future, and in theory may improve unpacking speed on some PCs.
+- Complete transition to the Qt5 (32 bit only) and Qt6 (64 bit only) Framework.
+- The first version of the interface has been implemented. Now all operations go through the program (Unpacking and compiling).
 
 **List of games with which the program works:**
 
@@ -34,13 +32,7 @@
 
 **How to use?**
 
-The program currently operates through the console. To unpack the file, you need to launch RESTool and follow the instructions on the screen.
-
-After the decompilation process is completed, the "unpacked_inis" folder will appear with the files: OBJ.ini, WEAP.ini, CNST.ini and SFX.ini
-
-The reverse compilation process is also possible. The folder with the program contains everything you need (the compiler and customized batch files !MakeRES !MakeDB_OE_old, !MakeDB_OE_new, !MakeRES_Locoland).
-When you run one of the available batch files, the program takes the files "OBJ.ini, WEAP.ini, CNST.ini, SFX.ini.", and performs a reverse compilation.
-If the process was successful, the test.res or test.db file will appear in the root directory.
+Due to the complete abandonment of the console, the user experience should improve. All processes are automated, and you will only need to start the program, select the file, and choose the unpacking mode. The program will take care of the rest for you. In case of any issues, all operations will be canceled and indicated in the messages and logs.
 
 **Dictionary of variables:**
 
@@ -60,7 +52,7 @@ The program supports the ability to supplement the base of unknown variables tha
 
 - as2_original - works with Gold and Vengeance editions
 
-- as2_addons - works with Reloaded, Conscription, Zombie Shooter 2 Teaser, Objects Extended Project (Old versions before 1.1.0.6)
+- as2_addons - works with Reloaded, Conscription, Zombie Shooter 2 Teaser
 
 - zs2_engine - works with Zombie Shooter 2 / Alien Shooter: Revisited
 
