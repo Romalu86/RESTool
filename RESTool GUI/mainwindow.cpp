@@ -12,9 +12,9 @@ QPlainTextEdit* MainWindow::debugTextEdit = nullptr; // Инициализаци
 MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)
 {
-	setFixedSize(755, 400); // Установка фиксированного размера окна
+	setFixedSize(630, 380); // Установка фиксированного размера окна
 
-	Ui::MainWindow ui; // Создание объекта класса Ui::MainWindow
+	Ui_mainWindow ui; // Создание объекта класса Ui_mainWindow
 	ui.setupUi(this); // Настройка пользовательского интерфейса
 
 	// Получение указателей на виджеты из загруженного .ui файла

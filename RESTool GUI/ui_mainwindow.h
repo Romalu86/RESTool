@@ -1,130 +1,124 @@
 /********************************************************************************
-** Form generated from reading UI file 'dialogdsRwGT.ui'
+** Form generated from reading UI file 'mainwindowOYRslZ.ui'
 **
 ** Created by: Qt User Interface Compiler version 6.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef DIALOGDSRWGT_H
-#define DIALOGDSRWGT_H
+#ifndef MAINWINDOWOYRSLZ_H
+#define MAINWINDOWOYRSLZ_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QFrame>
-#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
-class Ui_MainWindow
+class Ui_mainWindow
 {
 public:
     QWidget* centralwidget;
-    QVBoxLayout* verticalLayout;
-    QHBoxLayout* horizontalLayout;
+    QFormLayout* formLayout;
     QPushButton* browseButton;
     QLineEdit* filenameLineEdit;
-    QComboBox* modeComboBox;
     QPushButton* unpackButton;
-    QFrame* line;
-    QHBoxLayout* horizontalLayout2;
-    QComboBox* packModeComboBox;
+    QComboBox* modeComboBox;
     QPushButton* makeResButton;
+    QComboBox* packModeComboBox;
     QPlainTextEdit* debugTextEdit;
+    QLabel* label;
+    QLabel* label_2;
 
-    void setupUi(QMainWindow* MainWindow)
+    void setupUi(QMainWindow* mainWindow)
     {
-        if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(755, 400);
-        centralwidget = new QWidget(MainWindow);
+        if (mainWindow->objectName().isEmpty())
+            mainWindow->setObjectName("mainWindow");
+        mainWindow->resize(630, 308);
+        centralwidget = new QWidget(mainWindow);
         centralwidget->setObjectName("centralwidget");
-        verticalLayout = new QVBoxLayout(centralwidget);
-        verticalLayout->setObjectName("verticalLayout");
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName("horizontalLayout");
+        formLayout = new QFormLayout(centralwidget);
+        formLayout->setObjectName("formLayout");
         browseButton = new QPushButton(centralwidget);
         browseButton->setObjectName("browseButton");
 
-        horizontalLayout->addWidget(browseButton);
+        formLayout->setWidget(1, QFormLayout::LabelRole, browseButton);
 
         filenameLineEdit = new QLineEdit(centralwidget);
         filenameLineEdit->setObjectName("filenameLineEdit");
         filenameLineEdit->setEnabled(false);
-        filenameLineEdit->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout->addWidget(filenameLineEdit);
-
-
-        verticalLayout->addLayout(horizontalLayout);
-
-        modeComboBox = new QComboBox(centralwidget);
-        modeComboBox->setObjectName("modeComboBox");
-
-        verticalLayout->addWidget(modeComboBox);
+        formLayout->setWidget(1, QFormLayout::FieldRole, filenameLineEdit);
 
         unpackButton = new QPushButton(centralwidget);
         unpackButton->setObjectName("unpackButton");
 
-        verticalLayout->addWidget(unpackButton);
+        formLayout->setWidget(2, QFormLayout::LabelRole, unpackButton);
 
-        line = new QFrame(centralwidget);
-        line->setObjectName("line");
-        line->setFrameShape(QFrame::HLine);
-        line->setFrameShadow(QFrame::Sunken);
+        modeComboBox = new QComboBox(centralwidget);
+        modeComboBox->setObjectName("modeComboBox");
+        modeComboBox->setEditable(false);
 
-        verticalLayout->addWidget(line);
-
-        horizontalLayout2 = new QHBoxLayout();
-        horizontalLayout2->setObjectName("horizontalLayout2");
-        packModeComboBox = new QComboBox(centralwidget);
-        packModeComboBox->setObjectName("packModeComboBox");
-
-        horizontalLayout2->addWidget(packModeComboBox);
+        formLayout->setWidget(2, QFormLayout::FieldRole, modeComboBox);
 
         makeResButton = new QPushButton(centralwidget);
         makeResButton->setObjectName("makeResButton");
 
-        horizontalLayout2->addWidget(makeResButton);
+        formLayout->setWidget(4, QFormLayout::LabelRole, makeResButton);
 
+        packModeComboBox = new QComboBox(centralwidget);
+        packModeComboBox->setObjectName("packModeComboBox");
 
-        verticalLayout->addLayout(horizontalLayout2);
+        formLayout->setWidget(4, QFormLayout::FieldRole, packModeComboBox);
 
         debugTextEdit = new QPlainTextEdit(centralwidget);
         debugTextEdit->setObjectName("debugTextEdit");
         debugTextEdit->setReadOnly(true);
 
-        verticalLayout->addWidget(debugTextEdit);
+        formLayout->setWidget(5, QFormLayout::SpanningRole, debugTextEdit);
 
-        MainWindow->setCentralWidget(centralwidget);
+        label = new QLabel(centralwidget);
+        label->setObjectName("label");
 
-        retranslateUi(MainWindow);
+        formLayout->setWidget(0, QFormLayout::LabelRole, label);
 
-        QMetaObject::connectSlotsByName(MainWindow);
-    }
+        label_2 = new QLabel(centralwidget);
+        label_2->setObjectName("label_2");
 
-    void retranslateUi(QMainWindow* MainWindow)
+        formLayout->setWidget(3, QFormLayout::LabelRole, label_2);
+
+        mainWindow->setCentralWidget(centralwidget);
+
+        retranslateUi(mainWindow);
+
+        QMetaObject::connectSlotsByName(mainWindow);
+    } // setupUi
+
+    void retranslateUi(QMainWindow* mainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "RESTool by Romalu86", nullptr));
-        browseButton->setText(QCoreApplication::translate("MainWindow", "Browse", nullptr));
-        filenameLineEdit->setText(QCoreApplication::translate("MainWindow", "File not selected", nullptr));
-        unpackButton->setText(QCoreApplication::translate("MainWindow", "Unpack", nullptr));
-        makeResButton->setText(QCoreApplication::translate("MainWindow", "MakeRes", nullptr));
-    }
+        mainWindow->setWindowTitle(QCoreApplication::translate("mainWindow", "RESTool by Romalu86", nullptr));
+        browseButton->setText(QCoreApplication::translate("mainWindow", "Browse", nullptr));
+        filenameLineEdit->setText(QCoreApplication::translate("mainWindow", "File not selected", nullptr));
+        unpackButton->setText(QCoreApplication::translate("mainWindow", "Unpack", nullptr));
+        makeResButton->setText(QCoreApplication::translate("mainWindow", "MakeRes", nullptr));
+        label->setText(QCoreApplication::translate("mainWindow", "Unpack options:", nullptr));
+        label_2->setText(QCoreApplication::translate("mainWindow", "Pack options:", nullptr));
+    } // retranslateUi
 
 };
 
 namespace Ui {
-    class MainWindow : public Ui_MainWindow {};
-}
+    class mainWindow : public Ui_mainWindow {};
+} // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif
+#endif // MAINWINDOWOYRSLZ_H

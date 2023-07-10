@@ -1,3 +1,4 @@
+// Unpack Stuff
 #include "file_modes.h"
 #include "file_functions.h"
 #include "parsers/DefaultBehaveParser.h"
@@ -6,6 +7,7 @@
 #include "parsers/SFXPropertyParser.h"
 #include "parsers/SpriteClassParser.h"
 #include "parsers/SpriteTypeParser.h"
+// Qt Stuff
 #include <QDir>
 #include <QApplication>
 

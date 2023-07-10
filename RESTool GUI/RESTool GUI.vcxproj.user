@@ -5,7 +5,7 @@
     <QtLastBackgroundBuild>2023-07-08T21:04:08.4142800Z</QtLastBackgroundBuild>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <QtLastBackgroundBuild>2023-07-08T21:04:08.4726312Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2023-07-10T10:29:14.0158412Z</QtLastBackgroundBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='32bit Qt5|x64'" Label="QtSettings">
     <QtLastBackgroundBuild>2023-07-08T21:04:08.4726312Z</QtLastBackgroundBuild>
