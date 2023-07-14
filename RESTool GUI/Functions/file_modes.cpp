@@ -17,31 +17,12 @@ float arrayf[17];					// Maximum number of Float values ​​per line
 char obuffer[65535];				// Maximum buffer for values
 char header[5];						// File header length
 FILE* in;							// Opening a file in read mode
-FILE* fout;							// Opening a file in write mode				
+FILE* fout;							// Opening a file in write mode	
 
 void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QString& mode, bool alternativeModeEnabled)
 {
-	// Предложение активировать режим альтернативной распаковки
-	QMessageBox::StandardButton alternativeModeAnswer = QMessageBox::question(
-		nullptr,
-		"Alternative Unpacking Mode",
-		"Do you want to activate the alternative unpacking mode?",
-		QMessageBox::Yes | QMessageBox::No
-	);
-
-	// Проверка ответа пользователя
-	if (alternativeModeAnswer == QMessageBox::Yes)
-	{
-		alternativeModeEnabled = true;
-		qDebug() << "Alternative mode: Enabled\n";
-		QCoreApplication::processEvents(); // Обновляем интерфейс для отображения нового текста
-	}
-	else
-	{
-		alternativeModeEnabled = false;
-		qDebug() << "Alternative mode: Disabled\n";
-		QCoreApplication::processEvents(); // Обновляем интерфейс для отображения нового текста
-	}
+	// Создаем точку начала времени
+	auto startTime = std::chrono::high_resolution_clock::now();
 
 	// Alien Shooter 1 Engine
 	if (mode == "as1_engine")
@@ -270,10 +251,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -1165,10 +1145,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -2093,8 +2072,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 					fprintf(fout, "ext2Property=0x%X\n", out);
 				}
 				// Reserved CHAR[8]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
+				for (int i = 0; i < 2; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -2363,10 +2343,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "Icon=%i\n", out);
 				//
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				//
 				out = ReadInt(in);
@@ -3021,10 +3000,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -3292,10 +3270,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "Icon=%i\n", out);
 				//
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				//
 				out = ReadInt(in);
@@ -3959,9 +3936,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 					fprintf(fout, "ext1Property=0x%X\n", out);
 				}
 				// Reserved CHAR[12]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
+				for (int i = 0; i < 3; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -4230,10 +4207,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "Icon=%i\n", out);
 				//
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				//
 				out = ReadInt(in);
@@ -4908,10 +4884,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -5180,10 +5155,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "Icon=%i\n", out);
 				//
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				//
 				out = ReadInt(in);
@@ -5855,10 +5829,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -6120,10 +6093,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "Icon=%i\n", out);
 				//
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				//
 				out = ReadInt(in);
@@ -6797,10 +6769,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -7070,10 +7041,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "Icon=%i\n", out);
 				//
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				//
 				out = ReadInt(in);
@@ -7757,9 +7727,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 					fprintf(fout, "ext1Property=0x%X\n", out);
 				}
 				// Reserved CHAR[12]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
+				for (int i = 0; i < 3; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -8028,10 +7998,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "Icon=%i\n", out);
 				//
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				//
 				out = ReadInt(in);
@@ -8824,10 +8793,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "Icon=%i\n", out);
 				//
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				//
 				out = ReadInt(in);
@@ -9228,10 +9196,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -9636,10 +9603,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -9909,8 +9875,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "Icon=%i\n", out);
 				// Reserved[8]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
+				for (int i = 0; i < 2; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				//
 				out = ReadInt(in);
@@ -10550,10 +10517,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -11466,10 +11432,9 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 				out = ReadInt(in);
 				fprintf(fout, "LifeTime=%i\n", out);
 				// Reserved CHAR[16]
-				arrayf[0] = ReadFloat(in);
-				arrayf[1] = ReadFloat(in);
-				arrayf[2] = ReadFloat(in);
-				arrayf[3] = ReadFloat(in);
+				for (int i = 0; i < 4; ++i) {
+					arrayf[i] = ReadFloat(in);
+				}
 				fprintf(fout, "Reserved=\n");
 				// NoDir DWORD
 				out = ReadInt(in);
@@ -11873,4 +11838,22 @@ void FileUnpacker::processFileUnpackMode(const QString& resFilename, const QStri
 			}
 		}
 	}
+
+	// Создаем точку окончания времени
+	auto endTime = std::chrono::high_resolution_clock::now();
+
+	// Вычисляем продолжительность выполнения цикла
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+
+	// Вычисляем минуты, секунды и миллисекунды
+	auto minutes = std::chrono::duration_cast<std::chrono::minutes>(duration);
+	duration -= minutes;
+	auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
+	duration -= seconds;
+	auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+
+	// Выводим время выполнения в минутах, секундах и миллисекундах
+	qDebug() << "\nTime taken: " << minutes.count() << " minutes, "
+		<< seconds.count() << " seconds, "
+		<< milliseconds.count() << " milliseconds";
 }

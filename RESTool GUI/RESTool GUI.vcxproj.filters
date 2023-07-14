@@ -70,9 +70,6 @@
     <ClInclude Include="Functions\parsers\SpriteTypeParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resources\resource.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="ui_mainwindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -86,18 +83,18 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="resources\icon1.ico">
+    <QtMoc Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Resource.qrc">
       <Filter>Resource Files</Filter>
-    </Image>
+    </QtRcc>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources\RESTool.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="mainwindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
   </ItemGroup>
 </Project>

@@ -38,11 +38,13 @@ private slots:
     void handleModeComboBoxChanged(const QString& mode);
     void handlePackModeComboBoxChanged(const QString& mode);
     void handleMakeResButtonClicked();
+    void handleCheckBoxStateChanged(int state);
 
 private:
     Ui::MainWindow* ui; // Указатель на экземпляр класса Ui::MainWindow
     static void myMessageOutput(QtMsgType type, const QMessageLogContext& context, const QString& msg);
     static QPlainTextEdit* debugTextEdit;
+    QCheckBox* checkBox;
     QPushButton* makeResButton;
     QComboBox* packModeComboBox;
     QLineEdit* filenameLineEdit;

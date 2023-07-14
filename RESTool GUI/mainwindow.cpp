@@ -12,7 +12,7 @@ QPlainTextEdit* MainWindow::debugTextEdit = nullptr; // Инициализаци
 MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)
 {
-	setFixedSize(630, 380); // Установка фиксированного размера окна
+	setFixedSize(618, 380); // Установка фиксированного размера окна
 
 	Ui_mainWindow ui; // Создание объекта класса Ui_mainWindow
 	ui.setupUi(this); // Настройка пользовательского интерфейса
@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget* parent)
 	packModeComboBox = findChild<QComboBox*>("packModeComboBox");
 	makeResButton = findChild<QPushButton*>("makeResButton");
 	debugTextEdit = findChild<QPlainTextEdit*>("debugTextEdit");
+	checkBox = findChild<QCheckBox*>("checkBox");
 
 	// принудительно ставим режим чтобы показать его описание при первом запуске
 	modeComboBox->setCurrentText("as1_engine");
@@ -48,12 +49,20 @@ MainWindow::MainWindow(QWidget* parent)
 	packModeComboBox->addItem("Objects Extended Engine");
 	packModeComboBox->addItem("Locoland Engine");
 
+	alternativeModeEnabled = false; // Установка начального значения alternativeModeEnabled в false
+
+	// Проверка начального состояния чекбокса и установка alternativeModeEnabled
+	if (checkBox->isChecked()) {
+		alternativeModeEnabled = true;
+	}
+
 	// Подключение обработчиков событий
 	connect(browseButton, &QPushButton::clicked, this, &MainWindow::handleBrowseButtonClicked);
 	connect(unpackButton, &QPushButton::clicked, this, &MainWindow::handleUnpackButtonClicked);
 	connect(modeComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::handleModeComboBoxChanged);
 	connect(packModeComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::handlePackModeComboBoxChanged);
 	connect(makeResButton, &QPushButton::clicked, this, &MainWindow::handleMakeResButtonClicked);
+	connect(checkBox, &QCheckBox::stateChanged, this, &MainWindow::handleCheckBoxStateChanged);
 
 	qInstallMessageHandler(myMessageOutput); // Устанавливаем обработчик сообщений для qDebug
 }
@@ -61,6 +70,15 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow()
 {
 	delete ui;
+}
+
+// CheckBox Functional
+void MainWindow::handleCheckBoxStateChanged(int state)
+{
+	alternativeModeEnabled = (state == Qt::Checked);
+	if (!alternativeModeEnabled) {
+		alternativeModeEnabled = false; // Установите значение в false, если галочка не установлена
+	}
 }
 
 // debugtextedit functional
@@ -212,6 +230,8 @@ void MainWindow::handleUnpackButtonClicked()
 	// Вывод информации в окно дебага
 	debugTextEdit->appendPlainText("File: " + ResFilename);
 	debugTextEdit->appendPlainText("Mode: " + mode);
+	debugTextEdit->appendPlainText("Alternative Mode Enabled: " + QString(alternativeModeEnabled ? "Yes\n" : "No\n"));
+
 
 	unpackButton->setText("Unpacking...");
 	QCoreApplication::processEvents(); // Обновляем интерфейс для отображения нового текста
@@ -527,15 +547,6 @@ void MainWindow::handleModeComboBoxChanged(const QString& mode)
 	}
 	else if (mode == "locoland") {
 		description = "Locoland/Steamland";
-	}
-	else if (mode == "AS/ZS Engine") {
-		description = "The compiler supports all Alien Shooter and Zombie Shooter games.";
-	}
-	else if (mode == "Objects Extended Engine") {
-		description = "The compiler only supports the Objects Extended Project.";
-	}
-	else if (mode == "Locoland Engine") {
-		description = "The compiler only supports the Locoland/Steamland.";
 	}
 
 	debugTextEdit->clear();  // Очистить содержимое перед добавлением нового текста

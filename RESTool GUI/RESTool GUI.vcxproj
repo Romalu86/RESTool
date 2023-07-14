@@ -30,7 +30,7 @@
     <ProjectGuid>{02BB51D1-1C71-4546-A084-0612A5F03912}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
-    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -65,8 +65,8 @@
     <QtToolsDesignTime>false</QtToolsDesignTime>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>6.5.1_msvc2019_64</QtInstall>
-    <QtModules>core;gui;qml;quickcontrols2;quickdialogs2;quicklayouts;widgets;core5compat</QtModules>
+    <QtInstall>6.5.1</QtInstall>
+    <QtModules>core;gui;qml;quick;quickcontrols2;quicklayouts;widgets;core5compat</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtToolsDesignTime>false</QtToolsDesignTime>
   </PropertyGroup>
@@ -101,11 +101,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='32bit Qt5|x64'" />
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <QtInstall>6.5.1</QtInstall>
-    <QtModules>core;widgets;uitools</QtModules>
+    <QtModules>core;gui;widgets;uitools</QtModules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='32bit Qt5|Win32'" Label="QtSettings">
     <QtInstall>5.15.2_msvc2019</QtInstall>
     <QtModules>core;uitools;widgets</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <QtInstall>6.5.1</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile />
@@ -195,10 +199,9 @@
     <ClInclude Include="Functions\parsers\SpriteTypeParser.h" />
     <ClInclude Include="ui_mainwindow.h" />
     <QtMoc Include="mainwindow.h" />
-    <ClInclude Include="resources\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="resources\icon1.ico" />
+    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources\RESTool.rc" />
