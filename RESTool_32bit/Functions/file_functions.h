@@ -3,12 +3,7 @@
 #include <QMessageBox>
 
 // File Functions
-char bufferrn[64];
-FILE* OpenFile(char* name)
-{
-	FILE* file = fopen(name, "rb");
-	return file;
-}
+
 int ReadByte(FILE* file)
 {
 	char number;

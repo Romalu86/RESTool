@@ -113,14 +113,13 @@
     <ClInclude Include="Functions\parsers\SFXPropertyParser.h" />
     <ClInclude Include="Functions\parsers\SpriteClassParser.h" />
     <ClInclude Include="Functions\parsers\SpriteTypeParser.h" />
-    <ClInclude Include="resources\resource.h" />
     <ClInclude Include="ui_mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="resources\icon1.ico" />
+    <ResourceCompile Include="resources\RESTool.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="resources\RESTool.rc" />
+    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

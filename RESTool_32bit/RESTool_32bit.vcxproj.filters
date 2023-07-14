@@ -84,18 +84,15 @@
     <ClInclude Include="Functions\parsers\SpriteTypeParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resources\resource.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="resources\icon1.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources\RESTool.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Resource.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
 </Project>
