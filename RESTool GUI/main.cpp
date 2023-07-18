@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     // Отображение дополнительного окна
     splashWindow.show();
 
-    // Задержка в течение 3 секунд
+    // Задержка в течение 1 секунды
     QTimer::singleShot(1000, &splashWindow, &QMainWindow::hide);
 
     // Создание главного окна

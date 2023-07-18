@@ -4,6 +4,7 @@
 #include "./ui_mainwindow.h"
 #include "Functions/file_modes.h"
 #include <QProcess>
+#include <QString>
 
 QString ResFilename; // инициализация переменной для проверки файла
 QPlainTextEdit* MainWindow::debugTextEdit = nullptr; // Инициализация статической переменной debugTextEdit
@@ -12,7 +13,7 @@ QPlainTextEdit* MainWindow::debugTextEdit = nullptr; // Инициализаци
 MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)
 {
-	setFixedSize(618, 380); // Установка фиксированного размера окна
+	setFixedSize(494, 574); // Установка фиксированного размера окна
 
 	Ui_mainWindow ui; // Создание объекта класса Ui_mainWindow
 	ui.setupUi(this); // Настройка пользовательского интерфейса
@@ -26,6 +27,9 @@ MainWindow::MainWindow(QWidget* parent)
 	makeResButton = findChild<QPushButton*>("makeResButton");
 	debugTextEdit = findChild<QPlainTextEdit*>("debugTextEdit");
 	checkBox = findChild<QCheckBox*>("checkBox");
+	AnalyzeButton = findChild<QPushButton*>("AnalyzeButton");
+	LastNVidlineEdit = findChild<QLineEdit*>("LastNVidlineEdit");
+	FirstNVidlineEdit = findChild<QLineEdit*>("FirstNVidlineEdit");
 
 	// принудительно ставим режим чтобы показать его описание при первом запуске
 	modeComboBox->setCurrentText("as1_engine");
@@ -63,6 +67,7 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(packModeComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::handlePackModeComboBoxChanged);
 	connect(makeResButton, &QPushButton::clicked, this, &MainWindow::handleMakeResButtonClicked);
 	connect(checkBox, &QCheckBox::stateChanged, this, &MainWindow::handleCheckBoxStateChanged);
+	connect(AnalyzeButton, &QPushButton::clicked, this, &MainWindow::handleAnalyzeButtonClicked);
 
 	qInstallMessageHandler(myMessageOutput); // Устанавливаем обработчик сообщений для qDebug
 }
@@ -77,7 +82,7 @@ void MainWindow::handleCheckBoxStateChanged(int state)
 {
 	alternativeModeEnabled = (state == Qt::Checked);
 	if (!alternativeModeEnabled) {
-		alternativeModeEnabled = false; // Установите значение в false, если галочка не установлена
+		alternativeModeEnabled = false; // устраняем баг с активацией режима когда галочка не выставлена.
 	}
 }
 
@@ -199,7 +204,7 @@ void MainWindow::handleUnpackButtonClicked()
 		QMessageBox::StandardButton answer = QMessageBox::question(
 			this,
 			"Warning",
-			"To avoid problems with unpacking, it is recommended to clear the previous results in the 'unpacked_inis' folder. Do you want to remove them?",
+			"To avoid problems with unpacking, it is necessary to clear the previous results in the 'unpacked_inis' folder. Do you want to remove them?",
 			QMessageBox::Yes | QMessageBox::No
 		);
 
@@ -230,7 +235,7 @@ void MainWindow::handleUnpackButtonClicked()
 	// Вывод информации в окно дебага
 	debugTextEdit->appendPlainText("File: " + ResFilename);
 	debugTextEdit->appendPlainText("Mode: " + mode);
-	debugTextEdit->appendPlainText("Alternative Mode Enabled: " + QString(alternativeModeEnabled ? "Yes\n" : "No\n"));
+	debugTextEdit->appendPlainText("Alternative Mode: " + QString(alternativeModeEnabled ? "Enabled\n" : "Disabled\n"));
 
 
 	unpackButton->setText("Unpacking...");
@@ -572,4 +577,143 @@ void MainWindow::handlePackModeComboBoxChanged(const QString& mode)
 	debugTextEdit->clear();  // Очистить содержимое перед добавлением нового текста
 	debugTextEdit->appendPlainText("Compiler support:\n" + description);
 
+}
+
+// OBJ.ini analysis function
+void MainWindow::analyzeOBJIni()
+{
+	// Получаем значения MIN_NVID, MAX_NVID, и MAX_ENTRIES_PER_LINE из пользовательского ввода
+	bool conversionOk;
+	int MIN_NVID = FirstNVidlineEdit->text().toInt(&conversionOk);
+	if (!conversionOk)
+	{
+		debugTextEdit->appendPlainText("Error: Invalid value for 'First NVid'.");
+		return;
+	}
+
+	int MAX_NVID = LastNVidlineEdit->text().toInt(&conversionOk);
+	if (!conversionOk)
+	{
+		debugTextEdit->appendPlainText("Error: Invalid value for 'Last NVid'.");
+		return;
+	}
+
+	int MAX_ENTRIES_PER_LINE = 9;
+
+	// Открываем файл OBJ.ini
+	QFile file("unpacked_inis/OBJ.ini");
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		debugTextEdit->appendPlainText("Error opening the 'unpacked_inis/OBJ.ini' file.");
+		return;
+	}
+
+	std::vector<int> nvidValues; // Вектор для хранения найденных значений NVid=
+
+	QTextStream in(&file);
+	while (!in.atEnd())
+	{
+		QString line = in.readLine();
+		if (line.startsWith("NVid=")) // Проверяем, что строка начинается с "NVid="
+		{
+			int nvid = line.mid(5).toInt(&conversionOk); // Извлекаем значение NVid
+			if (conversionOk)
+			{
+				if (nvid >= MIN_NVID && nvid <= MAX_NVID)
+				{
+					nvidValues.push_back(nvid);
+				}
+			}
+			else
+			{
+				debugTextEdit->appendPlainText("Error: Invalid NVid value in OBJ.ini.");
+			}
+		}
+	}
+
+	file.close();
+
+	// Сортируем вектор
+	std::sort(nvidValues.begin(), nvidValues.end());
+
+	// Очищаем содержимое debugTextEdit перед выводом результатов
+	debugTextEdit->clear();
+
+	if (nvidValues.empty()) {
+		debugTextEdit->appendPlainText("No data for the NVid parameter.");
+	}
+	else {
+		debugTextEdit->appendPlainText("Used NVid values:\n");
+
+		int entriesInLine = 0;
+		for (size_t i = 0; i < nvidValues.size(); ++i) {
+			int start = nvidValues[i];
+			while (i + 1 < nvidValues.size() && nvidValues[i + 1] == nvidValues[i] + 1) {
+				i++;
+			}
+			int end = nvidValues[i];
+
+			if (start == end) {
+				debugTextEdit->insertPlainText(QString::number(start) + ", ");
+			}
+			else {
+				debugTextEdit->insertPlainText(QString::number(start) + "-" + QString::number(end) + ", ");
+			}
+
+			entriesInLine++;
+			if (entriesInLine >= MAX_ENTRIES_PER_LINE) {
+				debugTextEdit->appendPlainText("");
+				entriesInLine = 0;
+			}
+		}
+
+		debugTextEdit->appendPlainText("");
+		debugTextEdit->appendPlainText("Free NVid values:\n");
+
+		entriesInLine = 0;
+		int prevValue = MIN_NVID;
+		for (const int nvid : nvidValues) {
+			if (nvid > prevValue + 1) {
+				if (prevValue == nvid - 2) {
+					debugTextEdit->insertPlainText(QString::number(prevValue + 1) + ", ");
+				}
+				else {
+					debugTextEdit->insertPlainText(QString::number(prevValue + 1) + "-" + QString::number(nvid - 1) + ", ");
+				}
+				entriesInLine++;
+				if (entriesInLine >= MAX_ENTRIES_PER_LINE) {
+					debugTextEdit->appendPlainText("");
+					entriesInLine = 0;
+				}
+			}
+			prevValue = nvid;
+		}
+
+		if (prevValue < MAX_NVID) {
+			if (prevValue == MAX_NVID - 1) {
+				debugTextEdit->insertPlainText(QString::number(prevValue + 1) + ", ");
+			}
+			else {
+				debugTextEdit->insertPlainText(QString::number(prevValue + 1) + "-" + QString::number(MAX_NVID) + ", ");
+			}
+			entriesInLine++;
+			if (entriesInLine >= MAX_ENTRIES_PER_LINE) {
+				debugTextEdit->appendPlainText("");
+			}
+		}
+
+		debugTextEdit->appendPlainText("");
+		debugTextEdit->appendPlainText("Total free: " + QString::number((MAX_NVID + 1) - nvidValues.size()));
+		debugTextEdit->appendPlainText("Total used: " + QString::number(nvidValues.size()));
+	}
+}
+
+// AnalyzeButton functional
+void MainWindow::handleAnalyzeButtonClicked()
+{
+	debugTextEdit->clear();
+	debugTextEdit->appendPlainText("Analyzing OBJ.ini...\n");
+
+	// Call the analyzeOBJIni function to perform the analysis
+	analyzeOBJIni();
 }

@@ -206,6 +206,9 @@
   <ItemGroup>
     <ResourceCompile Include="resources\RESTool.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="ui_src\mainwindow.ui" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />
