@@ -1,4 +1,4 @@
-# RESTool 1.9 by romalu86
+# RESTool 2.0 by romalu86
 
 **Changelist:**
 - Increased buffer for some operations. Eliminates possible unpack issues in the future, and in theory may improve unpacking speed on some PCs.
