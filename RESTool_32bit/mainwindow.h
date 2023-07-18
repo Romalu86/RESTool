@@ -31,6 +31,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
+    void analyzeOBJIni();
 
 private slots:
     void handleBrowseButtonClicked();
@@ -39,11 +40,17 @@ private slots:
     void handlePackModeComboBoxChanged(const QString& mode);
     void handleMakeResButtonClicked();
     void handleCheckBoxStateChanged(int state);
+    void handleAnalyzeButtonClicked();
 
 private:
     Ui::MainWindow* ui; // Указатель на экземпляр класса Ui::MainWindow
     static void myMessageOutput(QtMsgType type, const QMessageLogContext& context, const QString& msg);
     static QPlainTextEdit* debugTextEdit;
+    QPushButton* OpenFileAnalyzeButton;
+    QLineEdit* FirstNVidlineEdit;
+    QLineEdit* LastNVidlineEdit;
+    QPushButton* AnalyzeButton;
+    QPlainTextEdit* resultTextEdit;
     QCheckBox* checkBox;
     QPushButton* makeResButton;
     QComboBox* packModeComboBox;
