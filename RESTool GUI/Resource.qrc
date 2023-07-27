@@ -2,5 +2,17 @@
     <qresource prefix="/">
         <file>resources/banner.png</file>
         <file>resources/icon1.png</file>
+        <file>resources/bin/ini2db.exe</file>
+        <file>resources/bin/ini2res.exe</file>
+        <file>resources/discord.png</file>
+        <file>resources/vk.png</file>
+        <file>resources/mod.png</file>
+        <file>resources/file_open.png</file>
+        <file>resources/file_analyze.png</file>
+        <file>resources/themes.png</file>
+        <file>resources/exit.png</file>
+        <file>resources/qt.png</file>
+        <file>resources/unpack.png</file>
+        <file>resources/pack.png</file>
     </qresource>
 </RCC>

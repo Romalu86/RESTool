@@ -41,11 +41,29 @@ private slots:
     void handleMakeResButtonClicked();
     void handleCheckBoxStateChanged(int state);
     void handleAnalyzeButtonClicked();
+    void analyzeOBJIni(const QString& filePath);
+    //
+    void changeThemeToFusion();
+    void changeThemeToWindows();
+    void openDiscordLink();
+    void openVKLink();
+    void openOELink();
 
 private:
-    Ui::MainWindow* ui; // Указатель на экземпляр класса Ui::MainWindow
+    Ui::MainWindow* ui;
     static void myMessageOutput(QtMsgType type, const QMessageLogContext& context, const QString& msg);
     static QPlainTextEdit* debugTextEdit;
+    // QMenuBar
+    QMenuBar* appMenuBar;
+    QMenuBar* linksMenuBar;
+    QAction* openFileAction;
+    QAction* analyzeFileAction;
+    QAction* fusionThemeAction;
+    QAction* windowsThemeAction;
+    QAction* VKLink;
+    QAction* DiscordLink;
+    QAction* OEProjectLink;
+    //
     QPushButton* OpenFileAnalyzeButton;
     QLineEdit* FirstNVidlineEdit;
     QLineEdit* LastNVidlineEdit;

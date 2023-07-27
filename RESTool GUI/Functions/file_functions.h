@@ -128,7 +128,7 @@ std::string processFloatValues(const float* arrayf, int numValues, bool useTabul
 	for (const auto& value : values)
 	{
 		if (useTabulation)
-			oss << value << "\t\t";
+			oss << value << "\t";
 		else
 			oss << value << " ";
 	}
@@ -146,7 +146,7 @@ std::string processIntValues(const int* arrayi, int numValues, bool useTabulatio
 	for (int i = 0; i < numValues; ++i)
 	{
 		if (useTabulation)
-			oss << arrayi[i] << "\t\t";
+			oss << arrayi[i] << "\t";
 		else
 			oss << arrayi[i] << " ";
 	}
