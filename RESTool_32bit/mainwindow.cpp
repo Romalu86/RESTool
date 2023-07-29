@@ -4,7 +4,10 @@
 #include "./ui_mainwindow.h"
 #include "Functions/file_modes.h"
 #include <QProcess>
-#include <QString>
+#include <QTemporaryDir>
+#include <QDesktopServices>
+#include <QMenuBar>
+#include <QStyleFactory>
 #include <QDebug>
 
 QString ResFilename; // инициализация переменной для проверки файла
@@ -12,12 +15,68 @@ QPlainTextEdit* MainWindow::debugTextEdit = nullptr; // Инициализаци
 
 // UI interface intialization
 MainWindow::MainWindow(QWidget* parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent), ui(new Ui::MainWindow) // Инициализация объекта ui
 {
-	setFixedSize(494, 574); // Установка фиксированного размера окна
+	ui->setupUi(this); // Настройка пользовательского интерфейса
+	setFixedSize(577, 574); // Установка фиксированного размера окна
 
-	Ui_mainWindow ui; // Создание объекта класса Ui_mainWindow
-	ui.setupUi(this); // Настройка пользовательского интерфейса
+	QApplication::setStyle(QStyleFactory::create("Fusion")); // Ставим тему Fusion по умолчанию
+
+	// Создание меню приложения
+	appMenuBar = new QMenuBar(this);
+
+	// Создание пункта "Menu"
+	QMenu* fileMenu = appMenuBar->addMenu("Menu");
+
+	// Создание пункта меню "Open File" в меню "Menu"
+	openFileAction = fileMenu->addAction("Open File");
+	openFileAction->setIcon(QIcon(":/resources/file_open.png"));
+	connect(openFileAction, &QAction::triggered, this, &MainWindow::handleBrowseButtonClicked);
+
+	// Создание пункта меню "Analyze File" в меню "Menu"
+	analyzeFileAction = fileMenu->addAction("Analyze File");
+	analyzeFileAction->setIcon(QIcon(":/resources/file_analyze.png"));
+	connect(analyzeFileAction, &QAction::triggered, this, &MainWindow::handleAnalyzeButtonClicked);
+
+	fileMenu->addSeparator();
+
+	// Создание меню "Themes" в меню "Menu"
+	QMenu* themesMenu = fileMenu->addMenu("Themes");
+	themesMenu->setIcon(QIcon(":/resources/themes.png"));
+
+	// Создание пунктов меню "Fusion", "Windows" в меню "Themes"
+	fusionThemeAction = themesMenu->addAction("Fusion");
+	windowsThemeAction = themesMenu->addAction("Windows");
+	fusionThemeAction->setIcon(QIcon(":/resources/qt.png"));
+	windowsThemeAction->setIcon(QIcon(":/resources/qt.png"));
+
+	// Связывание пунктов меню с функцией изменения темы приложения
+	connect(fusionThemeAction, &QAction::triggered, this, &MainWindow::changeThemeToFusion);
+	connect(windowsThemeAction, &QAction::triggered, this, &MainWindow::changeThemeToWindows);
+
+	// Создание пункта меню "Exit" в меню "File"
+	QAction* exitAction = fileMenu->addAction("Exit");
+	exitAction->setIcon(QIcon(":/resources/exit.png"));
+	connect(exitAction, &QAction::triggered, this, &QMainWindow::close);
+
+	// Создание пункта "Links"
+	QMenu* linksMenu = appMenuBar->addMenu("Links");
+
+	// Создание пунктов меню в меню "Links"
+	OEProjectLink = linksMenu->addAction("Objects Extended Project (ModDB)");
+	VKLink = linksMenu->addAction("VK.com (Modding Group)");
+	DiscordLink = linksMenu->addAction("Discord (AKSigmaTeam Official)");
+
+	VKLink->setIcon(QIcon(":/resources/vk.png"));
+	DiscordLink->setIcon(QIcon(":/resources/discord.png"));
+	OEProjectLink->setIcon(QIcon(":/resources/mod.png"));
+
+	connect(VKLink, &QAction::triggered, this, &MainWindow::openVKLink);
+	connect(DiscordLink, &QAction::triggered, this, &MainWindow::openDiscordLink);
+	connect(OEProjectLink, &QAction::triggered, this, &MainWindow::openOELink);
+
+	// Установка меню приложения в качестве меню окна
+	setMenuBar(appMenuBar);
 
 	// Получение указателей на виджеты из загруженного .ui файла
 	filenameLineEdit = findChild<QLineEdit*>("filenameLineEdit");
@@ -33,26 +92,26 @@ MainWindow::MainWindow(QWidget* parent)
 	FirstNVidlineEdit = findChild<QLineEdit*>("FirstNVidlineEdit");
 
 	// принудительно ставим режим чтобы показать его описание при первом запуске
-	modeComboBox->setCurrentText("as1_engine");
-	handleModeComboBoxChanged("as1_engine");
+	modeComboBox->setCurrentText("Alien Shooter 1 Engine");
+	handleModeComboBoxChanged("Alien Shooter 1 Engine");
 	// список режимов распаковки
-	modeComboBox->addItem("as1_engine");
-	modeComboBox->addItem("theseus_pc");
-	modeComboBox->addItem("as1world");
-	modeComboBox->addItem("zs1");
-	modeComboBox->addItem("zs1_mobile");
-	modeComboBox->addItem("as2_original");
-	modeComboBox->addItem("as2_addons");
-	modeComboBox->addItem("zs2_engine");
-	modeComboBox->addItem("as2legend_engine");
-	modeComboBox->addItem("oe_engine");
-	modeComboBox->addItem("crazylunch");
-	modeComboBox->addItem("chackstemple");
-	modeComboBox->addItem("locoland");
+	modeComboBox->addItem("Alien Shooter 1 Engine");
+	modeComboBox->addItem("Alien Shooter 1 - World Engine");
+	modeComboBox->addItem("Alien Shooter 2 - Addons Engine");
+	modeComboBox->addItem("Alien Shooter 2 - Original Engine");
+	modeComboBox->addItem("Alien Shooter 2 - Updated Engine");
+	modeComboBox->addItem("Crazy Lunch Engine");
+	modeComboBox->addItem("Chacks Temple Engine");
+	modeComboBox->addItem("Locoland Engine");
+	modeComboBox->addItem("Objects Extended Engine");
+	modeComboBox->addItem("Theseus (PC Version Engine)");
+	modeComboBox->addItem("Zombie Shooter 1 Engine");
+	modeComboBox->addItem("Zombie Shooter 1 - Mobile Engine");
+	modeComboBox->addItem("Zombie Shooter 2 Engine");
 	// список режимов упаковки
 	packModeComboBox->addItem("AS/ZS Engine");
-	packModeComboBox->addItem("Objects Extended Engine");
 	packModeComboBox->addItem("Locoland Engine");
+	packModeComboBox->addItem("Objects Extended Engine");
 
 	alternativeModeEnabled = false; // Установка начального значения alternativeModeEnabled в false
 
@@ -257,43 +316,42 @@ void MainWindow::handleUnpackButtonClicked()
 // makeres button functional
 void MainWindow::handleMakeResButtonClicked()
 {
-    debugTextEdit->clear();
+	debugTextEdit->clear();
 
-    QString mode = packModeComboBox->currentText();
+	QString mode = packModeComboBox->currentText();
 
-    qDebug() << "MakeRes mode:" << mode;
+	qDebug() << "MakeRes mode: " << mode << "\n";
 
+	// Получаем текущий рабочий каталог программы
 	QString workingDirectory = QCoreApplication::applicationDirPath();
-	QString ini2resPath = workingDirectory + "/bin/ini2res.exe";
-	QString ini2dbPath = workingDirectory + "/bin/ini2db.exe";
 
-	// Проверяем наличие файлов ini2res и ini2db
-	bool ini2resExists = QFile::exists(ini2resPath);
-	bool ini2dbExists = QFile::exists(ini2dbPath);
+	// Создаем временную директорию
+	QTemporaryDir tempDir;
 
-	if ((mode == "AS/ZS Engine" && !ini2resExists) ||
-		(mode == "Objects Extended Engine" && !ini2dbExists) ||
-		(mode == "Locoland Engine" && !ini2resExists))
+	if (!tempDir.isValid())
 	{
-		// Если файл ini2res или ini2db не найден, выводим предупреждение и блокируем кнопку
-		QString errorMessage = "Compilation cancelled. Compilers not found. Please check the installation of the program.\n\n"
-			"The following files are missing:\n\n";
-		if (!ini2resExists)
-			errorMessage += "bin/ini2res.exe\n";
-		if (!ini2dbExists)
-			errorMessage += "bin/ini2db.exe\n";
+		QMessageBox::critical(this, "Error", "Failed to create temporary directory.");
+		return;
+	}
 
-		QMessageBox::critical(this, "Res Compilation - Files Missing", errorMessage);
+	// Копируем ini2res.exe во временную директорию
+	QString ini2resPath = tempDir.path() + "/ini2res.exe";
+	if (!QFile::copy(":/resources/bin/ini2res.exe", ini2resPath))
+	{
+		QMessageBox::critical(this, "Error", "Failed to copy ini2res.exe to temporary directory.");
+		return;
+	}
+
+	// Копируем ini2db.exe во временную директорию
+	QString ini2dbPath = tempDir.path() + "/ini2db.exe";
+	if (!QFile::copy(":/resources/bin/ini2db.exe", ini2dbPath))
+	{
+		QMessageBox::critical(this, "Error", "Failed to copy ini2db.exe to temporary directory.");
 		return;
 	}
 
 	if (mode == "AS/ZS Engine")
 	{
-		QString workingDirectory = QCoreApplication::applicationDirPath();
-
-		// Полный путь к ini2res
-		QString ini2resPath = workingDirectory + "/bin/ini2res";
-
 		// Полный путь к выходному файлу objects.res
 		QString objectsResPath = workingDirectory + "/compiled_res/objects.res";
 
@@ -333,11 +391,23 @@ void MainWindow::handleMakeResButtonClicked()
 
 				// Запускаем процесс ini2res для каждого ini-файла
 				QProcess process;
-				process.setWorkingDirectory(workingDirectory);
-				process.start(ini2resPath, QStringList() << iniFilePath << objectsResPath);
-				process.waitForFinished(-1);
+				process.setWorkingDirectory(tempDir.path()); // Здесь используем временную директорию
 
-				qDebug() << "Compilation completed for file:" << iniFile;
+				// Перенаправляем стандартный вывод и стандартный поток ошибок на устройство null
+				process.setStandardOutputFile(QProcess::nullDevice());
+				process.setStandardErrorFile(QProcess::nullDevice());
+
+				// Запускаем процесс асинхронно
+				process.start(ini2resPath, QStringList() << iniFilePath << objectsResPath);
+
+				// Ждем, когда процесс завершится, но не блокируем пользовательский интерфейс
+				while (!process.waitForFinished(100))
+				{
+					// Продолжаем обработку событий пользовательского интерфейса
+					QCoreApplication::processEvents();
+				}
+
+					qDebug() << "Compilation completed for file:" << iniFile;
 			}
 
 			// Оповещение и открытие папки
@@ -359,15 +429,7 @@ void MainWindow::handleMakeResButtonClicked()
 
 	else if (mode == "Objects Extended Engine")
 	{
-		QString workingDirectory = QCoreApplication::applicationDirPath();
-
-		// Полный путь к ini2res
-		QString ini2resPath = workingDirectory + "/bin/ini2db";
-
-		// Полный путь к выходному файлу objects.res
-		QString objectsResPath = workingDirectory + "/compiled_res/ObjectsExteneded.db";
-
-		// Удаляем папку compiled_res, если она существует
+		QString objectsResPath = workingDirectory + "/compiled_res/ObjectsExtended.db";
 		QDir compiledResDir(workingDirectory + "/compiled_res");
 		compiledResDir.removeRecursively();
 
@@ -401,11 +463,23 @@ void MainWindow::handleMakeResButtonClicked()
 				// Создаем папку compiled_res
 				QDir().mkpath(workingDirectory + "/compiled_res");
 
-				// Запускаем процесс ini2res для каждого ini-файла
+				// Запускаем процесс ini2db для каждого ini-файла
 				QProcess process;
-				process.setWorkingDirectory(workingDirectory);
-				process.start(ini2resPath, QStringList() << iniFilePath << objectsResPath);
-				process.waitForFinished(-1);
+				process.setWorkingDirectory(tempDir.path()); // Здесь используем временную директорию
+
+				// Перенаправляем стандартный вывод и стандартный поток ошибок на устройство null
+				process.setStandardOutputFile(QProcess::nullDevice());
+				process.setStandardErrorFile(QProcess::nullDevice());
+
+				// Запускаем процесс асинхронно
+				process.start(ini2dbPath, QStringList() << iniFilePath << objectsResPath);
+
+				// Ждем, когда процесс завершится, но не блокируем пользовательский интерфейс
+				while (!process.waitForFinished(100))
+				{
+					// Продолжаем обработку событий пользовательского интерфейса
+					QCoreApplication::processEvents();
+				}
 
 				qDebug() << "Compilation completed for file:" << iniFile;
 			}
@@ -427,17 +501,10 @@ void MainWindow::handleMakeResButtonClicked()
 		}
 	}
 
+	// Обработка режима "Locoland Engine"
 	else if (mode == "Locoland Engine")
 	{
-		QString workingDirectory = QCoreApplication::applicationDirPath();
-
-		// Полный путь к ini2res
-		QString ini2resPath = workingDirectory + "/bin/ini2res";
-
-		// Полный путь к выходному файлу objects.res
 		QString objectsResPath = workingDirectory + "/compiled_res/Locoland.res";
-
-		// Удаляем папку compiled_res, если она существует
 		QDir compiledResDir(workingDirectory + "/compiled_res");
 		compiledResDir.removeRecursively();
 
@@ -473,9 +540,21 @@ void MainWindow::handleMakeResButtonClicked()
 
 				// Запускаем процесс ini2res для каждого ini-файла
 				QProcess process;
-				process.setWorkingDirectory(workingDirectory);
+				process.setWorkingDirectory(tempDir.path()); // Здесь используем временную директорию
+
+				// Перенаправляем стандартный вывод и стандартный поток ошибок на устройство null
+				process.setStandardOutputFile(QProcess::nullDevice());
+				process.setStandardErrorFile(QProcess::nullDevice());
+
+				// Запускаем процесс асинхронно
 				process.start(ini2resPath, QStringList() << iniFilePath << objectsResPath);
-				process.waitForFinished(-1);
+
+				// Ждем, когда процесс завершится, но не блокируем пользовательский интерфейс
+				while (!process.waitForFinished(100))
+				{
+					// Продолжаем обработку событий пользовательского интерфейса
+					QCoreApplication::processEvents();
+				}
 
 				qDebug() << "Compilation completed for file:" << iniFile;
 			}
@@ -507,51 +586,51 @@ void MainWindow::handleModeComboBoxChanged(const QString& mode)
 {
 	QString description;
 
-	if (mode == "as1_engine") {
+	if (mode == "Alien Shooter 1 Engine") {
 		description = "Alien Shooter 1 (PC/Mobile)\n"
 			"Alien Shooter 1 - Last Hope (PC/Mobile)\n"
 			"Alien Shooter 1 - Lost World (Theseus Mobile)";
 	}
-	else if (mode == "theseus_pc") {
+	else if (mode == "Theseus (PC Version Engine)") {
 		description = "Theseus - Return of the Hero (PC Only)";
 	}
-	else if (mode == "as1world") {
-		description = "Alien Shooter 1 - World";
+	else if (mode == "Alien Shooter 1 - World Engine") {
+		description = "Alien Shooter 1 - World (Free)";
 	}
-	else if (mode == "zs1") {
+	else if (mode == "Zombie Shooter 1 Engine") {
 		description = "Zombie Shooter 1 (PC Only)";
 	}
-	else if (mode == "zs1_mobile") {
+	else if (mode == "Zombie Shooter 1 - Mobile Engine") {
 		description = "Zombie Shooter 1 (Mobile Only)";
 	}
-	else if (mode == "as2_original") {
+	else if (mode == "Alien Shooter 2 - Original Engine") {
 		description = "Alien Shooter 2 (1.0/Gold/Vengeance)";
 	}
-	else if (mode == "as2_addons") {
+	else if (mode == "Alien Shooter 2 - Addons Engine") {
 		description = "Alien Shooter 2 - Reloaded\n"
 			"Alien Shooter 2 - Conscription\n"
 			"Zombie Shooter 2 - Teaser";
 	}
-	else if (mode == "zs2_engine") {
-		description = "Zombie Shooter 2\n"
-			"Alien Shooter - Revisited";
-	}
-	else if (mode == "as2legend_engine") {
+	else if (mode == "Alien Shooter 2 - Updated Engine") {
 		description = "Alien Shooter 2 - The Legend (PC/Mobile)\n"
 			"Alien Shooter 2 - TD (PC/Mobile)\n"
 			"Alien Shooter 2 - New Era\n"
 			"Alien Shooter 2 - Reloaded (Mobile)";
 	}
-	else if (mode == "oe_engine") {
+	else if (mode == "Zombie Shooter 2 Engine") {
+		description = "Zombie Shooter 2\n"
+			"Alien Shooter - Revisited";
+	}
+	else if (mode == "Objects Extended Engine") {
 		description = "Objects Extended Project (version 1.1.0.6+)";
 	}
-	else if (mode == "crazylunch") {
+	else if (mode == "Crazy Lunch Engine") {
 		description = "Crazy Lunch";
 	}
-	else if (mode == "chackstemple") {
+	else if (mode == "Chacks Temple Engine") {
 		description = "Chacks Temple";
 	}
-	else if (mode == "locoland") {
+	else if (mode == "Locoland Engine") {
 		description = "Locoland/Steamland";
 	}
 
@@ -566,7 +645,7 @@ void MainWindow::handlePackModeComboBoxChanged(const QString& mode)
 	QString description;
 
 	if (mode == "AS/ZS Engine") {
-		description = "The compiler supports all Alien Shooter and Zombie Shooter games.";
+		description = "The compiler supports all Alien Shooter and Zombie Shooter games, including Chacks Temple and Crazy Lunch.";
 	}
 	else if (mode == "Objects Extended Engine") {
 		description = "The compiler only supports the Objects Extended Project.";
@@ -580,8 +659,21 @@ void MainWindow::handlePackModeComboBoxChanged(const QString& mode)
 
 }
 
+// AnalyzeButton functional
+void MainWindow::handleAnalyzeButtonClicked()
+{
+
+	QString filePath = QFileDialog::getOpenFileName(this, tr("Open OBJ.ini File"), QDir::homePath(), tr("INI Files (*.ini);;All Files (*)"));
+	if (filePath.isEmpty()) {
+		return;
+	}
+	debugTextEdit->clear();
+	debugTextEdit->appendPlainText("Analyzing OBJ.ini...\n");
+	analyzeOBJIni(filePath);
+}
+
 // OBJ.ini analysis function
-void MainWindow::analyzeOBJIni()
+void MainWindow::analyzeOBJIni(const QString& filePath)
 {
 	// Получаем значения MIN_NVID, MAX_NVID, и MAX_ENTRIES_PER_LINE из пользовательского ввода
 	bool conversionOk;
@@ -599,10 +691,10 @@ void MainWindow::analyzeOBJIni()
 		return;
 	}
 
-	int MAX_ENTRIES_PER_LINE = 9;
+	int MAX_ENTRIES_PER_LINE = 6;
 
 	// Открываем файл OBJ.ini
-	QFile file("unpacked_inis/OBJ.ini");
+	QFile file(filePath);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
 		debugTextEdit->appendPlainText("Error opening the 'unpacked_inis/OBJ.ini' file.");
@@ -639,6 +731,7 @@ void MainWindow::analyzeOBJIni()
 
 	// Очищаем содержимое debugTextEdit перед выводом результатов
 	debugTextEdit->clear();
+	debugTextEdit->appendPlainText("Analyzing OBJ.ini...\n");
 
 	if (nvidValues.empty()) {
 		debugTextEdit->appendPlainText("No data for the NVid parameter.");
@@ -668,8 +761,7 @@ void MainWindow::analyzeOBJIni()
 			}
 		}
 
-		debugTextEdit->appendPlainText("");
-		debugTextEdit->appendPlainText("Free NVid values:\n");
+		debugTextEdit->appendPlainText("\nFree NVid values:\n");
 
 		entriesInLine = 0;
 		int prevValue = MIN_NVID;
@@ -709,12 +801,28 @@ void MainWindow::analyzeOBJIni()
 	}
 }
 
-// AnalyzeButton functional
-void MainWindow::handleAnalyzeButtonClicked()
+// Themes & Links
+void MainWindow::changeThemeToFusion()
 {
-	debugTextEdit->clear();
-	debugTextEdit->appendPlainText("Analyzing OBJ.ini...\n");
+	QApplication::setStyle("fusion");
+}
 
-	// Call the analyzeOBJIni function to perform the analysis
-	analyzeOBJIni();
+void MainWindow::changeThemeToWindows()
+{
+	QApplication::setStyle("windows");
+}
+
+void MainWindow::openVKLink()
+{
+	QDesktopServices::openUrl(QUrl("https://vk.com/as2modmaker"));
+}
+
+void MainWindow::openDiscordLink()
+{
+	QDesktopServices::openUrl(QUrl("https://discord.gg/Dvw58em6gU"));
+}
+
+void MainWindow::openOELink()
+{
+	QDesktopServices::openUrl(QUrl("https://www.moddb.com/mods/objects-extended-project"));
 }

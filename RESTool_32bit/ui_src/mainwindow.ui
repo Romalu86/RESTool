@@ -1,25 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mainWindow</class>
- <widget class="QMainWindow" name="mainWindow">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>494</width>
+    <width>577</width>
     <height>574</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>RESTool by Romalu86</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../Resource.qrc">
+    <normaloff>:/resources/icon1.png</normaloff>:/resources/icon1.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="4" column="1" colspan="2">
-     <widget class="QComboBox" name="packModeComboBox"/>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Unpack options:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="browseButton">
+      <property name="toolTip">
+       <string>Open the resource file.</string>
+      </property>
+      <property name="text">
+       <string>Browse</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../Resource.qrc">
+        <normaloff>:/resources/file_open.png</normaloff>:/resources/file_open.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" rowspan="2">
+     <widget class="QPushButton" name="unpackButton">
+      <property name="toolTip">
+       <string>Initiate the process of unpacking the resource file.</string>
+      </property>
+      <property name="text">
+       <string>Unpack</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../Resource.qrc">
+        <normaloff>:/resources/unpack.png</normaloff>:/resources/unpack.png</iconset>
+      </property>
+     </widget>
     </item>
     <item row="2" column="1">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Game engine:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2" alignment="Qt::AlignHCenter">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Troubles with unpack? Use it!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>false</bool>
+      </property>
+      <property name="margin">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
      <widget class="QComboBox" name="modeComboBox">
+      <property name="toolTip">
+       <string>Mode selection for unpacking. Incorrect selection may result in data reading errors. You can review the list of supported games below.</string>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="whatsThis">
+       <string/>
+      </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
@@ -28,10 +99,70 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="3" column="2" alignment="Qt::AlignHCenter">
+     <widget class="QCheckBox" name="checkBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip">
+       <string>Alternative unpacking mode is required in case of incorrect data reading from the file. When modifying the source files, empty bytes are added, and this option allows to read or ignore them.</string>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Alternative unpacking mode</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
        <string>Pack options:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="makeResButton">
+      <property name="toolTip">
+       <string>Initiate the process of packing the source data into a resource file.</string>
+      </property>
+      <property name="text">
+       <string>MakeRes</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../Resource.qrc">
+        <normaloff>:/resources/pack.png</normaloff>:/resources/pack.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>NVid Counter options:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0" rowspan="2">
+     <widget class="QPushButton" name="AnalyzeButton">
+      <property name="toolTip">
+       <string>Open the file with objects for analysis (OBJ.ini or Objects.ini). The field below will display the result with numbering of free and occupied NVid records.</string>
+      </property>
+      <property name="text">
+       <string>Analyze OBJ.ini</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../Resource.qrc">
+        <normaloff>:/resources/file_analyze.png</normaloff>:/resources/file_analyze.png</iconset>
       </property>
      </widget>
     </item>
@@ -42,13 +173,6 @@
       </property>
      </widget>
     </item>
-    <item row="8" column="2">
-     <widget class="QLineEdit" name="LastNVidlineEdit">
-      <property name="text">
-       <string>4095</string>
-      </property>
-     </widget>
-    </item>
     <item row="7" column="2">
      <widget class="QLabel" name="label_5">
       <property name="text">
@@ -56,24 +180,52 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="unpackButton">
+    <item row="8" column="1">
+     <widget class="QLineEdit" name="FirstNVidlineEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip">
+       <string>The number of the first entry in the OBJ.ini (Objects.ini) file is usually &quot;0&quot; or &quot;000,&quot; and it is not recommended to change this value.</string>
+      </property>
       <property name="text">
-       <string>Unpack</string>
+       <string>0</string>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_3">
+    <item row="8" column="2">
+     <widget class="QLineEdit" name="LastNVidlineEdit">
+      <property name="minimumSize">
+       <size>
+        <width>179</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>The number of the last entry in the OBJ.ini (Objects.ini) file depends on the maximum limit set in the games. Currently, the maximum limits are 2047 and 4095 for some games.</string>
+      </property>
       <property name="text">
-       <string>NVid Counter options:</string>
+       <string>4095</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="browseButton">
-      <property name="text">
-       <string>Browse</string>
+    <item row="9" column="0" colspan="3">
+     <widget class="QPlainTextEdit" name="debugTextEdit">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1" colspan="2">
+     <widget class="QComboBox" name="packModeComboBox">
+      <property name="toolTip">
+       <string>Mode selection for packing the source data into a resource file. You can review the list of supported games below.</string>
       </property>
      </widget>
     </item>
@@ -87,69 +239,6 @@
       </property>
       <property name="readOnly">
        <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0" colspan="3">
-     <widget class="QPlainTextEdit" name="debugTextEdit">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QPushButton" name="makeResButton">
-      <property name="text">
-       <string>MakeRes</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QCheckBox" name="checkBox">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="toolTip">
-       <string/>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string>Alternative unpacking mode:</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Unpack options:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1">
-     <widget class="QLineEdit" name="FirstNVidlineEdit">
-      <property name="text">
-       <string>0</string>
-      </property>
-      <property name="readOnly">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0" rowspan="2">
-     <widget class="QPushButton" name="AnalyzeButton">
-      <property name="text">
-       <string>Analyze OBJ.ini</string>
       </property>
      </widget>
     </item>

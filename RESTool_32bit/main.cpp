@@ -8,9 +8,6 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    // Установка иконки для интерфейса
-    app.setWindowIcon(QIcon(":/resources/icon1.png"));
-
     // Создание дополнительного окна с изображением
     QMainWindow splashWindow;
     QLabel splashLabel(&splashWindow);
