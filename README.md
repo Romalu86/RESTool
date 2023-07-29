@@ -39,32 +39,5 @@ Due to the complete abandonment of the console, the user experience should impro
 
 **Dictionary of variables:**
 
-The program supports the ability to supplement the base of unknown variables that are unpacked in the INT format (numbers - 1, 2, 4, etc.) or hexadecimal number system (example 0x1000). All information is in the constants.ini file, new values are added by analogy with others.
+The program supports the ability to supplement the base of unknown variables that are unpacked in the INT format (numbers - 1, 2, 4, etc.) or hexadecimal number system (example 0x1000). All information is in the 'Data\constants.ini' file, new values are added by analogy with others.
 
-**File modes list:**
-
-- as1_engine - works with Alien Shooter 1, Alien Shooter 1 Last Hope, Alien Shooter - Lost World (Theseus Mobile) 
-
-- theseus_pc - works with Theseus (PC Only)
-
-- as1world - works with Alien Shooter 1 - World
-
-- zs1 - works with Zombie Shooter 1
-
-- zs1_mobile - works with Zombie Shooter 1 (Mobile)
-
-- as2_original - works with Gold and Vengeance editions
-
-- as2_addons - works with Reloaded, Conscription, Zombie Shooter 2 Teaser
-
-- zs2_engine - works with Zombie Shooter 2 / Alien Shooter: Revisited
-
-- as2legend_engine - works with Alien Shooter 2 Legend & TD (Steam and Mobile), Alien Shooter 2 New Era, Alien Shooter 2 Reloaded (Mobile)
-
-- oe_engine - works with Objects Extended Project (version 1.1.0.6+)
-
-- crazylunch - works with Crazy Lunch
-
-- chackstemple - works with Chacks Temple
-
-- locoland - works with Steamland (Locoland in Steam)
