@@ -2,7 +2,6 @@
 
 **Changelist:**
 - Fixed file reading logic. Now it requires much less time and resources to unpack the data.
-- Fixed file reading logic. Now it requires much less time and resources to unpack the data.
 - Interface update. Technical unpacking mode names have been removed, and tooltips have been added when hovering over interface elements.
 - Updated variable dictionary. Data from the latest update on AS1 - World (v5.2.7) has been added.
 - Removed double tabulation between values. Now the unpacked data is arranged more compactly.
