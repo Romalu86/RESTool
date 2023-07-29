@@ -98,6 +98,9 @@
       <property name="editable">
        <bool>false</bool>
       </property>
+      <property name="maxVisibleItems">
+       <number>15</number>
+      </property>
      </widget>
     </item>
     <item row="3" column="2" alignment="Qt::AlignHCenter">

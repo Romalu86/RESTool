@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowHlJLMm.ui'
+** Form generated from reading UI file 'mainwindowtgrGIs.ui'
 **
 ** Created by: Qt User Interface Compiler version 6.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWHLJLMM_H
-#define MAINWINDOWHLJLMM_H
+#ifndef MAINWINDOWTGRGIS_H
+#define MAINWINDOWTGRGIS_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
@@ -99,6 +99,7 @@ public:
         modeComboBox->setObjectName("modeComboBox");
         modeComboBox->setLayoutDirection(Qt::LeftToRight);
         modeComboBox->setEditable(false);
+        modeComboBox->setMaxVisibleItems(15);
 
         gridLayout->addWidget(modeComboBox, 3, 1, 1, 1);
 
@@ -260,4 +261,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWHLJLMM_H
+#endif // MAINWINDOWTGRGIS_H

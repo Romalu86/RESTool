@@ -2,21 +2,21 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <QtLastBackgroundBuild>2023-07-27T09:07:45.2486832Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2023-07-27T16:15:05.2604372Z</QtLastBackgroundBuild>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <QtLastBackgroundBuild>2023-07-27T09:07:45.3806759Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2023-07-27T16:15:05.3220922Z</QtLastBackgroundBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='32bit Qt5|x64'" Label="QtSettings">
-    <QtLastBackgroundBuild>2023-07-27T09:07:45.0896754Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2023-07-27T16:15:05.1529888Z</QtLastBackgroundBuild>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <QtLastBackgroundBuild>2023-07-27T09:07:45.1746753Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2023-07-27T16:15:05.2338489Z</QtLastBackgroundBuild>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <QtLastBackgroundBuild>2023-07-27T09:07:45.3236932Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2023-07-27T16:15:05.2874553Z</QtLastBackgroundBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='32bit Qt5|Win32'" Label="QtSettings">
-    <QtLastBackgroundBuild>2023-07-27T09:07:45.1346753Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2023-07-27T16:15:05.2057638Z</QtLastBackgroundBuild>
   </PropertyGroup>
 </Project>
