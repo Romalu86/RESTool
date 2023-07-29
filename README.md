@@ -1,9 +1,12 @@
 # RESTool 2.0 by romalu86
 
 **Changelist:**
-- Increased buffer for some operations. Eliminates possible unpack issues in the future, and in theory may improve unpacking speed on some PCs.
-- Complete transition to the Qt5 (32 bit only) and Qt6 (64 bit only) Framework.
-- The first version of the interface has been implemented. Now all operations go through the program (Unpacking and compiling).
+- Fixed file reading logic. Now it requires much less time and resources to unpack the data.
+- Fixed file reading logic. Now it requires much less time and resources to unpack the data.
+- Interface update. Technical unpacking mode names have been removed, and tooltips have been added when hovering over interface elements.
+- Updated variable dictionary. Data from the latest update on AS1 - World (v5.2.7) has been added.
+- Removed double tabulation between values. Now the unpacked data is arranged more compactly.
+- Fixed an issue with the filename when using the "Objects Extended Engine" compiler mode.
 
 **List of games with which the program works:**
 
