@@ -11,7 +11,6 @@
 #include <QDir>
 #include <QApplication>
 #include <QDebug>
-
 int out;							// Output value
 int arrayi[17];						// Maximum number of Int values ​​per line
 float arrayf[17];					// Maximum number of Float values ​​per line

@@ -4,7 +4,6 @@
         <file>resources/icon1.png</file>
         <file>resources/bin/ini2db.exe</file>
         <file>resources/bin/ini2res.exe</file>
-        <file>resources/discord.png</file>
         <file>resources/vk.png</file>
         <file>resources/mod.png</file>
         <file>resources/file_open.png</file>
@@ -14,5 +13,8 @@
         <file>resources/qt.png</file>
         <file>resources/unpack.png</file>
         <file>resources/pack.png</file>
+        <file>resources/bin/as1_vidview.exe</file>
+        <file>resources/bin/as2_vidview.exe</file>
+        <file>resources/convert_vid.png</file>
     </qresource>
 </RCC>
