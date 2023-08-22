@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent), ui(new Ui::MainWindow) // Инициализация объекта ui
 {
 	ui->setupUi(this); // Настройка пользовательского интерфейса
-	setFixedSize(577, 574); // Установка фиксированного размера окна
+	setFixedSize(546, 648); // Установка фиксированного размера окна
 
 	QApplication::setStyle(QStyleFactory::create("Fusion")); // Ставим тему Fusion по умолчанию
 
@@ -36,6 +36,11 @@ MainWindow::MainWindow(QWidget* parent)
 	analyzeFileAction = fileMenu->addAction("Analyze File");
 	analyzeFileAction->setIcon(QIcon(":/resources/file_analyze.png"));
 	connect(analyzeFileAction, &QAction::triggered, this, &MainWindow::handleAnalyzeButtonClicked);
+
+	// Создание пункта меню "Convert VID" в меню "Menu"
+	VidConvertAction = fileMenu->addAction("Convert VID");
+	VidConvertAction->setIcon(QIcon(":/resources/convert_vid.png"));
+	connect(VidConvertAction, &QAction::triggered, this, &MainWindow::handleConvertVidButtonClicked);
 
 	fileMenu->addSeparator();
 
@@ -64,14 +69,11 @@ MainWindow::MainWindow(QWidget* parent)
 	// Создание пунктов меню в меню "Links"
 	OEProjectLink = linksMenu->addAction("Objects Extended Project (ModDB)");
 	VKLink = linksMenu->addAction("VK.com (Modding Group)");
-	DiscordLink = linksMenu->addAction("Discord (AKSigmaTeam Official)");
 
 	VKLink->setIcon(QIcon(":/resources/vk.png"));
-	DiscordLink->setIcon(QIcon(":/resources/discord.png"));
 	OEProjectLink->setIcon(QIcon(":/resources/mod.png"));
 
 	connect(VKLink, &QAction::triggered, this, &MainWindow::openVKLink);
-	connect(DiscordLink, &QAction::triggered, this, &MainWindow::openDiscordLink);
 	connect(OEProjectLink, &QAction::triggered, this, &MainWindow::openOELink);
 
 	// Установка меню приложения в качестве меню окна
@@ -89,6 +91,9 @@ MainWindow::MainWindow(QWidget* parent)
 	AnalyzeButton = findChild<QPushButton*>("AnalyzeButton");
 	LastNVidlineEdit = findChild<QLineEdit*>("LastNVidlineEdit");
 	FirstNVidlineEdit = findChild<QLineEdit*>("FirstNVidlineEdit");
+	VIDmodeComboBox = findChild<QComboBox*>("VIDmodeComboBox");
+	OpenVIDButton = findChild<QPushButton*>("OpenVIDButton");
+	ConvertVIDButton = findChild<QPushButton*>("ConvertVIDButton");
 
 	// принудительно ставим режим чтобы показать его описание при первом запуске
 	modeComboBox->setCurrentText("Alien Shooter 1 Engine");
@@ -111,6 +116,9 @@ MainWindow::MainWindow(QWidget* parent)
 	packModeComboBox->addItem("AS/ZS Engine");
 	packModeComboBox->addItem("Locoland Engine");
 	packModeComboBox->addItem("Objects Extended Engine");
+	// список режимов открытия VID
+	VIDmodeComboBox->addItem("AS1/ZS1 Engine");
+	VIDmodeComboBox->addItem("AS2/ZS2 Engine");
 
 	alternativeModeEnabled = false; // Установка начального значения alternativeModeEnabled в false
 
@@ -124,9 +132,12 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(unpackButton, &QPushButton::clicked, this, &MainWindow::handleUnpackButtonClicked);
 	connect(modeComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::handleModeComboBoxChanged);
 	connect(packModeComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::handlePackModeComboBoxChanged);
+	connect(VIDmodeComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &MainWindow::handleVIDmodeComboBoxChanged);
 	connect(makeResButton, &QPushButton::clicked, this, &MainWindow::handleMakeResButtonClicked);
 	connect(checkBox, &QCheckBox::stateChanged, this, &MainWindow::handleCheckBoxStateChanged);
 	connect(AnalyzeButton, &QPushButton::clicked, this, &MainWindow::handleAnalyzeButtonClicked);
+	connect(OpenVIDButton, &QPushButton::clicked, this, &MainWindow::handleOpenVidButtonClicked);
+	connect(ConvertVIDButton, &QPushButton::clicked, this, &MainWindow::handleConvertVidButtonClicked);
 
 	qInstallMessageHandler(myMessageOutput); // Устанавливаем обработчик сообщений для qDebug
 }
@@ -644,7 +655,7 @@ void MainWindow::handlePackModeComboBoxChanged(const QString& mode)
 	QString description;
 
 	if (mode == "AS/ZS Engine") {
-		description = "The compiler supports all Alien Shooter and Zombie Shooter games, including Chacks Temple and Crazy Lunch.";
+		description = "The compiler supports all Alien Shooter and Zombie Shooter games, including Theseus, Chacks Temple and Crazy Lunch.";
 	}
 	else if (mode == "Objects Extended Engine") {
 		description = "The compiler only supports the Objects Extended Project.";
@@ -658,6 +669,23 @@ void MainWindow::handlePackModeComboBoxChanged(const QString& mode)
 
 }
 
+// VID description function
+void MainWindow::handleVIDmodeComboBoxChanged(const QString& mode)
+{
+	QString description;
+
+	if (mode == "AS1/ZS1 Engine") {
+		description = "The viewer supports all games based on Alien Shooter 1 and Zombie Shooter 1 game engines.";
+	}
+	else if (mode == "AS2/ZS2 Engine") {
+		description = "The viewer supports all games based on Alien Shooter 2 and Zombie Shooter 2 game engines.";
+	}
+
+	debugTextEdit->clear();  // Очистить содержимое перед добавлением нового текста
+	debugTextEdit->appendPlainText("Vid viewer support:\n" + description);
+
+}
+
 // AnalyzeButton functional
 void MainWindow::handleAnalyzeButtonClicked()
 {
@@ -667,7 +695,6 @@ void MainWindow::handleAnalyzeButtonClicked()
 		return;
 	}
 	debugTextEdit->clear();
-	debugTextEdit->appendPlainText("Analyzing OBJ.ini...\n");
 	analyzeOBJIni(filePath);
 }
 
@@ -696,7 +723,7 @@ void MainWindow::analyzeOBJIni(const QString& filePath)
 	QFile file(filePath);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
-		debugTextEdit->appendPlainText("Error opening the 'unpacked_inis/OBJ.ini' file.");
+		debugTextEdit->appendPlainText("Error opening the file.");
 		return;
 	}
 
@@ -730,7 +757,6 @@ void MainWindow::analyzeOBJIni(const QString& filePath)
 
 	// Очищаем содержимое debugTextEdit перед выводом результатов
 	debugTextEdit->clear();
-	debugTextEdit->appendPlainText("Analyzing OBJ.ini...\n");
 
 	if (nvidValues.empty()) {
 		debugTextEdit->appendPlainText("No data for the NVid parameter.");
@@ -800,6 +826,112 @@ void MainWindow::analyzeOBJIni(const QString& filePath)
 	}
 }
 
+// Open VID File function
+void MainWindow::handleOpenVidButtonClicked()
+{
+	QString selectedMode = VIDmodeComboBox->currentText();
+	QString filePath = QFileDialog::getOpenFileName(this, "Open Vid File", "", "Vid Files (*.vid)");
+
+	if (!filePath.isEmpty())
+	{
+		QString exePath;
+		if (selectedMode == "AS1/ZS1 Engine")
+		{
+			exePath = ":/resources/bin/as1_vidview.exe";
+		}
+		else if (selectedMode == "AS2/ZS2 Engine")
+		{
+			exePath = ":/resources/bin/as2_vidview.exe";
+		}
+		else
+		{
+			// Handle unknown mode or error
+			return;
+		}
+
+		QTemporaryDir tempDir;
+		if (!tempDir.isValid())
+		{
+			qWarning() << "Failed to create temporary directory.";
+			return;
+		}
+
+		QString tempExePath = tempDir.filePath("vidview.exe");
+		QString tempFilePath = tempDir.filePath("input.vid");
+
+		if (QFile::copy(exePath, tempExePath))
+		{
+			QFile::copy(filePath, tempFilePath);
+
+			QProcess process;
+			process.setWorkingDirectory(tempDir.path());  // Устанавливаем рабочую директорию
+
+			QStringList arguments;
+			arguments << "input.vid";  // Передаем имя файла без пути
+
+			process.start(tempExePath, arguments);
+			process.waitForFinished(-1);
+		}
+	}
+}
+
+// Convert VID File function
+void MainWindow::handleConvertVidButtonClicked()
+{
+	QString filePath = QFileDialog::getOpenFileName(this, "Open Vid File", "", "Vid Files (*.vid)");
+
+	if (!filePath.isEmpty())
+	{
+		QFileInfo fileInfo(filePath);
+		QString originalFileName = fileInfo.fileName();
+
+		QTemporaryDir tempDir;
+		if (!tempDir.isValid())
+		{
+			qWarning() << "Failed to create temporary directory.";
+			return;
+		}
+
+		QString tempExePath = tempDir.filePath("vidview.exe");
+		QString tempFilePath = tempDir.filePath(originalFileName);
+
+		QString exePath = ":/resources/bin/as2_vidview.exe";
+
+		if (QFile::copy(exePath, tempExePath))
+		{
+			QFile::copy(filePath, tempFilePath);
+
+			QProcess process;
+			process.setWorkingDirectory(tempDir.path());
+
+			QStringList arguments;
+			arguments << "/c" << originalFileName;
+
+			process.start(tempExePath, arguments);
+			process.waitForFinished(-1);
+
+			// Копируем файл в папку converted_vids в директории программы
+			QString targetDir = QCoreApplication::applicationDirPath() + "/converted_vids/";
+			QDir().mkpath(targetDir);
+			QString targetFilePath = targetDir + originalFileName;
+
+			// Удаляем существующий файл, если он есть
+			if (QFile::exists(targetFilePath))
+			{
+				QFile::remove(targetFilePath);
+			}
+
+			QFile::copy(tempFilePath, targetFilePath);
+
+			// Выводим оповещение
+			QMessageBox::information(this, "Success", "File successfully converted and saved.");
+
+			// Открываем папку converted_vids
+			QDesktopServices::openUrl(QUrl::fromLocalFile(targetDir));
+		}
+	}
+}
+
 // Themes & Links
 void MainWindow::changeThemeToFusion()
 {
@@ -814,11 +946,6 @@ void MainWindow::changeThemeToWindows()
 void MainWindow::openVKLink()
 {
 	QDesktopServices::openUrl(QUrl("https://vk.com/as2modmaker"));
-}
-
-void MainWindow::openDiscordLink()
-{
-	QDesktopServices::openUrl(QUrl("https://discord.gg/Dvw58em6gU"));
 }
 
 void MainWindow::openOELink()

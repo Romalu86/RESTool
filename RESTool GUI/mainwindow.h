@@ -38,14 +38,16 @@ private slots:
     void handleUnpackButtonClicked();
     void handleModeComboBoxChanged(const QString& mode);
     void handlePackModeComboBoxChanged(const QString& mode);
+    void handleVIDmodeComboBoxChanged(const QString& mode);
     void handleMakeResButtonClicked();
     void handleCheckBoxStateChanged(int state);
     void handleAnalyzeButtonClicked();
+    void handleOpenVidButtonClicked();
+    void handleConvertVidButtonClicked();
     void analyzeOBJIni(const QString& filePath);
     //
     void changeThemeToFusion();
     void changeThemeToWindows();
-    void openDiscordLink();
     void openVKLink();
     void openOELink();
 
@@ -60,8 +62,8 @@ private:
     QAction* analyzeFileAction;
     QAction* fusionThemeAction;
     QAction* windowsThemeAction;
+    QAction* VidConvertAction;
     QAction* VKLink;
-    QAction* DiscordLink;
     QAction* OEProjectLink;
     //
     QPushButton* OpenFileAnalyzeButton;
@@ -76,6 +78,11 @@ private:
     QPushButton* browseButton;
     QComboBox* modeComboBox;
     QPushButton* unpackButton;
+    //Vid Viewer
+    QComboBox* VIDmodeComboBox;
+    QPushButton* OpenVIDButton;
+    QPushButton* ConvertVIDButton;
+    //
     bool alternativeModeEnabled;
 };
 
