@@ -67,7 +67,7 @@ bool verifyLicenseKey(const std::string& licenseKey, const std::string& appSecre
             exit(1);
         }
 
-        std::string appSecret = "1a595bf1010cbec2c6b32759d5068c2f";  // AppSecret
+        std::string appSecret = "";  // AppSecret
 
         if (!verifyLicenseKey(licenseKey, appSecret))
         {
